@@ -1,0 +1,70 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1038\cocoasubrtf350
+{\fonttbl\f0\fswiss\fcharset0 ArialMT;\f1\froman\fcharset0 Times-Roman;}
+{\colortbl;\red255\green255\blue255;\red1\green0\blue234;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww25900\viewh12800\viewkind0
+\deftab720
+\pard\pardeftab720\ql\qnatural
+
+\f0\b\fs22 \cf0 PROVISIONING PORTAL\
+\
+\pard\pardeftab720\ql\qnatural
+
+\b0 \cf0 Para enviar notificaciones Push a una aplicaci\'f3n/dispositivo necesitamos el "device token" de dicho dispositivo, un certificado para nuestro servidor y poder firmar la aplicaci\'f3n con un "provisioning profile" que tenga habilitada las push.\
+\
+\pard\pardeftab720\ql\qnatural
+
+\i \cf0 Certificado\
+\
+\pard\pardeftab720\ql\qnatural
+
+\i0 \cf0 	Logarnos en el "Provisioning portal".\
+\
+	Creamos un App ID para hacer pruebas con las notificaciones Push (ten\'e9is que saber que el App ID que cre\'e9is no se pueden eliminar a posteriori).\
+\
+\pard\pardeftab720\ql\qnatural
+
+\b \cf0 	(IMPORTANTE)
+\b0  En el "Bundle identifier" del App ID, no debe contener comodines (wildcard). Deberemos colocar el bundle identifier completo, ejemplo: "com.miempresa.miapp"\
+\
+	Hacemos click en "Configure" y luego presionamos el bot\'f3n para empezar el asistente para crear un nuevo certificado Push (Existen dos tipos, uno de desarrollo y otro de producci\'f3n. Para las pruebas utilizaremos el de desarrollo).\
+\
+	Descargamos el certificado y hacemos doble click en el fichero "aps_developer_identity.cer" para importar a nuestro llavero.\
+\
+	Lanzamos "Acceso a llaveros" (En Aplicaciones -> Utilidades o lo buscamos en Spotlight) y hacemos click en la categor\'eda "Mis certificados".\
+\
+	Expandimos "Apple Development iOS Push Services", seleccionamos este apartado y el elemento que despliega (tu key privada).\
+\
+	Bot\'f3n derecho y elegimos "Exportar 2 items..." y lo guardamos como 
+\i server_certificates_bundle_sandbox.p12.\
+\
+\pard\pardeftab720\ql\qnatural
+
+\i0 \cf0 	Abrimos la 
+\b Terminal 
+\b0 y cambiamos de directorio a donde hayamos guardado\'a0
+\i server_certificates_bundle_sandbox.p12 
+\i0 y convertimos el fichero p12 (PKCS12) a PEM utilizando este comando (cuando os pida la password, introduc\'eds el indicado en el paso anterior)\
+\
+		openssl pkcs12 -in server_certificates_bundle_sandbox.p12 -out server_certificates_bundle_sandbox.pem -nodes -clcerts\
+\
+	\'bfPorqu\'e9 este \'faltimo paso?. Para este ejemplo vamos a utilizar como "Provider" nuestra propia m\'e1quina local y para ello vamos a utilizar una librer\'eda PHP que nos facilitar\'e1 mucho la tarea {\field{\*\fldinst{HYPERLINK "http://code.google.com/p/apns-php/"}}{\fldrslt \cf2 \ul \ulc2 ApnsPHP}}\'a0(trabaja mejor con el formato PEM).\
+\
+	Desde el 22 de diciembre del 2010, el servicio de notificaciones Push de Apple empezar\'eda a utilizar certificados TLS/SSL de 2048 bits que proporcionar\'e1 m\'e1s seguridad en las conexiones entre nuestro servidor (provider) al servidor de Apple.\
+\
+	"
+\i To ensure you can continue to validate your server's connection to the Apple Push Notification service, you will need to update your push notification server with a copy of the 2048-bit root certificate from Entrust's website.
+\i0 "\
+\
+	Para ello tan solo deberemos ejecutar lo siguiente en la Terminal:\
+		wget https://www.entrust.net/downloads/binary/entrust_2048_ca.cer -O - > entrust_root_certification_authority.pem\
+\
+\pard\pardeftab720\ql\qnatural
+
+\i \cf0 \ul \ulc0 Provisioning Profile\
+\
+\pard\pardeftab720\ql\qnatural
+
+\i0 \cf0 \ulnone 	Una vez que tenemos la App ID creada y configurada para las notificaciones Push, podemos crear el provisioning profile (development) correspondiente como lo hemos hecho hasta ahora.
+\f1\fs24 \
+\
+	}

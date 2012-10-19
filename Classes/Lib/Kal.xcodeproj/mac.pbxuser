@@ -1,0 +1,452 @@
+// !$*UTF8*$!
+{
+	0439497415B85A37007BA6DC /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 533B286A11E2D46E00B3CC07 /* KalMonthView.m */;
+		name = "KalMonthView.m: 101";
+		rLen = 0;
+		rLoc = 2497;
+		rType = 0;
+		vrLen = 1140;
+		vrLoc = 2043;
+	};
+	0439497515B85A37007BA6DC /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 533B287111E2D46E00B3CC07 /* KalViewController.m */;
+		name = "KalViewController.m: 82";
+		rLen = 14;
+		rLoc = 2138;
+		rType = 0;
+		vrLen = 1062;
+		vrLoc = 632;
+	};
+	0439499015B85AFC007BA6DC /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 533B287111E2D46E00B3CC07 /* KalViewController.m */;
+		name = "KalViewController.m: 183";
+		rLen = 439;
+		rLoc = 4588;
+		rType = 0;
+		vrLen = 857;
+		vrLoc = 4265;
+	};
+	0482843F15AEE938000329DE /* Source Control */ = {
+		isa = PBXSourceControlManager;
+		fallbackIsa = XCSourceControlManager;
+		isSCMEnabled = 0;
+		scmConfiguration = {
+			repositoryNamesForRoots = {
+				"" = "";
+			};
+		};
+	};
+	0482844015AEE938000329DE /* Code sense */ = {
+		isa = PBXCodeSenseManager;
+		indexTemplatePath = "";
+	};
+	0482855E15AF2AB2000329DE /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 533B286811E2D46E00B3CC07 /* KalLogic.m */;
+		name = "KalLogic.m: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 1011;
+		vrLoc = 0;
+	};
+	0482856015AF2AB2000329DE /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 533B286F11E2D46E00B3CC07 /* KalView.m */;
+		name = "KalView.m: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 1188;
+		vrLoc = 0;
+	};
+	0482856115AF2AB2000329DE /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 533B286E11E2D46E00B3CC07 /* KalView.h */;
+		name = "KalView.h: 9";
+		rLen = 0;
+		rLoc = 216;
+		rType = 0;
+		vrLen = 1336;
+		vrLoc = 594;
+	};
+	0482856215AF2AB2000329DE /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 533B286C11E2D46E00B3CC07 /* KalTileView.h */;
+		name = "KalTileView.h: 20";
+		rLen = 0;
+		rLoc = 349;
+		rType = 0;
+		vrLen = 719;
+		vrLoc = 108;
+	};
+	0482856415AF2AB2000329DE /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 533B286911E2D46E00B3CC07 /* KalMonthView.h */;
+		name = "KalMonthView.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 654;
+		vrLoc = 0;
+	};
+	0482856915AF2AB2000329DE /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 533B286711E2D46E00B3CC07 /* KalLogic.h */;
+		name = "KalLogic.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 1627;
+		vrLoc = 143;
+	};
+	04830C6C15B5C1DF003F19D7 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = 04830C6D15B5C1DF003F19D7 /* kal_tile_dim_text_fill.png */;
+	};
+	04830C6D15B5C1DF003F19D7 /* kal_tile_dim_text_fill.png */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = image.png;
+		name = kal_tile_dim_text_fill.png;
+		path = /Users/mac/Desktop/Altea/Framework/kal/src/Kal.bundle/kal_tile_dim_text_fill.png;
+		sourceTree = "<absolute>";
+	};
+	04830C6E15B5C1DF003F19D7 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = 04830C6F15B5C1DF003F19D7 /* kal_tile.png */;
+	};
+	04830C6F15B5C1DF003F19D7 /* kal_tile.png */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = image.png;
+		name = kal_tile.png;
+		path = /Users/mac/Desktop/Altea/Framework/kal/src/Kal.bundle/kal_tile.png;
+		sourceTree = "<absolute>";
+	};
+	04830C7015B5C1DF003F19D7 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = 04830C7115B5C1DF003F19D7 /* kal_tile_today.png */;
+	};
+	04830C7115B5C1DF003F19D7 /* kal_tile_today.png */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = image.png;
+		name = kal_tile_today.png;
+		path = /Users/mac/Desktop/Altea/Framework/kal/src/Kal.bundle/kal_tile_today.png;
+		sourceTree = "<absolute>";
+	};
+	04830C7215B5C1DF003F19D7 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = 04830C7315B5C1DF003F19D7 /* kal_tile_text_fill.png */;
+	};
+	04830C7315B5C1DF003F19D7 /* kal_tile_text_fill.png */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = image.png;
+		name = kal_tile_text_fill.png;
+		path = /Users/mac/Desktop/Altea/Framework/kal/src/Kal.bundle/kal_tile_text_fill.png;
+		sourceTree = "<absolute>";
+	};
+	04830C7415B5C1DF003F19D7 /* PBXBookmark */ = {
+		isa = PBXBookmark;
+		fRef = 04830C7515B5C1DF003F19D7 /* kal_tile_today_selected.png */;
+	};
+	04830C7515B5C1DF003F19D7 /* kal_tile_today_selected.png */ = {
+		isa = PBXFileReference;
+		lastKnownFileType = image.png;
+		name = kal_tile_today_selected.png;
+		path = /Users/mac/Desktop/Altea/Framework/kal/src/Kal.bundle/kal_tile_today_selected.png;
+		sourceTree = "<absolute>";
+	};
+	04830C7615B5C1DF003F19D7 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 533B286011E2D46E00B3CC07 /* Kal.h */;
+		name = "Kal.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 1545;
+		vrLoc = 393;
+	};
+	04830C7715B5C1DF003F19D7 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 533B286B11E2D46E00B3CC07 /* KalPrivate.h */;
+		name = "KalPrivate.h: 1";
+		rLen = 0;
+		rLoc = 0;
+		rType = 0;
+		vrLen = 164;
+		vrLoc = 0;
+	};
+	04830C7815B5C1DF003F19D7 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 533B286111E2D46E00B3CC07 /* KalDataSource.h */;
+		name = "KalDataSource.h: 79";
+		rLen = 0;
+		rLoc = 3237;
+		rType = 0;
+		vrLen = 863;
+		vrLoc = 2724;
+	};
+	04830C7915B5C1DF003F19D7 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 533B286211E2D46E00B3CC07 /* KalDataSource.m */;
+		name = "KalDataSource.m: 34";
+		rLen = 0;
+		rLoc = 942;
+		rType = 0;
+		vrLen = 608;
+		vrLoc = 777;
+	};
+	04830C7A15B5C1DF003F19D7 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 533B286311E2D46E00B3CC07 /* KalDate.h */;
+		name = "KalDate.h: 14";
+		rLen = 3;
+		rLoc = 271;
+		rType = 0;
+		vrLen = 663;
+		vrLoc = 0;
+	};
+	04830C7B15B5C1DF003F19D7 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 533B286411E2D46E00B3CC07 /* KalDate.m */;
+		name = "KalDate.m: 38";
+		rLen = 49;
+		rLoc = 811;
+		rType = 0;
+		vrLen = 686;
+		vrLoc = 1643;
+	};
+	04830C7C15B5C1DF003F19D7 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 533B286511E2D46E00B3CC07 /* KalGridView.h */;
+		name = "KalGridView.h: 14";
+		rLen = 0;
+		rLoc = 262;
+		rType = 0;
+		vrLen = 916;
+		vrLoc = 235;
+	};
+	04830C7D15B5C1DF003F19D7 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 533B286D11E2D46E00B3CC07 /* KalTileView.m */;
+		name = "KalTileView.m: 12";
+		rLen = 11;
+		rLoc = 224;
+		rType = 0;
+		vrLen = 782;
+		vrLoc = 0;
+	};
+	04830C7E15B5C1DF003F19D7 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 533B286611E2D46E00B3CC07 /* KalGridView.m */;
+		name = "KalGridView.m: 52";
+		rLen = 0;
+		rLoc = 1586;
+		rType = 0;
+		vrLen = 1149;
+		vrLoc = 326;
+	};
+	04880BCB15B045750052222B /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 533B287011E2D46E00B3CC07 /* KalViewController.h */;
+		name = "KalViewController.h: 28";
+		rLen = 13;
+		rLoc = 888;
+		rType = 0;
+		vrLen = 2116;
+		vrLoc = 108;
+	};
+	0867D690FE84028FC02AAC07 /* Project object */ = {
+		activeBuildConfigurationName = Debug;
+		activeTarget = D2AAC07D0554694100DB518D /* Kal */;
+		codeSenseManager = 0482844015AEE938000329DE /* Code sense */;
+		perUserDictionary = {
+			PBXConfiguration.PBXFileTableDataSource3.PBXFileTableDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					919,
+					20,
+					48,
+					43,
+					43,
+					20,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+					PBXFileDataSource_Target_ColumnID,
+				);
+			};
+			PBXPerProjectTemplateStateSaveDate = 364403224;
+			PBXWorkspaceStateSaveDate = 364403224;
+		};
+		perUserProjectItems = {
+			0439497415B85A37007BA6DC /* PBXTextBookmark */ = 0439497415B85A37007BA6DC /* PBXTextBookmark */;
+			0439497515B85A37007BA6DC /* PBXTextBookmark */ = 0439497515B85A37007BA6DC /* PBXTextBookmark */;
+			0439499015B85AFC007BA6DC /* PBXTextBookmark */ = 0439499015B85AFC007BA6DC /* PBXTextBookmark */;
+			0482855E15AF2AB2000329DE /* PBXTextBookmark */ = 0482855E15AF2AB2000329DE /* PBXTextBookmark */;
+			0482856015AF2AB2000329DE /* PBXTextBookmark */ = 0482856015AF2AB2000329DE /* PBXTextBookmark */;
+			0482856115AF2AB2000329DE /* PBXTextBookmark */ = 0482856115AF2AB2000329DE /* PBXTextBookmark */;
+			0482856215AF2AB2000329DE /* PBXTextBookmark */ = 0482856215AF2AB2000329DE /* PBXTextBookmark */;
+			0482856415AF2AB2000329DE /* PBXTextBookmark */ = 0482856415AF2AB2000329DE /* PBXTextBookmark */;
+			0482856915AF2AB2000329DE /* PBXTextBookmark */ = 0482856915AF2AB2000329DE /* PBXTextBookmark */;
+			04830C6C15B5C1DF003F19D7 /* PBXBookmark */ = 04830C6C15B5C1DF003F19D7 /* PBXBookmark */;
+			04830C6E15B5C1DF003F19D7 /* PBXBookmark */ = 04830C6E15B5C1DF003F19D7 /* PBXBookmark */;
+			04830C7015B5C1DF003F19D7 /* PBXBookmark */ = 04830C7015B5C1DF003F19D7 /* PBXBookmark */;
+			04830C7215B5C1DF003F19D7 /* PBXBookmark */ = 04830C7215B5C1DF003F19D7 /* PBXBookmark */;
+			04830C7415B5C1DF003F19D7 /* PBXBookmark */ = 04830C7415B5C1DF003F19D7 /* PBXBookmark */;
+			04830C7615B5C1DF003F19D7 /* PBXTextBookmark */ = 04830C7615B5C1DF003F19D7 /* PBXTextBookmark */;
+			04830C7715B5C1DF003F19D7 /* PBXTextBookmark */ = 04830C7715B5C1DF003F19D7 /* PBXTextBookmark */;
+			04830C7815B5C1DF003F19D7 /* PBXTextBookmark */ = 04830C7815B5C1DF003F19D7 /* PBXTextBookmark */;
+			04830C7915B5C1DF003F19D7 /* PBXTextBookmark */ = 04830C7915B5C1DF003F19D7 /* PBXTextBookmark */;
+			04830C7A15B5C1DF003F19D7 /* PBXTextBookmark */ = 04830C7A15B5C1DF003F19D7 /* PBXTextBookmark */;
+			04830C7B15B5C1DF003F19D7 /* PBXTextBookmark */ = 04830C7B15B5C1DF003F19D7 /* PBXTextBookmark */;
+			04830C7C15B5C1DF003F19D7 /* PBXTextBookmark */ = 04830C7C15B5C1DF003F19D7 /* PBXTextBookmark */;
+			04830C7D15B5C1DF003F19D7 /* PBXTextBookmark */ = 04830C7D15B5C1DF003F19D7 /* PBXTextBookmark */;
+			04830C7E15B5C1DF003F19D7 /* PBXTextBookmark */ = 04830C7E15B5C1DF003F19D7 /* PBXTextBookmark */;
+			04880BCB15B045750052222B /* PBXTextBookmark */ = 04880BCB15B045750052222B /* PBXTextBookmark */;
+		};
+		sourceControlManager = 0482843F15AEE938000329DE /* Source Control */;
+		userBuildSettings = {
+		};
+	};
+	533B286011E2D46E00B3CC07 /* Kal.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1097, 559}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{393, 1545}";
+		};
+	};
+	533B286111E2D46E00B3CC07 /* KalDataSource.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1097, 1300}}";
+			sepNavSelRange = "{3237, 0}";
+			sepNavVisRange = "{2724, 863}";
+		};
+	};
+	533B286211E2D46E00B3CC07 /* KalDataSource.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1097, 767}}";
+			sepNavSelRange = "{942, 0}";
+			sepNavVisRange = "{777, 608}";
+		};
+	};
+	533B286311E2D46E00B3CC07 /* KalDate.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1097, 440}}";
+			sepNavSelRange = "{271, 3}";
+			sepNavVisRange = "{0, 663}";
+		};
+	};
+	533B286411E2D46E00B3CC07 /* KalDate.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1111, 1339}}";
+			sepNavSelRange = "{811, 49}";
+			sepNavVisRange = "{1643, 686}";
+		};
+	};
+	533B286511E2D46E00B3CC07 /* KalGridView.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1097, 598}}";
+			sepNavSelRange = "{262, 0}";
+			sepNavVisRange = "{235, 916}";
+		};
+	};
+	533B286611E2D46E00B3CC07 /* KalGridView.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1097, 3302}}";
+			sepNavSelRange = "{1586, 0}";
+			sepNavVisRange = "{326, 1149}";
+		};
+	};
+	533B286711E2D46E00B3CC07 /* KalLogic.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1097, 624}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{143, 1627}";
+		};
+	};
+	533B286811E2D46E00B3CC07 /* KalLogic.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1097, 2093}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{978, 768}";
+		};
+	};
+	533B286911E2D46E00B3CC07 /* KalMonthView.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1097, 452}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 654}";
+		};
+	};
+	533B286A11E2D46E00B3CC07 /* KalMonthView.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1097, 1521}}";
+			sepNavSelRange = "{2497, 0}";
+			sepNavVisRange = "{2043, 1140}";
+		};
+	};
+	533B286B11E2D46E00B3CC07 /* KalPrivate.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1097, 440}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 164}";
+		};
+	};
+	533B286C11E2D46E00B3CC07 /* KalTileView.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1097, 520}}";
+			sepNavSelRange = "{349, 0}";
+			sepNavVisRange = "{108, 719}";
+		};
+	};
+	533B286D11E2D46E00B3CC07 /* KalTileView.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1097, 2691}}";
+			sepNavSelRange = "{224, 11}";
+			sepNavVisRange = "{0, 782}";
+		};
+	};
+	533B286E11E2D46E00B3CC07 /* KalView.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {720, 1105}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{108, 362}";
+		};
+	};
+	533B286F11E2D46E00B3CC07 /* KalView.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1097, 3198}}";
+			sepNavSelRange = "{0, 0}";
+			sepNavVisRange = "{0, 1188}";
+		};
+	};
+	533B287011E2D46E00B3CC07 /* KalViewController.h */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1832, 546}}";
+			sepNavSelRange = "{888, 13}";
+			sepNavVisRange = "{108, 2116}";
+		};
+	};
+	533B287111E2D46E00B3CC07 /* KalViewController.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {1223, 2977}}";
+			sepNavSelRange = "{4588, 439}";
+			sepNavVisRange = "{4265, 857}";
+			sepNavWindowFrame = "{{15, 63}, {750, 683}}";
+		};
+	};
+	D2AAC07D0554694100DB518D /* Kal */ = {
+		activeExec = 0;
+	};
+}

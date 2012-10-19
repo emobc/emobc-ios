@@ -1,4 +1,1 @@
-emobc-ios
-=========
-
-eMobc IOS Framework: Develop native apps based in XML
+eMobc IOS Framework: Create native mobile applications based in XML.
