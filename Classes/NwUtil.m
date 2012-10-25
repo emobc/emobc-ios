@@ -56,6 +56,7 @@
 @synthesize theFormatsStyles;
 @synthesize theStyles;
 @synthesize theProfile;
+@synthesize formData;
 
 +(id) instance {
 	static NwUtil* sharedSingleton;
@@ -317,6 +318,7 @@
 	}
 	[util release];
 	[theLevel release];	
+	
 	return theData;
 }
 
@@ -329,13 +331,21 @@
  * @return ImageTextDescription data
  */
 -(ImageTextDescriptionLevelData*) readImageTextDescriptionData:(AppLevel*) appLevel nextLevel:(NextLevel*)nextLevel {
+	formData = [self readFormData];
+	
 	ImageDescriptionParser *parser = [[ImageDescriptionParser alloc] init];
-
-	NSData* parseData = [appLevel.file content]; 	
+	
+	NSData* parseData;
+	if (appLevel.useProfile == TRUE){
+		parseData = [self readProfileAndPostData:appLevel nextLevel:nextLevel];
+	} else{
+		parseData = [appLevel.file content]; 
+	}
+	
 	[parser parseXMLFileFromData:parseData];
-	
+		
 	ImageTextDescriptionLevel* theLevel = (ImageTextDescriptionLevel*)parser.parsedLevel;
-	
+		
 	DataItem* theItem = nil;
 	if (nextLevel.dataId != nil) {
 		theItem = [theLevel dataItemById:nextLevel.dataId];
@@ -344,7 +354,75 @@
 	}
 	
 	[parser release];
+		
 	return (ImageTextDescriptionLevelData*)theItem;
+}
+
+/**
+ * Read data from a local file
+ * 
+ * @return Devuelve un array con el directorio y nombre del fichero.
+ */
+-(NSMutableDictionary*) readFormData {
+	NSString *cachedFileName;
+	
+	cachedFileName = [NSString stringWithFormat:@"Form_Profile.data"];
+	
+	// Guardamos el archivo en local
+	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+	NSString *documentsDirectory = [paths objectAtIndex:0];
+	
+	NSString *path = [documentsDirectory stringByAppendingPathComponent:cachedFileName];
+	
+	NSMutableDictionary* plistDict = [[NSMutableDictionary alloc] initWithContentsOfFile:path];
+	
+	return plistDict;
+}
+
+/**
+ *
+ * Read and send a post
+ *
+ * @return Return a xml.
+ *
+ */
+-(NSData*) readProfileAndPostData:(AppLevel*) appLevel nextLevel:(NextLevel*)nextLevel  {
+	
+	NSMutableString* strParams = [NSMutableString new];
+	bool first = true;
+	
+	for (id key in formData) {
+		NSString* value = [formData objectForKey:key];
+		
+		if (!first) {
+			[strParams appendString:@"&"];
+		}
+		[strParams appendString:key];
+		[strParams appendString:@"="];
+		[strParams appendString:value];
+		first = false;
+	}
+	
+	NSData *postData = [strParams dataUsingEncoding:NSUTF8StringEncoding 
+							   allowLossyConversion:YES];
+	
+	NSString *postLength = [NSString stringWithFormat:@"%d", [postData length]];
+	NSMutableURLRequest *request = [[[NSMutableURLRequest alloc] init] autorelease];
+	
+	[request setURL:[NSURL URLWithString:appLevel.file.fileName]];
+	[request setHTTPMethod:@"POST"];
+	
+	[request setValue:postLength forHTTPHeaderField:@"Content-Length"];
+	[request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+	
+	[request setHTTPBody:postData];
+	
+	NSError *error;
+	NSURLResponse *response;
+	
+	NSData *urlData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+	
+	return urlData;
 }
 
 /**

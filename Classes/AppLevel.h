@@ -90,6 +90,7 @@ typedef enum ActivityType {
 	ActivityType type;
 	NSString *levelXib;
 	NSString *transitionName;
+	bool useProfile;
 }
 
 @property(nonatomic, assign) int number;
@@ -100,6 +101,7 @@ typedef enum ActivityType {
 @property(nonatomic, assign) ActivityType type;
 @property(nonatomic, copy) NSString *levelXib;
 @property(nonatomic, copy) NSString *transitionName;
+@property(nonatomic, assign) bool useProfile;
 
 
 //Metodos

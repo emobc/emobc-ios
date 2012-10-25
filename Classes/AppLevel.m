@@ -40,6 +40,7 @@
 @synthesize type;
 @synthesize levelXib;
 @synthesize transitionName; 
+@synthesize useProfile;
 
 -(id)init {
 	if (self = [super init]) {
@@ -48,6 +49,7 @@
 		title = nil;
 		file = nil;
 		transitionName = nil;
+		useProfile = FALSE;		
 	}	
 	
 	return self;

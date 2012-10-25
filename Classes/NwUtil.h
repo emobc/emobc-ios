@@ -69,6 +69,8 @@
 	
 	ProfileLevelData *theProfile;
 	
+	NSMutableDictionary *formData;
+	
 }
 
 @property (nonatomic, retain) ApplicationData *theAppData;
@@ -78,6 +80,7 @@
 @property (nonatomic, retain) FormatsStylesLevelData* theFormatsStyles;
 @property (nonatomic, retain) StylesLevelData* theStyles;
 @property (nonatomic, retain) ProfileLevelData *theProfile;
+@property (nonatomic, retain) NSMutableDictionary *formData;
 
 //Metodos
 	+(NwUtil*) instance;
@@ -115,5 +118,8 @@
 	-(NSMutableArray*) searchText:(NSString*)text;
 	-(NSMutableArray*) findAllGeoReferences;
 	-(NSMutableArray*) findAllImages;
+
+	-(NSMutableDictionary*) readFormData;
+	-(NSData*) readProfileAndPostData:(AppLevel*) appLevel nextLevel:(NextLevel*)nextLevel;
 
 @end

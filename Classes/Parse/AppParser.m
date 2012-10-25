@@ -64,6 +64,8 @@ static NSString * const kLevelFileElementName = @"levelFile";
 static NSString * const kLevelTypeElementName = @"levelType";
 static NSString * const kLevelTransitionElementName = @"levelTransition";
 
+static NSString * const kLevelUseProfileElementName = @"levelUseProfile";
+
 static NSString * const kStartPointElementName = @"entryPoint";
 static NSString * const kPointNextLevelIdElementName = @"pointLevelId";
 static NSString * const kPointNextDataIdElementName = @"pointDataId";
@@ -138,6 +140,7 @@ static NSString * const kActTypeAudio = @"AUDIO_ACTIVITY";
                [elementName isEqualToString:kLevelTitleElementName]||
                [elementName isEqualToString:kLevelFileElementName] ||
 			   [elementName isEqualToString:kLevelTransitionElementName] ||
+			   [elementName isEqualToString:kProfileFileNameElementName] ||
 			   [elementName isEqualToString:kLevelTypeElementName]) {
         // For the 'title', 'updated', or 'georss:point' element begin accumulating parsed character data.
         // The contents are collected in parser:foundCharacters:.
@@ -194,6 +197,8 @@ static NSString * const kActTypeAudio = @"AUDIO_ACTIVITY";
 		self.currentAppLevelObject.levelXib = self.currentParsedCharacterData; 
     } else if ([elementName isEqualToString:kLevelTransitionElementName]) {
 		self.currentAppLevelObject.transitionName = self.currentParsedCharacterData;
+	} else if ([elementName isEqualToString:kLevelUseProfileElementName]){
+		self.currentAppLevelObject.useProfile = currentParsedCharacterData;
     } else if ([elementName isEqualToString:kLevelTitleElementName]) {
 		self.currentAppLevelObject.title = self.currentParsedCharacterData;
     } else if ([elementName isEqualToString:kLevelAdsElementName]) {
