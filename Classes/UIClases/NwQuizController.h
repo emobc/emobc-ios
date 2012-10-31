@@ -27,6 +27,8 @@
 #import "NextLevel.h"
 #import "StylesLevelData.h"
 #import "FormatsStylesLevelData.h" 
+#import "AppStyles.h"
+#import "AppFormatsStyles.h"
 
 #import "NwSideMenuController.h"
 
@@ -45,6 +47,9 @@
 	
 	AppQuestion* varQuestion;
 	AppAnswer* varAnswer;
+	
+	AppStyles* varStyles;
+	AppFormatsStyles* varFormats;
 	
 	UILabel *myHeaderText;
 	UIImageView *imgView;
@@ -94,6 +99,9 @@
 @property (nonatomic, retain) NSMutableArray *questionRepeat;
 @property (nonatomic, retain) NSMutableArray *numQuestion;
 
+@property(nonatomic, retain) AppStyles* varStyles;
+@property(nonatomic, retain) AppFormatsStyles* varFormats;
+
 -(void) startButton;
 -(void) buttonPressed;
 -(void) question:(NSString*) next;
@@ -112,5 +120,8 @@
 -(void) nextButtonRandom;
 
 -(void) backButtonPress:(id)sender;
+
+-(void) loadThemesComponents;
+-(void) loadThemes;
 
 @end

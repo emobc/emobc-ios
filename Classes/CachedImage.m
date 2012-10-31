@@ -23,6 +23,7 @@
 
 #import "CachedImage.h"
 #import "NwCache.h"
+#import "eMobcViewController.h"
 
 @implementation CachedImage
 
@@ -47,7 +48,8 @@
 			//NSLog(@"Ruta a Imagen Local: %@", fileName);
 			image = [UIImage imageNamed:fileName];
 			if (image == nil) {
-				NSString *imagePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:fileName];
+				NSString *k = [eMobcViewController whatDevice:k];
+				NSString *imagePath = [[NSBundle mainBundle] pathForResource:fileName ofType:nil inDirectory:k];
 				//NSLog(@"Ruta a Imagen Bundle: %@", imagePath);
 				image = [UIImage imageWithContentsOfFile:imagePath];
 				if (image == nil) {

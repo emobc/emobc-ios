@@ -52,8 +52,12 @@
 			[self loadThemes];
 		}
 		
-		listNextImageView.image = [UIImage imageNamed:@"images/icons/redarrow.png"];
+		NSString *k = [eMobcViewController whatDevice:k];
 		
+		NSString *listNextImagePath = [[NSBundle mainBundle] pathForResource:@"images/icons/redarrow.png" ofType:nil inDirectory:k];
+		
+		listNextImageView.image = [UIImage imageWithContentsOfFile:listNextImagePath];
+				
 		UIView* bgColorView = [[UIView alloc] init];
        // UIColor* color = [UIColor colorWithRed:167.0/255 green:184.0/255 blue:216.0/255 alpha:1];
 		[bgColorView setBackgroundColor:[UIColor grayColor]];
@@ -65,6 +69,11 @@
 		[self.contentView addSubview:listLabel];
 		[self.contentView addSubview:listNextImageView];
 		[self.contentView addSubview:descrLabel];
+		
+		[listImageView release];
+		[listLabel release];
+		[listNextImageView release];
+		[descrLabel release];
     }
     return self;
 }

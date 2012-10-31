@@ -33,7 +33,6 @@
 @synthesize mainController;
 @synthesize coverBgImage;
 @synthesize coverTitleImage;
-@synthesize background;
 @synthesize buttonFacebook;
 @synthesize buttonTwitter;
 @synthesize landscapeView;
@@ -82,38 +81,27 @@
 		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
 			coverBgImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 1024, 768)];
 			coverTitleImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 26, 1024, 450)];
-			background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 1024, 768)];
 		}else{
 			coverBgImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 768, 1024)];
 			coverTitleImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 38, 768, 350)];
-			background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 768, 1024)];
 		}				
 	}else {
 		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
 			coverBgImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 480, 320)];
 			coverTitleImage = [[UIImageView alloc] initWithFrame:CGRectMake(80, 26, 320, 140)];
-			background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 480, 320)];
 		}else{
 			coverBgImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
 			coverTitleImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 38, 320, 140)];
-			background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
 		}				
 	}
 	
-	NSString *backPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"images/cover/backgroundCover"];
-	backPath = [eMobcViewController addIPadImageSuffixWhenOnIPad:backPath];
-	background.image = [UIImage imageWithContentsOfFile:backPath];
-	[self.view addSubview:background];
- 
+	NSString *k = [eMobcViewController whatDevice:k];
 	
-	NSString *bgPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:theCover.backgroundFileName];
-	bgPath = [eMobcViewController addIPadImageSuffixWhenOnIPad:bgPath];
+	NSString *bgPath = [[NSBundle mainBundle] pathForResource:theCover.backgroundFileName ofType:nil inDirectory:k];
 	coverBgImage.image = [UIImage imageWithContentsOfFile:bgPath];
 	[self.view addSubview:coverBgImage];
 	
-			
-	NSString *titleImagePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:theCover.titleFileName];
-	titleImagePath = [eMobcViewController addIPadImageSuffixWhenOnIPad:titleImagePath];
+	NSString *titleImagePath = [[NSBundle mainBundle] pathForResource:theCover.titleFileName ofType:nil inDirectory:k];		
 	coverTitleImage.image = [UIImage imageWithContentsOfFile:titleImagePath];
 	[self.view addSubview:coverTitleImage];
 
@@ -213,18 +201,17 @@
 		//listen for clicks
 		[button addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
 		
-		NSString *imagePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:theButton.fileName];
+		NSString *k = [eMobcViewController whatDevice:k];
 		
-		imagePath = [eMobcViewController addIPadImageSuffixWhenOnIPad:imagePath];
+		NSString *imagePath = [[NSBundle mainBundle] pathForResource:theButton.fileName ofType:nil inDirectory:k];
+		
 		UIImage* buttonImage = [UIImage imageWithContentsOfFile:imagePath];
 		
 		[button setImage:buttonImage forState:UIControlStateNormal];
 		button.imageView.contentMode = UIViewContentModeScaleAspectFit;
 		
 		//add the button to the view
-		
 		[self.view addSubview:button];
-        
 	}
 	
 	[self buttonsTwitterFacebook];
@@ -273,8 +260,11 @@
 	//listen for clicks
 	[buttonFacebook addTarget:self action:@selector(buttonFacebookPress:) forControlEvents:UIControlEventTouchUpInside];
 	
-	NSString *imagePathF = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"images/cover/facebook.png"];
-	imagePathF = [eMobcViewController addIPadImageSuffixWhenOnIPad:imagePathF];
+	
+	
+	NSString *k = [eMobcViewController whatDevice:k];
+	
+	NSString *imagePathF = [[NSBundle mainBundle] pathForResource:@"cover/facebook.png" ofType:nil inDirectory:k];
 	
 	UIImage* buttonImageF = [UIImage imageWithContentsOfFile:imagePathF];
 	
@@ -305,15 +295,13 @@
 		}				
 	}	
 	
-	
 	//set the button's title
 	//[button setTitle:@"twitter" forState:UIControlStateNormal];
 	
 	//listen for clicks
 	[buttonTwitter addTarget:self action:@selector(buttonTwitterPress:) forControlEvents:UIControlEventTouchUpInside];
 	
-	NSString *imagePathT = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"images/cover/twitter.png"];
-	imagePathT = [eMobcViewController addIPadImageSuffixWhenOnIPad:imagePathT];
+	NSString *imagePathT = [[NSBundle mainBundle] pathForResource:@"cover/twitter.png" ofType:nil inDirectory:k];
 	
 	UIImage* buttonImageT = [UIImage imageWithContentsOfFile:imagePathT];
 	
@@ -458,7 +446,6 @@
 -(void)dealloc {
 	[coverBgImage release];
 	[coverTitleImage release];
-	[background release];
 	[buttonTwitter release];
 	[buttonFacebook release];
 	

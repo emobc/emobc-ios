@@ -98,9 +98,9 @@
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MC41AA</bytes>
 						</object>
-						<object class="NSCustomResource" key="IBUINormalImage" id="794904619">
+						<object class="NSCustomResource" key="IBUINormalImage" id="37561440">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">images/icons/scanButton.png</string>
+							<string key="NSResourceName">device/iphone4/icons/scanButton.png</string>
 						</object>
 					</object>
 				</object>
@@ -164,7 +164,7 @@
 							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
 						</object>
 						<reference key="IBUINormalTitleShadowColor" ref="211271549"/>
-						<reference key="IBUINormalImage" ref="794904619"/>
+						<reference key="IBUINormalImage" ref="37561440"/>
 					</object>
 				</object>
 				<string key="NSFrameSize">{1024, 768}</string>
@@ -863,7 +863,7 @@
 		<string key="IBDocument.LastKnownRelativeProjectPath">../eMobc.xcodeproj</string>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="NS.key.0">images/icons/scanButton.png</string>
+			<string key="NS.key.0">device/iphone4/icons/scanButton.png</string>
 			<string key="NS.object.0">{16, 16}</string>
 		</object>
 		<string key="IBCocoaTouchPluginVersion">141</string>

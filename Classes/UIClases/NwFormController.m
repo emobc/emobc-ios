@@ -1,3 +1,24 @@
+
+/*NSString *k = [eMobcViewController whatDevice:k];
+ 
+ NSString *imagePath = [[NSBundle mainBundle] pathForResource:data.headerImageFile ofType:nil inDirectory:k];
+ 
+ imgView.image = [UIImage imageWithContentsOfFile:imagePath];
+ 
+ [self.view addSubview:imgView];
+ [imgView release];
+ 
+ 
+ 
+ 
+ 
+ NSString *k = [eMobcViewController whatDevice:k];
+ 
+ NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"quiz/start.png" ofType:nil inDirectory:k];
+ 
+ [button setImage:[UIImage imageWithContentsOfFile:imagePath] forState:UIControlStateNormal];*/
+
+
 /**
  *  Copyright 2012 Neurowork Consulting S.L.
  *
@@ -191,14 +212,15 @@ static CGFloat const kTabBarHeightiPad = 58.0;
 			}				
 		}
 		
-		NSString *imagePath = [[[NSBundle mainBundle]resourcePath] stringByAppendingPathComponent:varStyles.backgroundFileName];
+		NSString *k = [eMobcViewController whatDevice:k];
 		
-		imagePath = [eMobcViewController addIPadImageSuffixWhenOnIPad:imagePath];
+		NSString *imagePath = [[NSBundle mainBundle] pathForResource:varStyles.backgroundFileName ofType:nil inDirectory:k];
 		
 		background.image = [UIImage imageWithContentsOfFile:imagePath];
-		
+
 		[self.view addSubview:background];
 		//[self.view sendSubviewToBack:background];
+		[background release];
 	}else{
 		self.view.backgroundColor = [UIColor blackColor];
 	}
@@ -254,8 +276,15 @@ static CGFloat const kTabBarHeightiPad = 58.0;
 				}				
 			}
 			
-			background.image = [UIImage imageNamed:@"images/cover/backgroundCover.png"];
+			NSString *k = [eMobcViewController whatDevice:k];
+			
+			NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"images/cover/backgroundCover.png" ofType:nil inDirectory:k];
+			
+			background.image = [UIImage imageWithContentsOfFile:imagePath];
+			
 			[self.view addSubview:background];
+			[background release];
+
 		}
 		
 		if([eMobcViewController isIPad]){
@@ -739,9 +768,13 @@ static CGFloat const kTabBarHeightiPad = 58.0;
 			buttonCamara.frame = CGRectMake(kFormLeftMargin, textFieldYPos, 150, 40);
 		}
 	}
-	
-	[buttonCamara setImage:[UIImage imageNamed:@"images/form/takePicture.png"] forState:UIControlStateNormal];
 		
+	NSString *k = [eMobcViewController whatDevice:k];
+	
+	NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"images/form/takePicture.png" ofType:nil inDirectory:k];
+	
+	[buttonCamara setImage:[UIImage imageWithContentsOfFile:imagePath] forState:UIControlStateNormal];
+	
 	
 	UIButton *buttonGalery = [[UIButton buttonWithType:UIButtonTypeCustom] retain];	
 	if([eMobcViewController isIPad]){
@@ -758,8 +791,9 @@ static CGFloat const kTabBarHeightiPad = 58.0;
 		}		
 	}
 	
-	[buttonGalery setImage:[UIImage imageNamed:@"images/form/galleryPicture.png"] forState:UIControlStateNormal];
-
+	NSString *imagePath1 = [[NSBundle mainBundle] pathForResource:@"images/form/galleryPicture.png" ofType:nil inDirectory:k];
+	
+	[buttonGalery setImage:[UIImage imageWithContentsOfFile:imagePath1] forState:UIControlStateNormal];
 	
 	[buttonCamara addTarget:self action:@selector(takePicturePressed:) forControlEvents:UIControlEventTouchUpInside];
 	[buttonGalery addTarget:self action:@selector(selectPicturePressed:) forControlEvents:UIControlEventTouchUpInside];
@@ -1230,18 +1264,18 @@ static CGFloat const kTabBarHeightiPad = 58.0;
 -(float) addButtonSubmit:(float) ypos{
 	UIButton *button = [[UIButton buttonWithType:UIButtonTypeCustom] retain];	
 	
-	UIImage *img;
+	NSString *k = [eMobcViewController whatDevice:k];
     
     if ([eMobcViewController isIPad]) {
         button.frame = CGRectMake(kFormLeftMarginiPad, ypos, kFormSubmitButtonWidthiPad, kFormSubmitButtonHeightiPad);
-        //img = [UIImage imageNamed:[NSString stringWithFormat:@"enviar@2x.png"]];
-		img = [UIImage imageNamed:[NSString stringWithFormat:@"images/form/enviar-iPad.png"]];
+        
     } else { 
         button.frame = CGRectMake(kFormLeftMargin, ypos, kFormSubmitButtonWidth, kFormSubmitButtonHeight);
-       // img = [UIImage imageNamed:[NSString stringWithFormat:@"enviar.png"]];
-		img = [UIImage imageNamed:[NSString stringWithFormat:@"images/form/enviar.png"]];
-    }
-	[button setImage:img forState:UIControlStateNormal];
+	}
+	
+	NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"images/form/enviar.png" ofType:nil inDirectory:k];
+
+	[button setImage:[UIImage imageWithContentsOfFile:imagePath] forState:UIControlStateNormal];
 	
 	[button addTarget:self action:@selector(submitPressed:) forControlEvents:UIControlEventTouchUpInside];
 	
@@ -1249,6 +1283,7 @@ static CGFloat const kTabBarHeightiPad = 58.0;
 	
 	return kFormSubmitButtonHeight;	
 }
+
 
 #pragma mark Deferred image loading (UIScrollViewDelegate)
 

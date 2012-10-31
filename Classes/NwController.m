@@ -224,8 +224,9 @@
 			}
 		}
 		
-		NSString *imagePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:theButton.imageName];
-		imagePath = [eMobcViewController addIPadImageSuffixWhenOnIPad:imagePath];
+		NSString *k = [eMobcViewController whatDevice:k];
+		
+		NSString *imagePath = [[NSBundle mainBundle] pathForResource:theButton.imageName ofType:nil inDirectory:k];
 		
 		UIImage* buttonImage = [UIImage imageWithContentsOfFile:imagePath];
 		
@@ -233,9 +234,7 @@
 		
 		//add the button to the view
 		[self.view addSubview:button];
-		
 	}	
-	
 }
 
 /**
@@ -292,10 +291,9 @@
 			}
 		}
 		
+		NSString *k = [eMobcViewController whatDevice:k];
 		
-
-		NSString *imagePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:theButton.imageName];
-		imagePath = [eMobcViewController addIPadImageSuffixWhenOnIPad:imagePath];
+		NSString *imagePath = [[NSBundle mainBundle] pathForResource:theButton.imageName ofType:nil inDirectory:k];
 		
 		UIImage* buttonImage = [UIImage imageWithContentsOfFile:imagePath];
 		
@@ -303,7 +301,6 @@
 		
 		//add the button to the view
 		[self.view addSubview:button];
-		
 	}	
 }
 

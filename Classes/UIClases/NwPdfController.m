@@ -134,9 +134,9 @@
 			}				
 		}
 		
-		NSString *imagePath = [[[NSBundle mainBundle]resourcePath] stringByAppendingPathComponent:varStyles.backgroundFileName];
+		NSString *k = [eMobcViewController whatDevice:k];
 		
-		imagePath = [eMobcViewController addIPadImageSuffixWhenOnIPad:imagePath];
+		NSString *imagePath = [[NSBundle mainBundle] pathForResource:varStyles.backgroundFileName ofType:nil inDirectory:k];
 		
 		background.image = [UIImage imageWithContentsOfFile:imagePath];
 		

@@ -11,44 +11,23 @@
 		<fieldName>apellido</fieldName>
 	</field>
 	<field>
-		<fieldType>INPUT_PICKER</fieldType>
-		<fieldLabel>Profesion:</fieldLabel>
-		<fieldName>profesion</fieldName>
-		<fieldParam>Programador IOS</fieldParam>
-		<fieldParam>Programador Android</fieldParam>
-		<fieldParam>Programador HTML5</fieldParam>
-		<fieldParam>Todas</fieldParam>
-	</field>
-	<field>
 		<fieldType>INPUT_TEXTVIEW</fieldType>
-		<fieldLabel>Aficiones:</fieldLabel>
-		<fieldName>aficiones</fieldName>
-	</field>
-	<field>
-		<fieldType>INPUT_NUMBER</fieldType>
-		<fieldLabel>Edad:</fieldLabel>
-		<fieldName>edad</fieldName>
-	</field>
-	<field>
-		<fieldType>INPUT_EMAIL</fieldType>
-		<fieldLabel>Email:</fieldLabel>
-		<fieldName>email</fieldName>
-		<required/>
-	</field>
-	<field>
-		<fieldType>INPUT_PHONE</fieldType>
-		<fieldLabel>Telefono:</fieldLabel>
-		<fieldName>telefono</fieldName>
-		<fieldParam/>
+		<fieldLabel>Cargo:</fieldLabel>
+		<fieldName>cargo</fieldName>
 	</field>
 	<field>
 		<fieldType>INPUT_CHECK</fieldType>
-		<fieldLabel>Hombre/Mujer:</fieldLabel>
-		<fieldName>sexo</fieldName>
+		<fieldLabel>Android:</fieldLabel>
+		<fieldName>android</fieldName>
 	</field>
 	<field>
-		<fieldType>INPUT_IMAGE</fieldType>
-		<fieldLabel>Foto:</fieldLabel>
-		<fieldName>foto</fieldName>
+		<fieldType>INPUT_CHECK</fieldType>
+		<fieldLabel>IOS:</fieldLabel>
+		<fieldName>ios</fieldName>
+	</field>
+		<field>
+		<fieldType>INPUT_CHECK</fieldType>
+		<fieldLabel>HTML5:</fieldLabel>
+		<fieldName>html5</fieldName>
 	</field>
 </profile>

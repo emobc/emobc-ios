@@ -172,9 +172,9 @@ static NSString *cellIdentifier = @"NwTableCell";
 			}				
 		}
 		
-		NSString *imagePath = [[[NSBundle mainBundle]resourcePath] stringByAppendingPathComponent:varStyles.backgroundFileName];
+		NSString *k = [eMobcViewController whatDevice:k];
 		
-		imagePath = [eMobcViewController addIPadImageSuffixWhenOnIPad:imagePath];
+		NSString *imagePath = [[NSBundle mainBundle] pathForResource:varStyles.backgroundFileName ofType:nil inDirectory:k];
 		
 		background.image = [UIImage imageWithContentsOfFile:imagePath];
 		
@@ -218,13 +218,15 @@ static NSString *cellIdentifier = @"NwTableCell";
 -(void) loadImage:(ListItem *)theItem {
 	//load image 
 	UIImage *image = [theItem.itemImage imageContent];
+	
 	//save image into imageMap for future references
 	[imageMap setObject:image forKey:theItem.text];
 	
 	//add image into queue imageToShow
 	[imageToShow addObject:image];
-	
 }
+
+
 
 /**
  * Show image into a specific cell

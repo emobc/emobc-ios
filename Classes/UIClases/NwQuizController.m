@@ -29,6 +29,7 @@
 #import "eMobcViewController.h"
 #import "NwUtil.h"
 
+
 @implementation NwQuizController
 
 @synthesize data;
@@ -49,31 +50,21 @@
 @synthesize score;
 @synthesize questionRepeat;
 @synthesize numQuestion;
+@synthesize varStyles;
+@synthesize varFormats;
 
 /**
  * Called after the controller’s view is loaded into memory.
  */
 - (void)viewDidLoad {
    	[super viewDidLoad];
-	loadContent = FALSE;
 	
-	if([eMobcViewController isIPad]){
-		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 88, 1024, 642)];
-		}else{
-			background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 88, 768, 898)];
-		}				
-	}else {
-		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 88, 480, 194)];
-		}else{
-			background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 88, 320, 354)];
-			
-		}				
+	varStyles = [mainController.theStyle.stylesMap objectForKey:@"QUIZ_ACTIVITY"];
+	
+	if(varStyles != nil) {
+		[self loadThemes];
 	}
-	
-	background.image = [UIImage imageNamed:@"images/quiz/backgroundQuiz.png"];
-	[self.view addSubview:background];
+	loadContent = FALSE;
 	
 	
 	score = [[NSMutableArray alloc] init];
@@ -140,16 +131,14 @@
 				posY = posY + 120;
 			}				
 		}
+
+		NSString *k = [eMobcViewController whatDevice:k];
 		
-		NSString *imagePath = [[[NSBundle mainBundle]resourcePath] stringByAppendingPathComponent:data.headerImageFile];
-		
-		imagePath = [eMobcViewController addIPadImageSuffixWhenOnIPad:imagePath];
+		NSString *imagePath = [[NSBundle mainBundle] pathForResource:data.headerImageFile ofType:nil inDirectory:k];
 		
 		imgView.image = [UIImage imageWithContentsOfFile:imagePath];
 		
 		[self.view addSubview:imgView];
-		[imgView release];
-		
 	}
 	
 	
@@ -211,9 +200,14 @@
 		}				
 	}
 	
+	
+	NSString *k = [eMobcViewController whatDevice:k];
+	
+	NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"quiz/start.png" ofType:nil inDirectory:k];
+	
 	//set the button's title
 	//[button setTitle:@"Comenzar" forState:UIControlStateNormal];
-	[button setImage:[UIImage imageNamed:@"images/quiz/start.png"] forState:UIControlStateNormal];
+	[button setImage:[UIImage imageWithContentsOfFile:imagePath] forState:UIControlStateNormal];
 	
 	//listen for clicks
 	[button addTarget:self action:@selector(buttonPressed) forControlEvents:UIControlEventTouchUpInside];
@@ -233,8 +227,6 @@
 	}else{
 		[self randomQuestion];
 	}
-	
-	
 }
 
 -(void) randomQuestion {
@@ -259,8 +251,13 @@
 			
 		}				
 	}
+
+	NSString *k = [eMobcViewController whatDevice:k];
 	
-	background.image = [UIImage imageNamed:@"images/quiz/backgroundQuiz.png"];
+	NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"quiz/backgroundQuiz.png" ofType:nil inDirectory:k];
+	
+	background.image = [UIImage imageWithContentsOfFile:imagePath];
+	
 	[self.view addSubview:background];
 	
 	int count = [data.question count];
@@ -316,11 +313,13 @@
 					}				
 				}
 				
-				NSString *imagePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:varQuestion.imageFile];
+				NSString *k = [eMobcViewController whatDevice:k];
+				
+				NSString *imagePath = [[NSBundle mainBundle] pathForResource:varQuestion.imageFile ofType:nil inDirectory:k];
+				
 				imgViewQuestion.image = [UIImage imageWithContentsOfFile:imagePath];
 				
 				[self.view addSubview:imgViewQuestion];
-				
 			}
 			
 			if(![varQuestion.text isEqualToString:@""]){
@@ -388,8 +387,13 @@
 					}				
 				}
 				
-				[but setImage:[UIImage imageNamed:@"images/quiz/answerButtonOff.png"] forState:UIControlStateNormal];
-				[but setImage:[UIImage imageNamed:@"images/quiz/answerButtonOn.png"] forState:UIControlStateSelected];
+				NSString *k = [eMobcViewController whatDevice:k];
+				
+				NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"quiz/answerButtonOff.png" ofType:nil inDirectory:k];
+				NSString *imagePath1 = [[NSBundle mainBundle] pathForResource:@"quiz/answerButtonOn.png" ofType:nil inDirectory:k];
+				
+				[but setImage:[UIImage imageWithContentsOfFile:imagePath] forState:UIControlStateNormal];
+				[but setImage:[UIImage imageWithContentsOfFile:imagePath1] forState:UIControlStateSelected];
 				
 				[but setTitle:varAnswer.answerText forState:UIControlStateNormal];
 				
@@ -417,6 +421,30 @@
 	[but removeFromSuperview];
 	
 	
+	if([eMobcViewController isIPad]){
+		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+			background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 128, 1024, 582)];
+		}else{
+			background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 128, 768, 838)];
+		}				
+	}else {
+		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+			background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 88, 480, 194)];
+		}else{
+			background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 88, 320, 354)];
+			
+		}				
+	}
+	
+	NSString *k = [eMobcViewController whatDevice:k];
+	
+	NSString *imagePathBg = [[NSBundle mainBundle] pathForResource:@"quiz/backgroundQuiz.png" ofType:nil inDirectory:k];
+	
+	background.image = [UIImage imageWithContentsOfFile:imagePathBg];
+	
+	[self.view addSubview:background];
+	
+	
 	varQuestion = [data.questionsMap objectForKey:next];
 	int positionY = 108;
 	
@@ -440,10 +468,14 @@
 			}				
 		}
 		
-		NSString *imagePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:varQuestion.imageFile];
+		NSString *k = [eMobcViewController whatDevice:k];
+		
+		NSString *imagePath = [[NSBundle mainBundle] pathForResource:varQuestion.imageFile ofType:nil inDirectory:k];
+		
 		imgViewQuestion.image = [UIImage imageWithContentsOfFile:imagePath];
 		
 		[self.view addSubview:imgViewQuestion];
+		//[imgViewQuestion release];
 		
 	}
 	
@@ -513,8 +545,13 @@
 			}				
 		}
 		
-		[but setImage:[UIImage imageNamed:@"images/quiz/answerButtonOff.png"] forState:UIControlStateNormal];
-		[but setImage:[UIImage imageNamed:@"images/quiz/answerButtonOn.png"] forState:UIControlStateSelected];
+		NSString *k = [eMobcViewController whatDevice:k];
+		
+		NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"quiz/answerButtonOff.png" ofType:nil inDirectory:k];
+		NSString *imagePath1 = [[NSBundle mainBundle] pathForResource:@"quiz/answerButtonOn.png" ofType:nil inDirectory:k];
+		
+		[but setImage:[UIImage imageWithContentsOfFile:imagePath] forState:UIControlStateNormal];
+		[but setImage:[UIImage imageWithContentsOfFile:imagePath1] forState:UIControlStateSelected];
 		
 		[but setTitle:varAnswer.answerText forState:UIControlStateNormal];
 		
@@ -571,8 +608,12 @@
 		}				
 	}
 	
+	NSString *k = [eMobcViewController whatDevice:k];
+	
+	NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"quiz/next.png" ofType:nil inDirectory:k];
+	
 	//set the button's title
-	[button setImage:[UIImage imageNamed:@"images/quiz/next.png"] forState:UIControlStateNormal];
+	[button setImage:[UIImage imageWithContentsOfFile:imagePath] forState:UIControlStateNormal];
 	
 	//listen for clicks
 	[button addTarget:self action:@selector(randomQuestion) forControlEvents:UIControlEventTouchUpInside];
@@ -582,7 +623,6 @@
 }
 
 -(void) scorePoints {
-	NSLog(@"score: %@", varQuestion.weight);
 	[score addObject:varQuestion.weight];
 }
 
@@ -643,9 +683,13 @@
 		}				
 	}
 	
+	NSString *k = [eMobcViewController whatDevice:k];
+	
+	NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"quiz/next.png" ofType:nil inDirectory:k];
+	
 	//set the button's title
 	//[button setTitle:@"Responder" forState:UIControlStateNormal];
-	[button setImage:[UIImage imageNamed:@"images/quiz/next.png"] forState:UIControlStateNormal];
+	[button setImage:[UIImage imageWithContentsOfFile:imagePath] forState:UIControlStateNormal];
 	
 	//listen for clicks
 	[button addTarget:self action:@selector(upgradeQuestion) forControlEvents:UIControlEventTouchUpInside];
@@ -673,7 +717,12 @@
 		}				
 	}
 	
-	background.image = [UIImage imageNamed:@"images/quiz/backgroundQuiz.png"];
+	NSString *k = [eMobcViewController whatDevice:k];
+	
+	NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"quiz/backgroundQuiz.png" ofType:nil inDirectory:k];
+	
+	background.image = [UIImage imageWithContentsOfFile:imagePath];
+
 	[self.view addSubview:background];
 	
 	//El parametro selecionado sera guadado en una varible local y se le mandara el next a la funcion question por parametro.
@@ -698,7 +747,12 @@
 		}				
 	}
 	
-	background.image = [UIImage imageNamed:@"images/quiz/backgroundQuiz.png"];
+	NSString *k = [eMobcViewController whatDevice:k];
+	
+	NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"quiz/backgroundQuiz.png" ofType:nil inDirectory:k];
+	
+	background.image = [UIImage imageWithContentsOfFile:imagePath];
+	
 	[self.view addSubview:background];
 	
 	if([eMobcViewController isIPad]){
@@ -719,7 +773,9 @@
 		}				
 	}
 	
-	imgViewFinish.image = [UIImage imageNamed:@"images/quiz/imagenFinalizado.png"];
+	NSString *imagePath1 = [[NSBundle mainBundle] pathForResource:@"quiz/imagenFinalizado.png" ofType:nil inDirectory:k];
+
+	imgViewFinish.image = [UIImage imageWithContentsOfFile:imagePath1];
 	
 	int valor = [score count];
 	int point = 0;
@@ -758,10 +814,12 @@
 			
 		}				
 	}
+
+	NSString *imagePath2 = [[NSBundle mainBundle] pathForResource:@"quiz/close.png" ofType:nil inDirectory:k];
 	
 	//set the button's title
 	//[button setTitle:@"Responder" forState:UIControlStateNormal];
-	[button setImage:[UIImage imageNamed:@"images/quiz/close.png"] forState:UIControlStateNormal];
+	[button setImage:[UIImage imageWithContentsOfFile:imagePath2] forState:UIControlStateNormal];
 	
 	//listen for clicks
 	[button addTarget:self action:@selector(backButtonPress:) forControlEvents:UIControlEventTouchUpInside];
@@ -835,6 +893,111 @@
 	}
 }
 
+
+/**
+ * Load themes from xml into components
+ */
+-(void)loadThemesComponents {
+	for(int x = 0; x < varStyles.listComponents.count; x++){
+		NSString *var = [varStyles.listComponents objectAtIndex:x];
+		
+		NSString *type = [varStyles.mapFormatComponents objectForKey:var];
+		
+		varFormats = [mainController.theFormat.formatsMap objectForKey:type];
+		UILabel *myLabel;
+		
+		if([var isEqualToString:@"header"]){
+			if([eMobcViewController isIPad]){
+				if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 108, 1024, 20)];	
+				}else{
+					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 108, 768, 20)];
+				}				
+			}else {
+				if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 88, 480, 20)];	
+				}else{
+					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 88, 320, 20)];
+				}				
+			}
+			
+			myLabel.text = data.headerText;
+			
+			int varSize = [varFormats.textSize intValue];
+			
+			myLabel.font = [UIFont fontWithName:varFormats.typeFace size:varSize];
+			myLabel.backgroundColor = [UIColor clearColor];
+			
+			//Hay que convertirlo a hexadecimal.
+			//	varFormats.textColor
+			
+			myLabel.textColor =  [UIColor colorWithRed:100 green:20 blue:10 alpha:1];
+			
+			//myLabel.textColor = [UIColor whiteColor];
+			myLabel.textAlignment = UITextAlignmentCenter;
+			
+			[self.view addSubview:myLabel];
+			[myLabel release];
+		}
+	}
+}
+
+
+/**
+ * Load themes
+ */
+-(void) loadThemes {
+	if(![varStyles.backgroundFileName isEqualToString:@""]) {
+		
+		if([eMobcViewController isIPad]){
+			if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+				background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 88, 1024, 688)];
+			}else{
+				background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 88, 768, 936)];
+			}				
+		}else {
+			if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+				background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 88, 480, 232)];
+			}else{
+				background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 88, 320, 392)];
+			}				
+		}
+		
+		NSString *k = [eMobcViewController whatDevice:k];
+		
+		NSString *imagePath = [[NSBundle mainBundle] pathForResource:varStyles.backgroundFileName ofType:nil inDirectory:k];
+		
+		background.image = [UIImage imageWithContentsOfFile:imagePath];
+		
+		[self.view addSubview:background];
+		//[self.view sendSubviewToBack:background];
+	}else{
+		self.view.backgroundColor = [UIColor whiteColor];
+	}
+	[background release];
+	
+	if(![varStyles.components isEqualToString:@""]) {
+		NSArray *separarComponents = [varStyles.components componentsSeparatedByString:@";"];
+		NSArray *assignment;
+		NSString *component;
+		
+		for(int i = 0; i < separarComponents.count - 1; i++){
+			assignment = [[separarComponents objectAtIndex:i] componentsSeparatedByString:@"="];
+			
+			component = [assignment objectAtIndex:0];
+			NSString *format = [assignment objectAtIndex:1];
+			
+			[varStyles.mapFormatComponents setObject:format forKey:component];
+			
+			if(![component isEqual:@"selection_list"]){
+				[varStyles.listComponents addObject:component];
+			}else{
+				varStyles.selectionList = format;
+			}
+		}
+		[self loadThemesComponents];
+	}
+}
 
 
 /**

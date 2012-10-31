@@ -171,9 +171,9 @@
 			<levelTransition>None</levelTransition>
 		</level>
 		<level>
-			<levelId>Diseño menú 3</levelId>
-			<levelTitle>Diseño menú 3</levelTitle>
-			<levelFile>menu_3_text.xml</levelFile>
+			<levelId>emobc</levelId>
+			<levelTitle>emobc</levelTitle>
+			<levelFile>emobc.xml</levelFile>
 			<levelType>IMAGE_TEXT_DESCRIPTION_ACTIVITY</levelType>
 			<levelXib/>
 			<levelTransition>None</levelTransition>

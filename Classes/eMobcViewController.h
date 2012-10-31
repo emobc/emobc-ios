@@ -145,11 +145,11 @@
 	-(void) loadProfileFirstTime;
 	-(void) loadProfile;
 
-
 // iPhone - iPad Support
 	+ (BOOL)isIPad;
 	+ (NSString *) addIPadSuffixWhenOnIPad:(NSString *)resourceName;
 	+ (NSString *) addIPadImageSuffixWhenOnIPad:(NSString *)resourceImage;
 	+ (NSString *) addLandscapeImageSuffix:(NSString *) resourcesImageLandscape;
+	+ (NSString *) whatDevice:(NSString *) directoryImages;
 
 @end

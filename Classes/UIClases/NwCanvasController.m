@@ -219,14 +219,16 @@ BOOL WANTSPORTRAIT = NO;
 			}				
 		}
 		
-		NSString *imagePath = [[[NSBundle mainBundle]resourcePath] stringByAppendingPathComponent:varStyles.backgroundFileName];
 		
-		imagePath = [eMobcViewController addIPadImageSuffixWhenOnIPad:imagePath];
+		NSString *k = [eMobcViewController whatDevice:k];
+		
+		NSString *imagePath = [[NSBundle mainBundle] pathForResource:varStyles.backgroundFileName ofType:nil inDirectory:k];
 		
 		background.image = [UIImage imageWithContentsOfFile:imagePath];
-		
+	
 		[self.view addSubview:background];
 		[self.view sendSubviewToBack:background];
+		[background release];
 	}else{
 		self.view.backgroundColor = [UIColor whiteColor];
 	}

@@ -44,7 +44,7 @@
  */
 - (void)viewDidLoad {
     [super viewDidLoad];	
-
+	
 	levelsStack = [[NSMutableArray array] retain];
 	currentNextLevel = nil;
 	
@@ -1552,6 +1552,40 @@
 	}else{
 		return resourcesImageLandscape;
 	}					
+}
+
+
++(NSString *) whatDevice:(NSString *) directoryImages{
+ 
+	CGRect currentScreen = [[UIScreen mainScreen] bounds];
+	int a = currentScreen.size.width;
+	int b = currentScreen.size.height;
+	int sw = 0;
+ 
+	if(a == 320 && b == 480){
+		directoryImages = @"iphone";
+	}else if(a == 640 && b == 960){
+			directoryImages = @"iphone4";
+	}else if(a == 640 && b == 1136){
+			directoryImages = @"iphone5";
+			sw = 1;
+	}else if(a == 768 && b == 1024){
+			directoryImages = @"ipad";		
+	}else if(a == 1536 && b == 2048){
+			directoryImages = @"nipad";
+			sw = 2;
+	}
+
+	if(sw == 0){
+		return directoryImages;
+	}else{
+		if(sw == 1 && directoryImages == nil){
+			directoryImages = @"iphone4";
+		}else if(sw == 2 && directoryImages == nil){
+			directoryImages = @"ipad";
+		}
+		return directoryImages;
+	}
 }
 
 #pragma mark -

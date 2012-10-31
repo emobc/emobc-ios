@@ -41,6 +41,11 @@
 		04832D9B15529E0C003090A4 /* NwSplashController-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04832D8615529E0C003090A4 /* NwSplashController-iPad.xib */; };
 		04832D9C15529E0C003090A4 /* NwVideoController-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04832D8715529E0C003090A4 /* NwVideoController-iPad.xib */; };
 		04832D9D15529E0C003090A4 /* NwWebController-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04832D8815529E0C003090A4 /* NwWebController-iPad.xib */; };
+		048364FC1641338300717385 /* ipad in Resources */ = {isa = PBXBuildFile; fileRef = 048363DA1641338200717385 /* ipad */; };
+		048364FD1641338300717385 /* iphone in Resources */ = {isa = PBXBuildFile; fileRef = 048364141641338200717385 /* iphone */; };
+		048364FE1641338300717385 /* iphone4 in Resources */ = {isa = PBXBuildFile; fileRef = 0483644E1641338200717385 /* iphone4 */; };
+		048364FF1641338300717385 /* iphone5 in Resources */ = {isa = PBXBuildFile; fileRef = 048364881641338300717385 /* iphone5 */; };
+		048365001641338300717385 /* nipad in Resources */ = {isa = PBXBuildFile; fileRef = 048364C21641338300717385 /* nipad */; };
 		0483BD0A15ECCBBB00862FA1 /* canvas.xml in Resources */ = {isa = PBXBuildFile; fileRef = 0483BD0915ECCBBB00862FA1 /* canvas.xml */; };
 		0483BD0D15ECCC2F00862FA1 /* CanvasLevel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0483BD0C15ECCC2F00862FA1 /* CanvasLevel.m */; };
 		0483BD1015ECCCED00862FA1 /* CanvasLevelData.m in Sources */ = {isa = PBXBuildFile; fileRef = 0483BD0F15ECCCED00862FA1 /* CanvasLevelData.m */; };
@@ -61,7 +66,6 @@
 		04845DE2161EFFE000065AA9 /* web_Html.xml in Resources */ = {isa = PBXBuildFile; fileRef = 04845DE1161EFFE000065AA9 /* web_Html.xml */; };
 		04845F6C1622D05E00065AA9 /* eMobc.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 04845F6B1622D05E00065AA9 /* eMobc.mp3 */; };
 		04845F991622EE9900065AA9 /* AppQrs.m in Sources */ = {isa = PBXBuildFile; fileRef = 04845F981622EE9900065AA9 /* AppQrs.m */; };
-		04854A9915FF21390037C478 /* images in Resources */ = {isa = PBXBuildFile; fileRef = 04854A9815FF21390037C478 /* images */; };
 		0485C3FD15C7CD83002F10DE /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0485C3FC15C7CD83002F10DE /* AudioToolbox.framework */; };
 		04860D4415AC30E200727001 /* app.xml in Resources */ = {isa = PBXBuildFile; fileRef = 04860D2415AC30E200727001 /* app.xml */; };
 		04860D4515AC30E200727001 /* botonera.xml in Resources */ = {isa = PBXBuildFile; fileRef = 04860D2515AC30E200727001 /* botonera.xml */; };
@@ -81,7 +85,7 @@
 		04860D5315AC30E200727001 /* Mapa.xml in Resources */ = {isa = PBXBuildFile; fileRef = 04860D3315AC30E200727001 /* Mapa.xml */; };
 		04860D5415AC30E200727001 /* menu_1_text.xml in Resources */ = {isa = PBXBuildFile; fileRef = 04860D3415AC30E200727001 /* menu_1_text.xml */; };
 		04860D5515AC30E200727001 /* menu_2_text.xml in Resources */ = {isa = PBXBuildFile; fileRef = 04860D3515AC30E200727001 /* menu_2_text.xml */; };
-		04860D5615AC30E200727001 /* menu_3_text.xml in Resources */ = {isa = PBXBuildFile; fileRef = 04860D3615AC30E200727001 /* menu_3_text.xml */; };
+		04860D5615AC30E200727001 /* emobc.xml in Resources */ = {isa = PBXBuildFile; fileRef = 04860D3615AC30E200727001 /* emobc.xml */; };
 		04860D5715AC30E200727001 /* menu_lista.xml in Resources */ = {isa = PBXBuildFile; fileRef = 04860D3715AC30E200727001 /* menu_lista.xml */; };
 		04860D5815AC30E200727001 /* monetizar_texto.xml in Resources */ = {isa = PBXBuildFile; fileRef = 04860D3815AC30E200727001 /* monetizar_texto.xml */; };
 		04860D5915AC30E200727001 /* navegacion_lista.xml in Resources */ = {isa = PBXBuildFile; fileRef = 04860D3915AC30E200727001 /* navegacion_lista.xml */; };
@@ -407,6 +411,11 @@
 		04832D8615529E0C003090A4 /* NwSplashController-iPad.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = "NwSplashController-iPad.xib"; sourceTree = "<group>"; };
 		04832D8715529E0C003090A4 /* NwVideoController-iPad.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = "NwVideoController-iPad.xib"; sourceTree = "<group>"; };
 		04832D8815529E0C003090A4 /* NwWebController-iPad.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = "NwWebController-iPad.xib"; sourceTree = "<group>"; };
+		048363DA1641338200717385 /* ipad */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ipad; path = images/ipad; sourceTree = "<group>"; };
+		048364141641338200717385 /* iphone */ = {isa = PBXFileReference; lastKnownFileType = folder; name = iphone; path = images/iphone; sourceTree = "<group>"; };
+		0483644E1641338200717385 /* iphone4 */ = {isa = PBXFileReference; lastKnownFileType = folder; name = iphone4; path = images/iphone4; sourceTree = "<group>"; };
+		048364881641338300717385 /* iphone5 */ = {isa = PBXFileReference; lastKnownFileType = folder; name = iphone5; path = images/iphone5; sourceTree = "<group>"; };
+		048364C21641338300717385 /* nipad */ = {isa = PBXFileReference; lastKnownFileType = folder; name = nipad; path = images/nipad; sourceTree = "<group>"; };
 		0483BD0915ECCBBB00862FA1 /* canvas.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = canvas.xml; path = xml/canvas.xml; sourceTree = "<group>"; };
 		0483BD0B15ECCC2F00862FA1 /* CanvasLevel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CanvasLevel.h; sourceTree = "<group>"; };
 		0483BD0C15ECCC2F00862FA1 /* CanvasLevel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CanvasLevel.m; sourceTree = "<group>"; };
@@ -435,7 +444,6 @@
 		04845F6B1622D05E00065AA9 /* eMobc.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = eMobc.mp3; sourceTree = "<group>"; };
 		04845F971622EE9900065AA9 /* AppQrs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppQrs.h; sourceTree = "<group>"; };
 		04845F981622EE9900065AA9 /* AppQrs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppQrs.m; sourceTree = "<group>"; };
-		04854A9815FF21390037C478 /* images */ = {isa = PBXFileReference; lastKnownFileType = folder; name = images; path = images/images; sourceTree = "<group>"; };
 		0485C3FC15C7CD83002F10DE /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		04860D2415AC30E200727001 /* app.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = app.xml; path = xml/app.xml; sourceTree = "<group>"; };
 		04860D2515AC30E200727001 /* botonera.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = botonera.xml; path = xml/botonera.xml; sourceTree = "<group>"; };
@@ -455,7 +463,7 @@
 		04860D3315AC30E200727001 /* Mapa.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = Mapa.xml; path = xml/Mapa.xml; sourceTree = "<group>"; };
 		04860D3415AC30E200727001 /* menu_1_text.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = menu_1_text.xml; path = xml/menu_1_text.xml; sourceTree = "<group>"; };
 		04860D3515AC30E200727001 /* menu_2_text.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = menu_2_text.xml; path = xml/menu_2_text.xml; sourceTree = "<group>"; };
-		04860D3615AC30E200727001 /* menu_3_text.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = menu_3_text.xml; path = xml/menu_3_text.xml; sourceTree = "<group>"; };
+		04860D3615AC30E200727001 /* emobc.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = emobc.xml; path = xml/emobc.xml; sourceTree = "<group>"; };
 		04860D3715AC30E200727001 /* menu_lista.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = menu_lista.xml; path = xml/menu_lista.xml; sourceTree = "<group>"; };
 		04860D3815AC30E200727001 /* monetizar_texto.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = monetizar_texto.xml; path = xml/monetizar_texto.xml; sourceTree = "<group>"; };
 		04860D3915AC30E200727001 /* navegacion_lista.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = navegacion_lista.xml; path = xml/navegacion_lista.xml; sourceTree = "<group>"; };
@@ -1955,8 +1963,8 @@
 				0489A98E15CBCB430084B457 /* style.xml */,
 				0489A91615CBC21E0084B457 /* format.xml */,
 				0407161415C675E40094F138 /* calendar.xml */,
-				04E6895C15B01051006C7433 /* bottom_menu.xml */,
 				0486109E15AD869300727001 /* top_menu.xml */,
+				04E6895C15B01051006C7433 /* bottom_menu.xml */,
 				04860D2415AC30E200727001 /* app.xml */,
 				04860D2515AC30E200727001 /* botonera.xml */,
 				04860D2615AC30E200727001 /* contenidos_lista.xml */,
@@ -1976,7 +1984,7 @@
 				04860D3315AC30E200727001 /* Mapa.xml */,
 				04860D3415AC30E200727001 /* menu_1_text.xml */,
 				04860D3515AC30E200727001 /* menu_2_text.xml */,
-				04860D3615AC30E200727001 /* menu_3_text.xml */,
+				04860D3615AC30E200727001 /* emobc.xml */,
 				04860D3715AC30E200727001 /* menu_lista.xml */,
 				04860D3815AC30E200727001 /* monetizar_texto.xml */,
 				04860D3915AC30E200727001 /* navegacion_lista.xml */,
@@ -1997,6 +2005,11 @@
 		F4E524721367A85C007A7F14 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				048363DA1641338200717385 /* ipad */,
+				048364141641338200717385 /* iphone */,
+				0483644E1641338200717385 /* iphone4 */,
+				048364881641338300717385 /* iphone5 */,
+				048364C21641338300717385 /* nipad */,
 				04845D9F161EFA9C00065AA9 /* Default-Landscape.png */,
 				04845DA0161EFA9C00065AA9 /* Default-Landscape@2x.png */,
 				04845DA1161EFA9C00065AA9 /* Default-Portrait.png */,
@@ -2008,7 +2021,6 @@
 				040323FF16198C8D00C11C41 /* Icon@2x.png */,
 				0403240016198C8D00C11C41 /* iTunesArtwork.png */,
 				0403240116198C8D00C11C41 /* iTunesArtwork@2x.png */,
-				04854A9815FF21390037C478 /* images */,
 			);
 			name = images;
 			sourceTree = "<group>";
@@ -2311,7 +2323,7 @@
 				04860D5315AC30E200727001 /* Mapa.xml in Resources */,
 				04860D5415AC30E200727001 /* menu_1_text.xml in Resources */,
 				04860D5515AC30E200727001 /* menu_2_text.xml in Resources */,
-				04860D5615AC30E200727001 /* menu_3_text.xml in Resources */,
+				04860D5615AC30E200727001 /* emobc.xml in Resources */,
 				04860D5715AC30E200727001 /* menu_lista.xml in Resources */,
 				04860D5815AC30E200727001 /* monetizar_texto.xml in Resources */,
 				04860D5915AC30E200727001 /* navegacion_lista.xml in Resources */,
@@ -2346,7 +2358,6 @@
 				04E255A115EE2DCC00532486 /* NwCalendarController-iPad.xib in Resources */,
 				0486B6F415F4CA3500B76226 /* NwAudioController.xib in Resources */,
 				0486B9F415F9E41E00B76226 /* NwAudioController-iPad.xib in Resources */,
-				04854A9915FF21390037C478 /* images in Resources */,
 				0403240316198C8D00C11C41 /* Icon.png in Resources */,
 				0403240416198C8D00C11C41 /* Icon@2x.png in Resources */,
 				0403240516198C8D00C11C41 /* iTunesArtwork.png in Resources */,
@@ -2371,6 +2382,11 @@
 				04A2A69C162C17EA000003AD /* profile.xml in Resources */,
 				04A2AD62163006C5000003AD /* NwProfileController.xib in Resources */,
 				04A2AF7116316BAD000003AD /* NwProfileController-iPad.xib in Resources */,
+				048364FC1641338300717385 /* ipad in Resources */,
+				048364FD1641338300717385 /* iphone in Resources */,
+				048364FE1641338300717385 /* iphone4 in Resources */,
+				048364FF1641338300717385 /* iphone5 in Resources */,
+				048365001641338300717385 /* nipad in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

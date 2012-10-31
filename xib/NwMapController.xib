@@ -115,9 +115,9 @@
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MC41AA</bytes>
 						</object>
-						<object class="NSCustomResource" key="IBUINormalImage" id="422135071">
+						<object class="NSCustomResource" key="IBUINormalImage" id="10110462">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">Images/icons/nearMap.png</string>
+							<string key="NSResourceName">device/iphone4/icons/nearMap.png</string>
 						</object>
 					</object>
 				</object>
@@ -188,7 +188,7 @@
 							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
 						</object>
 						<reference key="IBUINormalTitleShadowColor" ref="781569173"/>
-						<reference key="IBUINormalImage" ref="422135071"/>
+						<reference key="IBUINormalImage" ref="10110462"/>
 					</object>
 				</object>
 				<string key="NSFrameSize">{480, 320}</string>
@@ -924,7 +924,7 @@
 		<string key="IBDocument.LastKnownRelativeProjectPath">../eMobc.xcodeproj</string>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="NS.key.0">Images/icons/nearMap.png</string>
+			<string key="NS.key.0">device/iphone4/icons/nearMap.png</string>
 			<string key="NS.object.0">{16, 16}</string>
 		</object>
 		<string key="IBCocoaTouchPluginVersion">141</string>

@@ -855,6 +855,277 @@ N/Users/mac/emobc-ios/emobc-ios/eMobc/Classes/Lib/build/Kal.build/Debug-iphoneos
 t2
 s0
 
+N/Users/mac/github/emobc-ios/Classes/Lib/KalDataSource.h
+c00000000508919270000000000000E29
+t1351162151
+s3625
+i<UIKit/UIKit.h>
+
+N/Users/mac/github/emobc-ios/Classes/Lib/KalDataSource.m
+c00000000508919270000000000000569
+t1351162151
+s1385
+i"KalDataSource.h"
+i"KalPrivate.h"
+
+N/Users/mac/github/emobc-ios/Classes/Lib/KalDate.h
+c00000000508919270000000000000297
+t1351162151
+s663
+i<Foundation/Foundation.h>
+
+N/Users/mac/github/emobc-ios/Classes/Lib/KalDate.m
+c00000000508919270000000000000919
+t1351162151
+s2329
+i"KalDate.h"
+i"KalPrivate.h"
+
+N/Users/mac/github/emobc-ios/Classes/Lib/KalGridView.h
+c0000000050891927000000000000047F
+t1351162151
+s1151
+i<UIKit/UIKit.h>
+
+N/Users/mac/github/emobc-ios/Classes/Lib/KalGridView.m
+c00000000508919270000000000002512
+t1351162151
+s9490
+i<CoreGraphics/CoreGraphics.h>
+i"KalGridView.h"
+i"KalView.h"
+i"KalMonthView.h"
+i"KalTileView.h"
+i"KalLogic.h"
+i"KalDate.h"
+i"KalPrivate.h"
+i"eMobcViewController.h"
+
+N/Users/mac/github/emobc-ios/Classes/Lib/KalLogic.h
+c0000000050891927000000000000075D
+t1351162151
+s1885
+i<Foundation/Foundation.h>
+
+N/Users/mac/github/emobc-ios/Classes/Lib/KalLogic.m
+c000000005089192700000000000011E0
+t1351162151
+s4576
+i"KalLogic.h"
+i"KalDate.h"
+i"KalPrivate.h"
+
+N/Users/mac/github/emobc-ios/Classes/Lib/KalMonthView.h
+c0000000050891927000000000000029A
+t1351162151
+s666
+i<UIKit/UIKit.h>
+
+N/Users/mac/github/emobc-ios/Classes/Lib/KalMonthView.m
+c00000000508919270000000000001584
+t1351162151
+s5508
+i<CoreGraphics/CoreGraphics.h>
+i"KalMonthView.h"
+i"KalTileView.h"
+i"KalView.h"
+i"KalDate.h"
+i"KalPrivate.h"
+i"eMobcViewController.h"
+
+N/Users/mac/github/emobc-ios/Classes/Lib/KalPrivate.h
+c000000005089192700000000000000A4
+t1351162151
+s164
+i"UIViewAdditions.h"
+i"NSDateAdditions.h"
+
+N/Users/mac/github/emobc-ios/Classes/Lib/KalTileView.h
+c0000000050891927000000000000033B
+t1351162151
+s827
+i<UIKit/UIKit.h>
+
+N/Users/mac/github/emobc-ios/Classes/Lib/KalTileView.m
+c00000000508919270000000000002FDC
+t1351162151
+s12252
+i"KalTileView.h"
+i"KalDate.h"
+i"KalPrivate.h"
+i"eMobcViewController.h"
+
+N/Users/mac/github/emobc-ios/Classes/Lib/KalView.h
+c000000005089192700000000000009A3
+t1351162151
+s2467
+i<UIKit/UIKit.h>
+i"NwController.h"
+
+N/Users/mac/github/emobc-ios/Classes/Lib/KalView.m
+c00000000508919270000000000004541
+t1351162151
+s17729
+i"KalView.h"
+i"KalGridView.h"
+i"KalLogic.h"
+i"KalPrivate.h"
+i"eMobcViewController.h"
+
+N/Users/mac/github/emobc-ios/Classes/Lib/KalViewController.h
+c000000005089192700000000000008CE
+t1351162151
+s2254
+i<UIKit/UIKit.h>
+i"KalView.h"
+i"KalDataSource.h"
+i"NwController.h"
+
+N/Users/mac/github/emobc-ios/Classes/Lib/KalViewController.m
+c0000000050891927000000000000159A
+t1351162151
+s5530
+i"KalViewController.h"
+i"KalLogic.h"
+i"KalDataSource.h"
+i"KalDate.h"
+i"KalPrivate.h"
+i<mach/mach_time.h>
+i<time.h>
+i<math.h>
+
+N/Users/mac/github/emobc-ios/Classes/Lib/Kal_Prefix.pch
+c000000005089192700000000000000BC
+t1351162151
+s188
+i<Foundation/Foundation.h>
+
+N/Users/mac/github/emobc-ios/Classes/Lib/NSDateAdditions.h
+c00000000508919270000000000000289
+t1351162151
+s649
+i<Foundation/Foundation.h>
+
+N/Users/mac/github/emobc-ios/Classes/Lib/NSDateAdditions.m
+c0000000050891927000000000000092B
+t1351162151
+s2347
+i"NSDateAdditions.h"
+
+N/Users/mac/github/emobc-ios/Classes/Lib/UIViewAdditions.h
+c00000000508919270000000000000184
+t1351162151
+s388
+i<UIKit/UIKit.h>
+
+N/Users/mac/github/emobc-ios/Classes/Lib/UIViewAdditions.m
+c000000005089192700000000000004ED
+t1351162151
+s1261
+i"UIViewAdditions.h"
+
+N/Users/mac/github/emobc-ios/Classes/Lib/build/Debug-iphoneos/libKal.a
+t2
+s0
+
+N/Users/mac/github/emobc-ios/Classes/Lib/build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv6/Kal.LinkFileList
+c00000000000000000000000000000000
+t2
+s0
+
+N/Users/mac/github/emobc-ios/Classes/Lib/build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv6/KalDataSource.o
+t2
+s0
+
+N/Users/mac/github/emobc-ios/Classes/Lib/build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv6/KalDate.o
+t2
+s0
+
+N/Users/mac/github/emobc-ios/Classes/Lib/build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv6/KalGridView.o
+t2
+s0
+
+N/Users/mac/github/emobc-ios/Classes/Lib/build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv6/KalLogic.o
+t2
+s0
+
+N/Users/mac/github/emobc-ios/Classes/Lib/build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv6/KalMonthView.o
+t2
+s0
+
+N/Users/mac/github/emobc-ios/Classes/Lib/build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv6/KalTileView.o
+t2
+s0
+
+N/Users/mac/github/emobc-ios/Classes/Lib/build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv6/KalView.o
+t2
+s0
+
+N/Users/mac/github/emobc-ios/Classes/Lib/build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv6/KalViewController.o
+t2
+s0
+
+N/Users/mac/github/emobc-ios/Classes/Lib/build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv6/NSDateAdditions.o
+t2
+s0
+
+N/Users/mac/github/emobc-ios/Classes/Lib/build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv6/UIViewAdditions.o
+t2
+s0
+
+N/Users/mac/github/emobc-ios/Classes/Lib/build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv6/libKal.a
+t2
+s0
+
+N/Users/mac/github/emobc-ios/Classes/Lib/build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv7/Kal.LinkFileList
+c00000000000000000000000000000000
+t2
+s0
+
+N/Users/mac/github/emobc-ios/Classes/Lib/build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv7/KalDataSource.o
+t2
+s0
+
+N/Users/mac/github/emobc-ios/Classes/Lib/build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv7/KalDate.o
+t2
+s0
+
+N/Users/mac/github/emobc-ios/Classes/Lib/build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv7/KalGridView.o
+t2
+s0
+
+N/Users/mac/github/emobc-ios/Classes/Lib/build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv7/KalLogic.o
+t2
+s0
+
+N/Users/mac/github/emobc-ios/Classes/Lib/build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv7/KalMonthView.o
+t2
+s0
+
+N/Users/mac/github/emobc-ios/Classes/Lib/build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv7/KalTileView.o
+t2
+s0
+
+N/Users/mac/github/emobc-ios/Classes/Lib/build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv7/KalView.o
+t2
+s0
+
+N/Users/mac/github/emobc-ios/Classes/Lib/build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv7/KalViewController.o
+t2
+s0
+
+N/Users/mac/github/emobc-ios/Classes/Lib/build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv7/NSDateAdditions.o
+t2
+s0
+
+N/Users/mac/github/emobc-ios/Classes/Lib/build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv7/UIViewAdditions.o
+t2
+s0
+
+N/Users/mac/github/emobc-ios/Classes/Lib/build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv7/libKal.a
+t2
+s0
+
 N/var/folders/7u/7uJ+y36XGnyfZ9WQYgmDFk+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Kal_Prefix-bfnxknuyvgukjtdqsdddatnbveqp/Kal_Prefix.pch.gch
 t2
 s0
@@ -864,6 +1135,14 @@ t2
 s0
 
 N/var/folders/7u/7uJ+y36XGnyfZ9WQYgmDFk+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Kal_Prefix-cypovwqwuvwqcqgcjdxsiuvxpwpi/Kal_Prefix.pch.gch
+t2
+s0
+
+N/var/folders/7u/7uJ+y36XGnyfZ9WQYgmDFk+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Kal_Prefix-dgculiwtllbgxpdodbidfrgjyoqc/Kal_Prefix.pch.gch
+t2
+s0
+
+N/var/folders/7u/7uJ+y36XGnyfZ9WQYgmDFk+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Kal_Prefix-dhwflxhyuhcyvqfceerhkzgjidvf/Kal_Prefix.pch.gch
 t2
 s0
 
@@ -888,6 +1167,9 @@ r0
 CCompileC build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv6/KalDataSource.o /Users/mac/emobc-ios/emobc-ios/eMobc/Classes/Lib/KalDataSource.m normal armv6 objective-c com.apple.compilers.gcc.4_2
 r0
 
+CCompileC build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv6/KalDataSource.o /Users/mac/github/emobc-ios/Classes/Lib/KalDataSource.m normal armv6 objective-c com.apple.compilers.gcc.4_2
+r0
+
 CCompileC build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv6/KalDate.o /Users/mac/OTRA/emobc-ios/Classes/Lib/KalDate.m normal armv6 objective-c com.apple.compilers.gcc.4_2
 r0
 
@@ -895,6 +1177,9 @@ CCompileC build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv6/KalDate.
 r0
 
 CCompileC build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv6/KalDate.o /Users/mac/emobc-ios/emobc-ios/eMobc/Classes/Lib/KalDate.m normal armv6 objective-c com.apple.compilers.gcc.4_2
+r0
+
+CCompileC build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv6/KalDate.o /Users/mac/github/emobc-ios/Classes/Lib/KalDate.m normal armv6 objective-c com.apple.compilers.gcc.4_2
 r0
 
 CCompileC build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv6/KalGridView.o /Users/mac/OTRA/emobc-ios/Classes/Lib/KalGridView.m normal armv6 objective-c com.apple.compilers.gcc.4_2
@@ -906,6 +1191,9 @@ r0
 CCompileC build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv6/KalGridView.o /Users/mac/emobc-ios/emobc-ios/eMobc/Classes/Lib/KalGridView.m normal armv6 objective-c com.apple.compilers.gcc.4_2
 r0
 
+CCompileC build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv6/KalGridView.o /Users/mac/github/emobc-ios/Classes/Lib/KalGridView.m normal armv6 objective-c com.apple.compilers.gcc.4_2
+r0
+
 CCompileC build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv6/KalLogic.o /Users/mac/OTRA/emobc-ios/Classes/Lib/KalLogic.m normal armv6 objective-c com.apple.compilers.gcc.4_2
 r0
 
@@ -913,6 +1201,9 @@ CCompileC build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv6/KalLogic
 r0
 
 CCompileC build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv6/KalLogic.o /Users/mac/emobc-ios/emobc-ios/eMobc/Classes/Lib/KalLogic.m normal armv6 objective-c com.apple.compilers.gcc.4_2
+r0
+
+CCompileC build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv6/KalLogic.o /Users/mac/github/emobc-ios/Classes/Lib/KalLogic.m normal armv6 objective-c com.apple.compilers.gcc.4_2
 r0
 
 CCompileC build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv6/KalMonthView.o /Users/mac/OTRA/emobc-ios/Classes/Lib/KalMonthView.m normal armv6 objective-c com.apple.compilers.gcc.4_2
@@ -924,6 +1215,9 @@ r0
 CCompileC build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv6/KalMonthView.o /Users/mac/emobc-ios/emobc-ios/eMobc/Classes/Lib/KalMonthView.m normal armv6 objective-c com.apple.compilers.gcc.4_2
 r0
 
+CCompileC build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv6/KalMonthView.o /Users/mac/github/emobc-ios/Classes/Lib/KalMonthView.m normal armv6 objective-c com.apple.compilers.gcc.4_2
+r0
+
 CCompileC build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv6/KalTileView.o /Users/mac/OTRA/emobc-ios/Classes/Lib/KalTileView.m normal armv6 objective-c com.apple.compilers.gcc.4_2
 r0
 
@@ -931,6 +1225,9 @@ CCompileC build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv6/KalTileV
 r0
 
 CCompileC build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv6/KalTileView.o /Users/mac/emobc-ios/emobc-ios/eMobc/Classes/Lib/KalTileView.m normal armv6 objective-c com.apple.compilers.gcc.4_2
+r0
+
+CCompileC build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv6/KalTileView.o /Users/mac/github/emobc-ios/Classes/Lib/KalTileView.m normal armv6 objective-c com.apple.compilers.gcc.4_2
 r0
 
 CCompileC build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv6/KalView.o /Users/mac/OTRA/emobc-ios/Classes/Lib/KalView.m normal armv6 objective-c com.apple.compilers.gcc.4_2
@@ -942,6 +1239,9 @@ r0
 CCompileC build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv6/KalView.o /Users/mac/emobc-ios/emobc-ios/eMobc/Classes/Lib/KalView.m normal armv6 objective-c com.apple.compilers.gcc.4_2
 r0
 
+CCompileC build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv6/KalView.o /Users/mac/github/emobc-ios/Classes/Lib/KalView.m normal armv6 objective-c com.apple.compilers.gcc.4_2
+r0
+
 CCompileC build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv6/KalViewController.o /Users/mac/OTRA/emobc-ios/Classes/Lib/KalViewController.m normal armv6 objective-c com.apple.compilers.gcc.4_2
 r0
 
@@ -949,6 +1249,9 @@ CCompileC build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv6/KalViewC
 r0
 
 CCompileC build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv6/KalViewController.o /Users/mac/emobc-ios/emobc-ios/eMobc/Classes/Lib/KalViewController.m normal armv6 objective-c com.apple.compilers.gcc.4_2
+r0
+
+CCompileC build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv6/KalViewController.o /Users/mac/github/emobc-ios/Classes/Lib/KalViewController.m normal armv6 objective-c com.apple.compilers.gcc.4_2
 r0
 
 CCompileC build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv6/NSDateAdditions.o /Users/mac/OTRA/emobc-ios/Classes/Lib/NSDateAdditions.m normal armv6 objective-c com.apple.compilers.gcc.4_2
@@ -960,6 +1263,9 @@ r0
 CCompileC build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv6/NSDateAdditions.o /Users/mac/emobc-ios/emobc-ios/eMobc/Classes/Lib/NSDateAdditions.m normal armv6 objective-c com.apple.compilers.gcc.4_2
 r0
 
+CCompileC build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv6/NSDateAdditions.o /Users/mac/github/emobc-ios/Classes/Lib/NSDateAdditions.m normal armv6 objective-c com.apple.compilers.gcc.4_2
+r0
+
 CCompileC build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv6/UIViewAdditions.o /Users/mac/OTRA/emobc-ios/Classes/Lib/UIViewAdditions.m normal armv6 objective-c com.apple.compilers.gcc.4_2
 r0
 
@@ -967,6 +1273,9 @@ CCompileC build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv6/UIViewAd
 r0
 
 CCompileC build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv6/UIViewAdditions.o /Users/mac/emobc-ios/emobc-ios/eMobc/Classes/Lib/UIViewAdditions.m normal armv6 objective-c com.apple.compilers.gcc.4_2
+r0
+
+CCompileC build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv6/UIViewAdditions.o /Users/mac/github/emobc-ios/Classes/Lib/UIViewAdditions.m normal armv6 objective-c com.apple.compilers.gcc.4_2
 r0
 
 CCompileC build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv7/KalDataSource.o /Users/mac/OTRA/emobc-ios/Classes/Lib/KalDataSource.m normal armv7 objective-c com.apple.compilers.gcc.4_2
@@ -978,6 +1287,9 @@ r0
 CCompileC build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv7/KalDataSource.o /Users/mac/emobc-ios/emobc-ios/eMobc/Classes/Lib/KalDataSource.m normal armv7 objective-c com.apple.compilers.gcc.4_2
 r0
 
+CCompileC build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv7/KalDataSource.o /Users/mac/github/emobc-ios/Classes/Lib/KalDataSource.m normal armv7 objective-c com.apple.compilers.gcc.4_2
+r0
+
 CCompileC build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv7/KalDate.o /Users/mac/OTRA/emobc-ios/Classes/Lib/KalDate.m normal armv7 objective-c com.apple.compilers.gcc.4_2
 r0
 
@@ -985,6 +1297,9 @@ CCompileC build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv7/KalDate.
 r0
 
 CCompileC build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv7/KalDate.o /Users/mac/emobc-ios/emobc-ios/eMobc/Classes/Lib/KalDate.m normal armv7 objective-c com.apple.compilers.gcc.4_2
+r0
+
+CCompileC build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv7/KalDate.o /Users/mac/github/emobc-ios/Classes/Lib/KalDate.m normal armv7 objective-c com.apple.compilers.gcc.4_2
 r0
 
 CCompileC build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv7/KalGridView.o /Users/mac/OTRA/emobc-ios/Classes/Lib/KalGridView.m normal armv7 objective-c com.apple.compilers.gcc.4_2
@@ -996,6 +1311,9 @@ r0
 CCompileC build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv7/KalGridView.o /Users/mac/emobc-ios/emobc-ios/eMobc/Classes/Lib/KalGridView.m normal armv7 objective-c com.apple.compilers.gcc.4_2
 r0
 
+CCompileC build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv7/KalGridView.o /Users/mac/github/emobc-ios/Classes/Lib/KalGridView.m normal armv7 objective-c com.apple.compilers.gcc.4_2
+r0
+
 CCompileC build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv7/KalLogic.o /Users/mac/OTRA/emobc-ios/Classes/Lib/KalLogic.m normal armv7 objective-c com.apple.compilers.gcc.4_2
 r0
 
@@ -1003,6 +1321,9 @@ CCompileC build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv7/KalLogic
 r0
 
 CCompileC build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv7/KalLogic.o /Users/mac/emobc-ios/emobc-ios/eMobc/Classes/Lib/KalLogic.m normal armv7 objective-c com.apple.compilers.gcc.4_2
+r0
+
+CCompileC build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv7/KalLogic.o /Users/mac/github/emobc-ios/Classes/Lib/KalLogic.m normal armv7 objective-c com.apple.compilers.gcc.4_2
 r0
 
 CCompileC build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv7/KalMonthView.o /Users/mac/OTRA/emobc-ios/Classes/Lib/KalMonthView.m normal armv7 objective-c com.apple.compilers.gcc.4_2
@@ -1014,6 +1335,9 @@ r0
 CCompileC build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv7/KalMonthView.o /Users/mac/emobc-ios/emobc-ios/eMobc/Classes/Lib/KalMonthView.m normal armv7 objective-c com.apple.compilers.gcc.4_2
 r0
 
+CCompileC build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv7/KalMonthView.o /Users/mac/github/emobc-ios/Classes/Lib/KalMonthView.m normal armv7 objective-c com.apple.compilers.gcc.4_2
+r0
+
 CCompileC build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv7/KalTileView.o /Users/mac/OTRA/emobc-ios/Classes/Lib/KalTileView.m normal armv7 objective-c com.apple.compilers.gcc.4_2
 r0
 
@@ -1021,6 +1345,9 @@ CCompileC build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv7/KalTileV
 r0
 
 CCompileC build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv7/KalTileView.o /Users/mac/emobc-ios/emobc-ios/eMobc/Classes/Lib/KalTileView.m normal armv7 objective-c com.apple.compilers.gcc.4_2
+r0
+
+CCompileC build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv7/KalTileView.o /Users/mac/github/emobc-ios/Classes/Lib/KalTileView.m normal armv7 objective-c com.apple.compilers.gcc.4_2
 r0
 
 CCompileC build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv7/KalView.o /Users/mac/OTRA/emobc-ios/Classes/Lib/KalView.m normal armv7 objective-c com.apple.compilers.gcc.4_2
@@ -1032,6 +1359,9 @@ r0
 CCompileC build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv7/KalView.o /Users/mac/emobc-ios/emobc-ios/eMobc/Classes/Lib/KalView.m normal armv7 objective-c com.apple.compilers.gcc.4_2
 r0
 
+CCompileC build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv7/KalView.o /Users/mac/github/emobc-ios/Classes/Lib/KalView.m normal armv7 objective-c com.apple.compilers.gcc.4_2
+r0
+
 CCompileC build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv7/KalViewController.o /Users/mac/OTRA/emobc-ios/Classes/Lib/KalViewController.m normal armv7 objective-c com.apple.compilers.gcc.4_2
 r0
 
@@ -1039,6 +1369,9 @@ CCompileC build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv7/KalViewC
 r0
 
 CCompileC build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv7/KalViewController.o /Users/mac/emobc-ios/emobc-ios/eMobc/Classes/Lib/KalViewController.m normal armv7 objective-c com.apple.compilers.gcc.4_2
+r0
+
+CCompileC build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv7/KalViewController.o /Users/mac/github/emobc-ios/Classes/Lib/KalViewController.m normal armv7 objective-c com.apple.compilers.gcc.4_2
 r0
 
 CCompileC build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv7/NSDateAdditions.o /Users/mac/OTRA/emobc-ios/Classes/Lib/NSDateAdditions.m normal armv7 objective-c com.apple.compilers.gcc.4_2
@@ -1050,6 +1383,9 @@ r0
 CCompileC build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv7/NSDateAdditions.o /Users/mac/emobc-ios/emobc-ios/eMobc/Classes/Lib/NSDateAdditions.m normal armv7 objective-c com.apple.compilers.gcc.4_2
 r0
 
+CCompileC build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv7/NSDateAdditions.o /Users/mac/github/emobc-ios/Classes/Lib/NSDateAdditions.m normal armv7 objective-c com.apple.compilers.gcc.4_2
+r0
+
 CCompileC build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv7/UIViewAdditions.o /Users/mac/OTRA/emobc-ios/Classes/Lib/UIViewAdditions.m normal armv7 objective-c com.apple.compilers.gcc.4_2
 r0
 
@@ -1059,6 +1395,9 @@ r0
 CCompileC build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv7/UIViewAdditions.o /Users/mac/emobc-ios/emobc-ios/eMobc/Classes/Lib/UIViewAdditions.m normal armv7 objective-c com.apple.compilers.gcc.4_2
 r0
 
+CCompileC build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv7/UIViewAdditions.o /Users/mac/github/emobc-ios/Classes/Lib/UIViewAdditions.m normal armv7 objective-c com.apple.compilers.gcc.4_2
+r0
+
 CCreateUniversalBinary /Users/mac/OTRA/emobc-ios/Classes/Lib/build/Debug-iphoneos/libKal.a normal "armv6 armv7"
 r0
 
@@ -1066,6 +1405,9 @@ CCreateUniversalBinary /Users/mac/emobc-ios/emobc-ios/Classes/Lib/build/Debug-ip
 r0
 
 CCreateUniversalBinary /Users/mac/emobc-ios/emobc-ios/eMobc/Classes/Lib/build/Debug-iphoneos/libKal.a normal "armv6 armv7"
+r0
+
+CCreateUniversalBinary /Users/mac/github/emobc-ios/Classes/Lib/build/Debug-iphoneos/libKal.a normal "armv6 armv7"
 r0
 
 CLibtool /Users/mac/OTRA/emobc-ios/Classes/Lib/build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv6/libKal.a normal armv6
@@ -1086,6 +1428,12 @@ r0
 CLibtool /Users/mac/emobc-ios/emobc-ios/eMobc/Classes/Lib/build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv7/libKal.a normal armv7
 r0
 
+CLibtool /Users/mac/github/emobc-ios/Classes/Lib/build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv6/libKal.a normal armv6
+r0
+
+CLibtool /Users/mac/github/emobc-ios/Classes/Lib/build/Kal.build/Debug-iphoneos/Kal.build/Objects-normal/armv7/libKal.a normal armv7
+r0
+
 CProcessPCH /var/folders/7u/7uJ+y36XGnyfZ9WQYgmDFk+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Kal_Prefix-bfnxknuyvgukjtdqsdddatnbveqp/Kal_Prefix.pch.gch Kal_Prefix.pch normal armv7 objective-c com.apple.compilers.gcc.4_2
 r0
 
@@ -1093,6 +1441,12 @@ CProcessPCH /var/folders/7u/7uJ+y36XGnyfZ9WQYgmDFk+++TI/-Caches-/com.apple.Xcode
 r0
 
 CProcessPCH /var/folders/7u/7uJ+y36XGnyfZ9WQYgmDFk+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Kal_Prefix-cypovwqwuvwqcqgcjdxsiuvxpwpi/Kal_Prefix.pch.gch Kal_Prefix.pch normal armv7 objective-c com.apple.compilers.gcc.4_2
+r0
+
+CProcessPCH /var/folders/7u/7uJ+y36XGnyfZ9WQYgmDFk+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Kal_Prefix-dgculiwtllbgxpdodbidfrgjyoqc/Kal_Prefix.pch.gch Kal_Prefix.pch normal armv7 objective-c com.apple.compilers.gcc.4_2
+r0
+
+CProcessPCH /var/folders/7u/7uJ+y36XGnyfZ9WQYgmDFk+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Kal_Prefix-dhwflxhyuhcyvqfceerhkzgjidvf/Kal_Prefix.pch.gch Kal_Prefix.pch normal armv6 objective-c com.apple.compilers.gcc.4_2
 r0
 
 CProcessPCH /var/folders/7u/7uJ+y36XGnyfZ9WQYgmDFk+++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Kal_Prefix-ewgtvtwpsihokddtgplvelymvilj/Kal_Prefix.pch.gch Kal_Prefix.pch normal armv6 objective-c com.apple.compilers.gcc.4_2

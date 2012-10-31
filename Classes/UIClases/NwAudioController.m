@@ -173,9 +173,9 @@
 		}				
 	}
 	
-	NSString *imagePath = [[[NSBundle mainBundle]resourcePath] stringByAppendingPathComponent:@"images/multimedia/coverMultimedia.png"];
+	NSString *k = [eMobcViewController whatDevice:k];
 	
-	imagePath = [eMobcViewController addIPadImageSuffixWhenOnIPad:imagePath];
+	NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"multimedia/coverMultimedia.png" ofType:nil inDirectory:k];
 	
 	imgView.image = [UIImage imageWithContentsOfFile:imagePath];
 	
@@ -305,7 +305,12 @@
 	
 	//set the button's title
 	//[playButton setTitle:@"play" forState:UIControlStateNormal];
-	[playButton setImage:[UIImage imageNamed:@"images/multimedia/buttonPlay.png"] forState:UIControlStateNormal];
+	
+	NSString *k = [eMobcViewController whatDevice:k];
+	
+	NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"multimedia/buttonPlay.png" ofType:nil inDirectory:k];
+	
+	[playButton setImage:[UIImage imageWithContentsOfFile:imagePath] forState:UIControlStateNormal];
 	
 	//listen for clicks
 	[playButton addTarget:self action:@selector(play) forControlEvents:UIControlEventTouchUpInside];
@@ -338,7 +343,10 @@
 	
 	//set the button's title
 	//[pauseButton setTitle:@"pause" forState:UIControlStateNormal];
-	[pauseButton setImage:[UIImage imageNamed:@"images/multimedia/buttonPause.png"] forState:UIControlStateNormal];
+	
+	NSString *imagePath1 = [[NSBundle mainBundle] pathForResource:@"multimedia/buttonPause.png" ofType:nil inDirectory:k];
+	
+	[pauseButton setImage:[UIImage imageWithContentsOfFile:imagePath1] forState:UIControlStateNormal];
 	
 	//listen for clicks
 	[pauseButton addTarget:self action:@selector(pause) forControlEvents:UIControlEventTouchUpInside];
@@ -371,8 +379,11 @@
 	
 	//set the button's title
 	//[stopButton setTitle:@"stop" forState:UIControlStateNormal];
-	[stopButton setImage:[UIImage imageNamed:@"images/multimedia/buttonStop.png"] forState:UIControlStateNormal];
 	
+	NSString *imagePath2 = [[NSBundle mainBundle] pathForResource:@"multimedia/buttonStop.png" ofType:nil inDirectory:k];
+	
+	[stopButton setImage:[UIImage imageWithContentsOfFile:imagePath2] forState:UIControlStateNormal];
+
 	//listen for clicks
 	[stopButton addTarget:self action:@selector(stop) forControlEvents:UIControlEventTouchUpInside];
 	
@@ -448,14 +459,15 @@
 			}				
 		}
 		
-		NSString *imagePath = [[[NSBundle mainBundle]resourcePath] stringByAppendingPathComponent:varStyles.backgroundFileName];
+		NSString *k = [eMobcViewController whatDevice:k];
 		
-		imagePath = [eMobcViewController addIPadImageSuffixWhenOnIPad:imagePath];
+		NSString *imagePath = [[NSBundle mainBundle] pathForResource:varStyles.backgroundFileName ofType:nil inDirectory:k];
 		
 		background.image = [UIImage imageWithContentsOfFile:imagePath];
 		
 		[self.view addSubview:background];
 		[self.view sendSubviewToBack:background];
+		[background release];
 	}else{
 		self.view.backgroundColor = [UIColor whiteColor];
 	}

@@ -136,7 +136,7 @@ static CGFloat const kTabBarHeightiPad = 58.0;
 
 }
 
-/*-(void)loadThemesComponents {
+-(void)loadThemesComponents {
 	
 	for(int x = 0; x < varStyles.listComponents.count; x++){
 		NSString *var = [varStyles.listComponents objectAtIndex:x];
@@ -161,7 +161,7 @@ static CGFloat const kTabBarHeightiPad = 58.0;
 				}				
 			}
 			
-			myLabel.text = data.headerText;
+			myLabel.text = @"Profile";
 			
 			int varSize = [varFormats.textSize intValue];
 			
@@ -177,13 +177,13 @@ static CGFloat const kTabBarHeightiPad = 58.0;
 			[myLabel release];
 		}
 	}
-}*/
+}
 
 
 /**
  Carga los temas
  */
-/*-(void) loadThemes {
+-(void) loadThemes {
 	if(![varStyles.backgroundFileName isEqualToString:@""]) {
 		
 		if([eMobcViewController isIPad]){
@@ -200,9 +200,9 @@ static CGFloat const kTabBarHeightiPad = 58.0;
 			}				
 		}
 		
-		NSString *imagePath = [[[NSBundle mainBundle]resourcePath] stringByAppendingPathComponent:varStyles.backgroundFileName];
+		NSString *k = [eMobcViewController whatDevice:k];
 		
-		imagePath = [eMobcViewController addIPadImageSuffixWhenOnIPad:imagePath];
+		NSString *imagePath = [[NSBundle mainBundle] pathForResource:varStyles.backgroundFileName ofType:nil inDirectory:k];
 		
 		background.image = [UIImage imageWithContentsOfFile:imagePath];
 		
@@ -234,7 +234,7 @@ static CGFloat const kTabBarHeightiPad = 58.0;
 		}
 		[self loadThemesComponents];
 	}
-}*/
+}
 
 /**
  * Load and prepare the form
@@ -257,9 +257,13 @@ static CGFloat const kTabBarHeightiPad = 58.0;
 			}				
 		}
 		
-		background.image = [UIImage imageNamed:@"images/cover/backgroundCover.png"];
+		NSString *k = [eMobcViewController whatDevice:k];
+		
+		NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"images/cover/backgroundCover.png" ofType:nil inDirectory:k];
+		
+		background.image = [UIImage imageWithContentsOfFile:imagePath];
+		
 		[self.view addSubview:background];
-	
 		
 		if([eMobcViewController isIPad]){
 			if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
@@ -743,9 +747,12 @@ static CGFloat const kTabBarHeightiPad = 58.0;
 		}
 	}
 	
-	[buttonCamara setImage:[UIImage imageNamed:@"images/form/takePicture.png"] forState:UIControlStateNormal];
-		
+	NSString *k = [eMobcViewController whatDevice:k];
 	
+	NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"images/form/takePicture.png" ofType:nil inDirectory:k];
+	
+	[buttonCamara setImage:[UIImage imageWithContentsOfFile:imagePath] forState:UIControlStateNormal];
+		
 	UIButton *buttonGalery = [[UIButton buttonWithType:UIButtonTypeCustom] retain];	
 	if([eMobcViewController isIPad]){
 		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
@@ -761,8 +768,9 @@ static CGFloat const kTabBarHeightiPad = 58.0;
 		}		
 	}
 	
-	[buttonGalery setImage:[UIImage imageNamed:@"images/form/galleryPicture.png"] forState:UIControlStateNormal];
-
+	NSString *imagePath1 = [[NSBundle mainBundle] pathForResource:@"images/form/galleryPicture.png" ofType:nil inDirectory:k];
+	
+	[buttonGalery setImage:[UIImage imageWithContentsOfFile:imagePath1] forState:UIControlStateNormal];
 	
 	[buttonCamara addTarget:self action:@selector(takePicturePressed:) forControlEvents:UIControlEventTouchUpInside];
 	[buttonGalery addTarget:self action:@selector(selectPicturePressed:) forControlEvents:UIControlEventTouchUpInside];
@@ -810,6 +818,7 @@ static CGFloat const kTabBarHeightiPad = 58.0;
 	return [self addTextFieldOfType:field ypos:ypos withValue:value keyboardType:UIKeyboardTypeNumberPad];
 }
 
+
 /**
  * Add phone field 
  *
@@ -824,6 +833,7 @@ static CGFloat const kTabBarHeightiPad = 58.0;
 -(float) addPhoneField:(NwAppField*)field ypos:(float)ypos withValue:(NSString*) value {
 	return [self addTextFieldOfType:field ypos:ypos withValue:value keyboardType:UIKeyboardTypePhonePad];
 }
+
 
 /**
  * Add e-mail field
