@@ -38,6 +38,8 @@
 @synthesize stylesFileName;
 @synthesize formatsFileName;
 @synthesize profileFileName;
+@synthesize pushUrl;
+@synthesize appId;
 
 
 -(id)init {
@@ -64,6 +66,8 @@
 	[stylesFileName release];
 	[formatsFileName release];
 	[profileFileName release];
+	[pushUrl release];
+	[appId release];
 	
 	[super dealloc];
 }

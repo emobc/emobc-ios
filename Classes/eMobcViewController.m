@@ -69,6 +69,7 @@
 			[self loadCover];
 		}
 	}
+
     
     //[NSThread sleepForTimeInterval:1.0];
     
@@ -1615,5 +1616,3 @@
 }
 
 @end
-
-

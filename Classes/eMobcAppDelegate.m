@@ -100,17 +100,19 @@
                      stringByReplacingOccurrencesOfString: @"<" withString: @""]
                     stringByReplacingOccurrencesOfString: @">" withString: @""]
                    stringByReplacingOccurrencesOfString: @" " withString: @""];
-    
-    NSString *host = @"";
-    NSString *URLString = @"";
-    URLString = [URLString stringByAppendingString:@""];
-    URLString = [URLString stringByAppendingString:@""];
+	
+  /*NSString *host = @"www.madeinmobile.net/3minmotor/";
+    NSString *URLString = @"/register.php?id=";*/
+	NSString *host = viewController.appData.pushUrl;
+    NSString *URLString = @"/register.php?id=";
+    URLString = [URLString stringByAppendingString:viewController.appData.appId];
+    URLString = [URLString stringByAppendingString:@"&devicetoken="];
     
     NSString *dt = [[deviceToken description] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
     dt = [dt stringByReplacingOccurrencesOfString:@" " withString:@""];
     
     URLString = [URLString stringByAppendingString:dt];
-    URLString = [URLString stringByAppendingString:@""];
+    URLString = [URLString stringByAppendingString:@"&devicename="];
     URLString = [URLString stringByAppendingString:[[UIDevice alloc] name]];
     
     NSURL *url = [[NSURL alloc] initWithScheme:@"http" host:host path:URLString];

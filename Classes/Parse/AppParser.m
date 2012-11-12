@@ -45,6 +45,9 @@ static NSString * const kTopMenuElementName = @"topMenu";
 static NSString * const kBottomMenuElementName = @"bottomMenu";
 static NSString * const kBackgroundMenuElementName = @"backgroundMenu";
 
+static NSString * const kPushUrlElementName = @"pushUrl";
+static NSString * const kAppIdElementName = @"appId";
+
 
 //Publicity
 static NSString * const kBannerElementName = @"banner";
@@ -69,6 +72,7 @@ static NSString * const kLevelUseProfileElementName = @"levelUseProfile";
 static NSString * const kStartPointElementName = @"entryPoint";
 static NSString * const kPointNextLevelIdElementName = @"pointLevelId";
 static NSString * const kPointNextDataIdElementName = @"pointDataId";
+
 
 static NSString * const kActTypeCover = @"COVER_ACTIVITY";
 static NSString * const kActTypeImageDescr = @"IMAGE_TEXT_DESCRIPTION_ACTIVITY";
@@ -135,6 +139,8 @@ static NSString * const kActTypeAudio = @"AUDIO_ACTIVITY";
 			   [elementName isEqualToString:kBackgroundMenuElementName] ||
 			   [elementName isEqualToString:kBottomMenuElementName] ||
 			   [elementName isEqualToString:kAdsElementName] ||
+			   [elementName isEqualToString:kPushUrlElementName] ||
+			   [elementName isEqualToString:kAppIdElementName] ||
                [elementName isEqualToString:kLevelIdElementName]||
 			   [elementName isEqualToString:kLevelXibElementName]||
                [elementName isEqualToString:kLevelTitleElementName]||
@@ -203,6 +209,10 @@ static NSString * const kActTypeAudio = @"AUDIO_ACTIVITY";
 		self.currentAppLevelObject.title = self.currentParsedCharacterData;
     } else if ([elementName isEqualToString:kLevelAdsElementName]) {
 		self.currentAppLevelObject.ads = self.currentParsedCharacterData;
+	} else if ([elementName isEqualToString:kPushUrlElementName]){
+		self.currentApplicationDataObject.pushUrl = self.currentParsedCharacterData;
+	} else if ([elementName isEqualToString:kAppIdElementName]){
+		self.currentApplicationDataObject.appId = self.currentParsedCharacterData;
 	} else if ([elementName isEqualToString:kLevelFileElementName]) {
 		CachedContent* cachedContent = [[CachedContent alloc] initWithFileName:self.currentParsedCharacterData]; 
 		self.currentAppLevelObject.file = cachedContent;
@@ -249,4 +259,3 @@ static NSString * const kActTypeAudio = @"AUDIO_ACTIVITY";
 }
 
 @end
-

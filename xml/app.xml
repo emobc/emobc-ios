@@ -14,6 +14,8 @@
 		<bottomMenu>bottom_menu.xml</bottomMenu>
 		<backgroundMenu>images/menu/backgroundMenu.png</backgroundMenu>
 	</menu>
+	<pushUrl>www.emobc.com</pushUrl>
+	<appId>emobc</appId>   
 	<!--<banner>
 		<type>admob</type>
 		<position>top</position>

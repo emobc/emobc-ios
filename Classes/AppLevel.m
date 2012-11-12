@@ -49,18 +49,17 @@
 		title = nil;
 		file = nil;
 		transitionName = nil;
-		useProfile = FALSE;		
+		useProfile = FALSE;	
 	}	
 	
 	return self;
-	
 }
 
 -(void) dealloc {
 	[levelId release];
 	[title release];
 	[file release];
-	
+		
 	[super dealloc];
 }
 

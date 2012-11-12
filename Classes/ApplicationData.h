@@ -52,6 +52,8 @@
 	NSString *stylesFileName;
 	NSString *formatsFileName;
 	NSString *profileFileName;
+	NSString *pushUrl;
+	NSString *appId;
 }
 
 @property (nonatomic, copy) NSString *title;
@@ -67,6 +69,8 @@
 @property (nonatomic, copy) NSString *stylesFileName;
 @property (nonatomic, copy) NSString *formatsFileName;
 @property (nonatomic, copy) NSString *profileFileName;
+@property (nonatomic, copy) NSString *pushUrl;
+@property (nonatomic, copy) NSString *appId;
 
 
 //Metodos
