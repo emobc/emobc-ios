@@ -48,9 +48,7 @@
 	UITextView *textDesccription;
 	UITextView *textDesccriptionLandscape;
 	UIButton *nextButton;
-	UIButton *nextButtonLandscape;
 	UIButton *prevButton;
-	UIButton *prevButtonLandscape;
 	
 	AVAudioPlayer *player;
 	NSMutableArray *fulltext;
@@ -70,18 +68,18 @@
 @property(nonatomic, retain) IBOutlet UIImageView *imageDescriptionLandscape;
 @property(nonatomic, retain) IBOutlet UITextView *textDesccription;
 @property(nonatomic, retain) IBOutlet UITextView *textDesccriptionLandscape;
-@property(nonatomic, retain) IBOutlet UIButton* nextButton;
-@property(nonatomic, retain) IBOutlet UIButton* nextButtonLandscape;
-@property(nonatomic, retain) IBOutlet UIButton* prevButton;
-@property(nonatomic, retain) IBOutlet UIButton* prevButtonLandscape;
-
+@property(nonatomic, retain) UIButton* nextButton;
+@property(nonatomic, retain) UIButton* prevButton;
 @property(nonatomic, retain) AppStyles* varStyles;
 @property(nonatomic, retain) AppFormatsStyles* varFormats;
 @property(nonatomic, retain) UIImageView *background;
 
 //Acciones
-	-(IBAction) buttonNextPress:(id)sender;
-	-(IBAction) buttonPrevPress:(id)sender;
+	-(void) buttonNextPress:(id)sender;
+	-(void) buttonPrevPress:(id)sender;
+
+	-(void) nextButtonCreate;	
+	-(void) prevButtonCreate;
 
 //Metodos
 	-(void) loadImageText;

@@ -37,9 +37,7 @@
 @synthesize textDesccription;
 @synthesize textDesccriptionLandscape;
 @synthesize nextButton;
-@synthesize nextButtonLandscape;
 @synthesize prevButton;
-@synthesize prevButtonLandscape;
 @synthesize data;
 @synthesize varStyles;
 @synthesize varFormats;
@@ -112,7 +110,7 @@
  *
  * @see loadNextLevel
  */
--(IBAction) buttonNextPress:(id)sender {
+-(void) buttonNextPress:(id)sender {
 	if (playing == TRUE) {
 		playing = FALSE;
 		if (player != nil) {
@@ -131,7 +129,7 @@
  *
  * @see loadNextLevel
  */
--(IBAction) buttonPrevPress:(id)sender {
+-(void) buttonPrevPress:(id)sender {
 	if (playing == TRUE) {
 		playing = FALSE;
 		if (player != nil) {
@@ -229,16 +227,6 @@
 -(void) loadImageText{
 	playing = FALSE;
 	
-	/*UIFont *verMasFont = [UIFont fontWithName:@"Ubuntu-Medium" size:14];
-	
-	if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-		prevButtonLandscape.titleLabel.font = verMasFont;
-		nextButtonLandscape.titleLabel.font = verMasFont;
-	}else{
-		nextButton.titleLabel.font = verMasFont;
-		prevButton.titleLabel.font = verMasFont;
-	}*/
-	
 	if(data != nil){
 		varStyles = [mainController.theStyle.stylesMap objectForKey:@"IMAGE_TEXT_DESCRIPTION_ACTIVITY"];
 		
@@ -246,38 +234,108 @@
 			[self loadThemes];
 		}
 	
-        
 		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
 			imageDescriptionLandscape.userInteractionEnabled = YES;
 			imageDescriptionLandscape.image = [data.image imageContent];
+			textDesccriptionLandscape.text = data.text;
 		}else{
 			imageDescription.userInteractionEnabled = YES;
 			imageDescription.image = [data.image imageContent];
+			textDesccription.text = data.text;
 		}
 		
-		
-		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			[nextButtonLandscape setTitle:@"Siguiente" forState:UIControlStateNormal];
-			[prevButtonLandscape setTitle:@"Anterior" forState:UIControlStateNormal];
-		}else{
-			[prevButton setTitle:@"Anterior" forState:UIControlStateNormal];
-			[nextButton setTitle:@"Siguiente" forState:UIControlStateNormal];
+		if(data.prevLevel != nil && ![data.prevLevel.levelId isEqualToString:@""] && ![data.prevLevel.dataId isEqualToString:@""]){
+			[self prevButtonCreate];
 		}
 		
+		if(data.nextLevel != nil && ![data.nextLevel.levelId isEqualToString:@""] && ![data.nextLevel.dataId isEqualToString:@""]){
+			[self nextButtonCreate];
+		}
+
 	}else {
 		self.titleLabel.text = @"eMobc Madrid";
 		self.textDesccription.text = @"Sin Texto";
 		
-		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			[nextButtonLandscape setTitle:@"Sin Texto" forState:UIControlStateNormal];
-			[prevButtonLandscape setTitle:@"Sin Texto" forState:UIControlStateNormal];
-		}else{
-			[nextButton setTitle:@"Sin Texto" forState:UIControlStateNormal];
-			[prevButton setTitle:@"Sin Texto" forState:UIControlStateNormal];
-		}
-		
+		[nextButton setTitle:@"Sin Texto" forState:UIControlStateNormal];
+		[prevButton setTitle:@"Sin Texto" forState:UIControlStateNormal];
+				
 		self.geoRefString=@"";
 	}
+}
+
+
+
+-(void)nextButtonCreate {
+	
+	//create the button
+	nextButton = [UIButton buttonWithType:UIButtonTypeCustom];
+	
+	//set the position of the button
+	if([eMobcViewController isIPad]){
+		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+			nextButton.frame = CGRectMake(917, 671, 87, 25);
+		}else{
+			nextButton.frame = CGRectMake(671, 438, 87, 25);
+		}				
+	}else {
+		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+			nextButton.frame = CGRectMake(388, 261, 80, 20);
+		}else{
+			nextButton.frame = CGRectMake(229, 272, 87, 25);
+			
+		}				
+	}
+	
+	//NSString *k = [eMobcViewController whatDevice:k];
+	
+	//NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"" ofType:nil inDirectory:k];
+	
+	//set the button's title
+	[nextButton setTitle:@"Siguiente" forState:UIControlStateNormal];
+	//[button setImage:[UIImage imageWithContentsOfFile:imagePath] forState:UIControlStateNormal];
+	
+	//listen for clicks
+	[nextButton addTarget:self action:@selector(buttonNextPress:) forControlEvents:UIControlEventTouchUpInside];
+	
+	//add the button to the view
+	[self.view addSubview:nextButton];
+}
+
+
+-(void)prevButtonCreate {
+	
+	//create the button
+	prevButton = [UIButton buttonWithType:UIButtonTypeCustom];
+	
+	//set the position of the button
+	if([eMobcViewController isIPad]){
+		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+			prevButton.frame = CGRectMake(538, 671, 87, 25);
+		}else{
+			prevButton.frame = CGRectMake(12, 438, 87, 25);
+		}				
+	}else {
+		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+			prevButton.frame = CGRectMake(257, 261, 80, 20);
+		}else{
+			prevButton.frame = CGRectMake(4, 272, 87, 25);
+			
+		}				
+	}
+	
+	//NSString *k = [eMobcViewController whatDevice:k];
+	
+	//NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"" ofType:nil inDirectory:k];
+	
+	//set the button's title
+	[prevButton setTitle:@"Anterior" forState:UIControlStateNormal];
+	//[button setImage:[UIImage imageWithContentsOfFile:imagePath] forState:UIControlStateNormal];
+	
+	//listen for clicks
+	[prevButton addTarget:self action:@selector(buttonPrevPress:) forControlEvents:UIControlEventTouchUpInside];
+	
+	//add the button to the view
+	[self.view addSubview:prevButton];
 }
 
 
@@ -313,9 +371,10 @@
 			myLabel.font = [UIFont fontWithName:varFormats.typeFace size:varSize];
 			myLabel.backgroundColor = [UIColor clearColor];
 			
+
 			//Hay que convertirlo a hexadecimal.
 			//	varFormats.textColor
-			myLabel.textColor = [UIColor whiteColor];
+			myLabel.textColor = [UIColor blackColor];
 			myLabel.textAlignment = UITextAlignmentCenter;
 			
 			[self.view addSubview:myLabel];
@@ -357,13 +416,10 @@
 			}
 				
 			int varSize = [varFormats.textSize intValue];
-			if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-				prevButtonLandscape.titleLabel.font = [UIFont fontWithName:varFormats.typeFace size:varSize];
-				nextButtonLandscape.titleLabel.font = [UIFont fontWithName:varFormats.typeFace size:varSize];
-			}else{
-				nextButton.titleLabel.font = [UIFont fontWithName:varFormats.typeFace size:varSize];
-				prevButton.titleLabel.font = [UIFont fontWithName:varFormats.typeFace size:varSize];
-			}
+
+			nextButton.titleLabel.font = [UIFont fontWithName:varFormats.typeFace size:varSize];
+			prevButton.titleLabel.font = [UIFont fontWithName:varFormats.typeFace size:varSize];
+			
 		}
 	}
 }

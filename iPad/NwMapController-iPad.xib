@@ -122,11 +122,11 @@
 				</object>
 				<string key="NSFrameSize">{768, 1024}</string>
 				<reference key="NSSuperview"/>
-				<reference key="IBUIBackgroundColor" ref="326467269"/>
+				<reference key="IBUIBackgroundColor" ref="41515408"/>
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 			</object>
 			<object class="IBUIView" id="517359473">
-				<reference key="NSNextResponder"/>
+				<nil key="NSNextResponder"/>
 				<int key="NSvFlags">274</int>
 				<object class="NSMutableArray" key="NSSubviews">
 					<bool key="EncodedWithXMLCoder">YES</bool>
@@ -135,7 +135,6 @@
 						<int key="NSvFlags">-2147483390</int>
 						<string key="NSFrame">{{28, 490}, {967, 44}}</string>
 						<reference key="NSSuperview" ref="517359473"/>
-						<reference key="NSWindow"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<int key="IBUIContentMode">3</int>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -149,7 +148,6 @@
 						<int key="NSvFlags">-2147483374</int>
 						<string key="NSFrame">{{342, 370}, {339, 76}}</string>
 						<reference key="NSSuperview" ref="517359473"/>
-						<reference key="NSWindow"/>
 						<reference key="IBUIBackgroundColor" ref="764132462"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -169,7 +167,6 @@
 						<int key="NSvFlags">274</int>
 						<string key="NSFrame">{{0, 128}, {1024, 582}}</string>
 						<reference key="NSSuperview" ref="517359473"/>
-						<reference key="NSWindow"/>
 						<bool key="IBUIClipsSubviews">YES</bool>
 						<bool key="IBUIMultipleTouchEnabled">YES</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -179,7 +176,6 @@
 						<int key="NSvFlags">274</int>
 						<string key="NSFrame">{{964, 138}, {50, 50}}</string>
 						<reference key="NSSuperview" ref="517359473"/>
-						<reference key="NSWindow"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
@@ -195,9 +191,7 @@
 					</object>
 				</object>
 				<string key="NSFrameSize">{1024, 768}</string>
-				<reference key="NSSuperview"/>
-				<reference key="NSWindow"/>
-				<reference key="IBUIBackgroundColor" ref="326467269"/>
+				<reference key="IBUIBackgroundColor" ref="41515408"/>
 				<object class="IBUISimulatedOrientationMetrics" key="IBUISimulatedOrientationMetrics">
 					<int key="interfaceOrientation">3</int>
 				</object>

@@ -178,8 +178,8 @@ static NSString *cellIdentifier = @"NwTableCell";
 		
 		background.image = [UIImage imageWithContentsOfFile:imagePath];
 		
-		[self.view addSubview:background];
-		[self.view sendSubviewToBack:background];
+		//[self.view addSubview:background];
+		//[self.view sendSubviewToBack:background];
 	}else{
 		self.view.backgroundColor = [UIColor whiteColor];
 	}

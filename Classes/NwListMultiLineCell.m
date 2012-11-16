@@ -105,7 +105,7 @@
 		
 		//Hay que convertirlo a hexadecimal.
 		//	varFormats.textColor
-		listLabel.textColor = [UIColor whiteColor];
+		listLabel.textColor = [UIColor blackColor];
 		[listLabel setBackgroundColor:[UIColor clearColor]];
 		
 		listLabel.font = font;
@@ -176,7 +176,7 @@
 	
 	//Hay que convertirlo a hexadecimal.
 	//	varFormats.textColor
-	listLabel.textColor = [UIColor whiteColor];
+	listLabel.textColor = [UIColor blackColor];
 	[listLabel setBackgroundColor:[UIColor clearColor]];
 	
 	
@@ -192,7 +192,7 @@
 	descrLabel.font = fontDescr;		
 	//Hay que convertirlo a hexadecimal.
 	//	varFormats.textColor
-	descrLabel.textColor =  [UIColor whiteColor];
+	descrLabel.textColor =  [UIColor blackColor];
 	[descrLabel setBackgroundColor:[UIColor clearColor]];
 }
 

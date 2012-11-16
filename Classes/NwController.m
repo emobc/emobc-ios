@@ -86,16 +86,19 @@
 	[self createIndicator];
 
 	//publicity
-	if([mainController.appData.banner isEqualToString:@"admob"]){
-		[self createAdmobBanner];
-	}else if([mainController.appData.banner isEqualToString:@"yoc"]){
-		[self createYocBanner];
+	if(![mainController.appData.banner isEqualToString:@""] && ![mainController.appData.bannerPos isEqualToString:@""] && ![mainController.appData.bannerId isEqualToString:@""]){
+		if([mainController.appData.banner isEqualToString:@"admob"]){
+			[self createAdmobBanner];
+		}else if([mainController.appData.banner isEqualToString:@"yoc"]){
+			[self createYocBanner];
+		}
 	}
 	
 	//Init view into landscape way when display didn't move
 	if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
 		self.view = self.landscapeView;
 	}
+	
 	
 	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 	NSString *documentsDirectory = [paths objectAtIndex:0];
@@ -104,10 +107,6 @@
 	NSString *rutaArchivo = [documentsDirectory stringByAppendingPathComponent:@"Form_Profile.data"];
 
 	if([gestorArchivos fileExistsAtPath:rutaArchivo]){
-		
-		if(![mainController.appData.backgroundMenu isEqualToString:@""]){
-			[self loadBackgroundMenu];
-		}
 		
 		if(![mainController.appData.topMenu isEqualToString:@""]) {
 			[self callTopMenu];
@@ -422,12 +421,12 @@
 	if([eMobcViewController isIPad]){
 		if([mainController.appData.bannerPos isEqualToString:@"top"])
 			origin = CGPointMake(0, 0);
-		else
+		else if ([mainController.appData.bannerPos isEqualToString:@"bottom"])
 			origin = CGPointMake(0.0, self.view.frame.size.height - CGSizeFromGADAdSize(kGADAdSizeBanner).height-58.0);
 	}else{
 		if([mainController.appData.bannerPos isEqualToString:@"top"])
 			origin = CGPointMake(0, 0);
-		else
+		else if([mainController.appData.bannerPos isEqualToString:@"bottom"])
 			origin = CGPointMake(0.0, self.view.frame.size.height - CGSizeFromGADAdSize(kGADAdSizeBanner).height-38.0);
 	}
 	
@@ -436,12 +435,12 @@
 	if([eMobcViewController isIPad]){
 		if([mainController.appData.bannerPos isEqualToString:@"top"])
 			admobBanner_.center = CGPointMake(self.view.center.x, 84);
-		else
+		else if([mainController.appData.bannerPos isEqualToString:@"bottom"])
 			admobBanner_.center = CGPointMake(self.view.center.x, self.view.frame.size.height - CGSizeFromGADAdSize(kGADAdSizeBanner).height - 15);
 	}else{
 		if([mainController.appData.bannerPos isEqualToString:@"top"])
 			admobBanner_.center = CGPointMake(self.view.center.x, 65);
-		else
+		else if([mainController.appData.bannerPos isEqualToString:@"bottom"])
 			admobBanner_.center = CGPointMake(self.view.center.x, self.view.frame.size.height - CGSizeFromGADAdSize(kGADAdSizeBanner).height - 15);
 	}
 	
@@ -468,7 +467,7 @@
 	if([mainController.appData.bannerPos isEqualToString:@"top"])
 		self.yocBanner_ = [[SmartAdServerView alloc] initWithFrame:CGRectMake(0, 38, self.view.frame.size.width, 50) 
 															loader:SmartAdServerViewLoaderActivityIndicatorStyleWhite];
-	else 
+	else if([mainController.appData.bannerPos isEqualToString:@"bottom"])
 		self.yocBanner_ = [[SmartAdServerView alloc] initWithFrame:
 						   CGRectMake(0, self.view.frame.size.height-50-38, self.view.frame.size.width, 50) 
 															loader:SmartAdServerViewLoaderActivityIndicatorStyleWhite];

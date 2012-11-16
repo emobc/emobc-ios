@@ -12,8 +12,8 @@
 		</object>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="45"/>
 			<integer value="1"/>
+			<integer value="45"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -78,9 +78,9 @@
 							<int key="NSColorSpace">3</int>
 							<bytes key="NSWhite">MC41AA</bytes>
 						</object>
-						<object class="NSCustomResource" key="IBUINormalImage" id="4361642">
+						<object class="NSCustomResource" key="IBUINormalImage" id="551732198">
 							<string key="NSClassName">NSImage</string>
-							<string key="NSResourceName">device/iphone4/icons/scanButton.png</string>
+							<string key="NSResourceName">iphone/images/icons/scanButton.png</string>
 						</object>
 					</object>
 					<object class="IBUITextView" id="422713199">
@@ -110,10 +110,7 @@
 				</object>
 				<string key="NSFrameSize">{320, 480}</string>
 				<reference key="NSSuperview"/>
-				<object class="NSColor" key="IBUIBackgroundColor" id="798602119">
-					<int key="NSColorSpace">1</int>
-					<bytes key="NSRGB">MCAwIDAAA</bytes>
-				</object>
+				<reference key="IBUIBackgroundColor" ref="89276145"/>
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 			</object>
 			<object class="IBUIView" id="1014141533">
@@ -146,7 +143,7 @@
 							<bytes key="NSRGB">MC4xOTYwNzg0MzQ2IDAuMzA5ODAzOTMyOSAwLjUyMTU2ODY1NgA</bytes>
 						</object>
 						<reference key="IBUINormalTitleShadowColor" ref="35637224"/>
-						<reference key="IBUINormalImage" ref="4361642"/>
+						<reference key="IBUINormalImage" ref="551732198"/>
 					</object>
 					<object class="IBUITextView" id="649816639">
 						<reference key="NSNextResponder" ref="1014141533"/>
@@ -168,7 +165,7 @@
 				</object>
 				<string key="NSFrameSize">{480, 320}</string>
 				<reference key="NSSuperview"/>
-				<reference key="IBUIBackgroundColor" ref="798602119"/>
+				<reference key="IBUIBackgroundColor" ref="89276145"/>
 				<object class="IBUISimulatedOrientationMetrics" key="IBUISimulatedOrientationMetrics">
 					<int key="interfaceOrientation">3</int>
 				</object>
@@ -356,7 +353,7 @@
 					<bool key="EncodedWithXMLCoder">YES</bool>
 					<string>NwQRController</string>
 					<string>UIResponder</string>
-					<string>{{1, 77}, {320, 480}}</string>
+					<string>{{209, 159}, {320, 480}}</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<object class="NSAffineTransform">
@@ -859,7 +856,7 @@
 		<string key="IBDocument.LastKnownRelativeProjectPath">../eMobc.xcodeproj</string>
 		<int key="IBDocument.defaultPropertyAccessControl">3</int>
 		<object class="NSMutableDictionary" key="IBDocument.LastKnownImageSizes">
-			<string key="NS.key.0">device/iphone4/icons/scanButton.png</string>
+			<string key="NS.key.0">iphone/images/icons/scanButton.png</string>
 			<string key="NS.object.0">{16, 16}</string>
 		</object>
 		<string key="IBCocoaTouchPluginVersion">141</string>

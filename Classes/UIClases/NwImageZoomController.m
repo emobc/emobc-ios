@@ -68,7 +68,7 @@
 	self.imageView = tempImageView;
 	self.imageViewLandscape = tempImageView;
 	[tempImageView release];
-	
+
 	scrollView.contentSize = CGSizeMake(imageView.frame.size.width, imageView.frame.size.height);
 	scrollView.maximumZoomScale = 4.0;
 	scrollView.minimumZoomScale = 0.75;

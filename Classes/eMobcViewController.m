@@ -51,16 +51,9 @@
 
 	//init appData, read app.xml
 	appData = [[NwUtil instance] readApplicationData];
-		
-	NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-	NSString *documentsDirectory = [paths objectAtIndex:0];
 	
-	NSFileManager *gestorArchivos = [NSFileManager defaultManager];
-	NSString *rutaArchivo = [documentsDirectory stringByAppendingPathComponent:@"Form_Profile.data"];
-	
-	if(![gestorArchivos fileExistsAtPath:rutaArchivo]){
-		[self loadProfileFirstTime];
-	}else{
+	//CHECK: Controla si la aplicacion tiene o no profile.
+	if(appData.profileFileName == nil || [appData.profileFileName isEqualToString:@""]){
 		if([appData.pointLevelId isEqualToString:@""] == NO && [appData.pointDataId isEqualToString:@""] == NO){
 			NextLevel* StartPointNL = [[NextLevel alloc] initWithData: appData.pointLevelId dataId: appData.pointDataId];
 			[self loadNextLevel:StartPointNL];
@@ -68,8 +61,26 @@
 		}else {
 			[self loadCover];
 		}
+		
+	}else{
+		NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+		NSString *documentsDirectory = [paths objectAtIndex:0];
+		
+		NSFileManager *gestorArchivos = [NSFileManager defaultManager];
+		NSString *rutaArchivo = [documentsDirectory stringByAppendingPathComponent:@"Form_Profile.data"];
+		
+		if(![gestorArchivos fileExistsAtPath:rutaArchivo]){
+			[self loadProfileFirstTime];
+		}else{
+			if([appData.pointLevelId isEqualToString:@""] == NO && [appData.pointDataId isEqualToString:@""] == NO){
+				NextLevel* StartPointNL = [[NextLevel alloc] initWithData: appData.pointLevelId dataId: appData.pointDataId];
+				[self loadNextLevel:StartPointNL];
+				[StartPointNL release];
+			}else {
+				[self loadCover];
+			}
+		}
 	}
-
     
     //[NSThread sleepForTimeInterval:1.0];
     

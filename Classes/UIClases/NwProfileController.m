@@ -257,11 +257,8 @@ static CGFloat const kTabBarHeightiPad = 58.0;
 			}				
 		}
 		
-		NSString *k = [eMobcViewController whatDevice:k];
-		
-		NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"images/cover/backgroundCover.png" ofType:nil inDirectory:k];
-		
-		background.image = [UIImage imageWithContentsOfFile:imagePath];
+		background.backgroundColor = [UIColor blackColor];
+		background.opaque = NO;
 		
 		[self.view addSubview:background];
 		
