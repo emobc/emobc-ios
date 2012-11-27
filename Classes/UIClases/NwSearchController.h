@@ -46,10 +46,8 @@
 	OverlayViewController *ovController;
 
 //Outlets
-	IBOutlet UISearchBar *searchBar;
-	IBOutlet UISearchBar *searchBarLandscape;
-	IBOutlet UITableView *tableView;
-	IBOutlet UITableView *tableViewLandscape; 
+	UISearchBar *searchBar;
+	UITableView *tableView;
 	
 	BOOL searching;
 	BOOL letUserSelectRow;
@@ -60,16 +58,22 @@
 	UIImageView *background;	
 	
 	UIDeviceOrientation currentOrientation;
+	
+	NSInteger sizeTop;
+	NSInteger sizeBottom;
+	NSInteger sizeHeaderText;
 }
 
-@property(nonatomic, retain) IBOutlet UITableView *tableView;
-@property(nonatomic, retain) IBOutlet UITableView *tableViewLandscape;
-@property(nonatomic, retain) IBOutlet UISearchBar *searchBar;
-@property(nonatomic, retain) IBOutlet UISearchBar *searchBarLandscape;
+@property(nonatomic, retain) UITableView *tableView;
+@property(nonatomic, retain) UISearchBar *searchBar;
 
 @property(nonatomic, retain) AppStyles* varStyles;
 @property(nonatomic, retain) AppFormatsStyles* varFormats;
 @property(nonatomic, retain) UIImageView *background;
+
+@property (nonatomic) NSInteger sizeTop;
+@property (nonatomic) NSInteger sizeBottom;
+@property (nonatomic) NSInteger sizeHeaderText;
 
 //Metodos
 	-(void) searchTableView;
@@ -80,5 +84,9 @@
 
 	-(void) loadThemesComponents;
 	-(void) loadThemes;
+
+	-(void) createSearchBar;
+	-(void) createTableView;
+	-(void) loadSize;
 
 @end

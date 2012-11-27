@@ -38,7 +38,12 @@ extern const CGSize kTileSizeIPadLandscape;
 				  r = CGRectMake(j*kTileSizeIPad.width, i*kTileSizeIPad.height, kTileSizeIPad.width, kTileSizeIPad.height);
 			  }	
 		  }else{
-			  r = CGRectMake(j*kTileSize.width, i*kTileSize.height, kTileSize.width, kTileSize.height);
+			  if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+				  r = CGRectMake(j*kTileSizeLandscape.width, i*kTileSizeLandscape.height, kTileSizeLandscape.width, kTileSizeLandscape.height);			 
+			  }else{
+				  r = CGRectMake(j*kTileSize.width, i*kTileSize.height, kTileSize.width, kTileSize.height);
+			  }
+			 
 		  }
 
 		  [self addSubview:[[[KalTileView alloc] initWithFrame:r] autorelease]];

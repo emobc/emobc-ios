@@ -36,29 +36,37 @@
 	UIImageView *background;
 	
 //Outlets
-	IBOutlet UIWebView* webView;
-	IBOutlet UIWebView* webViewLandscape;
+	UIWebView* webView;
 	
 	UIDeviceOrientation currentOrientation;
 	
 	bool loadContent;
+	
+	NSInteger sizeTop;
+	NSInteger sizeBottom;
+	NSInteger sizeHeaderText;
 }
 
 @property(nonatomic, retain) WebLevelData* data;
 @property(nonatomic, retain) AppStyles* varStyles;
 @property(nonatomic, retain) AppFormatsStyles* varFormats;
 @property(nonatomic, retain) UIImageView *background;
-@property(nonatomic, retain) IBOutlet UIWebView* webView;
-@property(nonatomic, retain) IBOutlet UIWebView* webViewLandscape;
+@property(nonatomic, retain) UIWebView* webView;
+
+@property (nonatomic) NSInteger sizeTop;
+@property (nonatomic) NSInteger sizeBottom;
+@property (nonatomic) NSInteger sizeHeaderText;
 
 //Metodos
-	-(void)embedWeb:(NSString*)url frame:(CGRect)frame;
-	-(void)embedHTML:(NSString*)url frame:(CGRect)frame;
+	-(void) embedWeb:(NSString*)url frame:(CGRect)frame;
+	-(void) embedHTML:(NSString*)url frame:(CGRect)frame;
 
 	-(void) loadThemesComponents;
 	-(void) loadThemes;
 
 	-(void) orientationChangedMethod;
 	-(void) orientationChanged:(NSNotification *)object;
+
+	-(void) createWebView;
 
 @end

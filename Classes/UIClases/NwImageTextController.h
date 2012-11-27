@@ -44,9 +44,7 @@
 	
 //Outlets
 	UIImageView *imageDescription;
-	UIImageView *imageDescriptionLandscape;
 	UITextView *textDesccription;
-	UITextView *textDesccriptionLandscape;
 	UIButton *nextButton;
 	UIButton *prevButton;
 	
@@ -60,19 +58,24 @@
 	UIDeviceOrientation currentOrientation;
 	
 	bool loadContent;
-
+	
+	NSInteger sizeTop;
+	NSInteger sizeBottom;
+	NSInteger sizeHeaderText;
 }
 
 @property(nonatomic, retain) ImageTextDescriptionLevelData* data;
-@property(nonatomic, retain) IBOutlet UIImageView *imageDescription;
-@property(nonatomic, retain) IBOutlet UIImageView *imageDescriptionLandscape;
-@property(nonatomic, retain) IBOutlet UITextView *textDesccription;
-@property(nonatomic, retain) IBOutlet UITextView *textDesccriptionLandscape;
+@property(nonatomic, retain) UIImageView *imageDescription;
+@property(nonatomic, retain) UITextView *textDesccription;
 @property(nonatomic, retain) UIButton* nextButton;
 @property(nonatomic, retain) UIButton* prevButton;
 @property(nonatomic, retain) AppStyles* varStyles;
 @property(nonatomic, retain) AppFormatsStyles* varFormats;
 @property(nonatomic, retain) UIImageView *background;
+
+@property (nonatomic) NSInteger sizeTop;
+@property (nonatomic) NSInteger sizeBottom;
+@property (nonatomic) NSInteger sizeHeaderText;
 
 //Acciones
 	-(void) buttonNextPress:(id)sender;
@@ -88,5 +91,8 @@
 	-(void) loadThemes;
 
 	-(IBAction) shareButtonPress:(id)sender;
+
+	-(void) createTextView;
+	-(void) createImageView;
 
 @end

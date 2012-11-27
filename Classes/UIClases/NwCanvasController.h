@@ -53,6 +53,11 @@
 	
 	bool loadContent;
 	
+	NSInteger sizeTop;
+	NSInteger sizeBottom;
+	NSInteger sizeHeaderText;	
+	
+	UIButton *infoButton;
 }
 
 @property(nonatomic, retain) CanvasLevelData* data;
@@ -60,11 +65,20 @@
 @property(nonatomic, retain) AppFormatsStyles* varFormats;
 @property(nonatomic, retain) UIImageView *background;
 
+@property(nonatomic) NSInteger sizeTop;
+@property(nonatomic) NSInteger sizeBottom;
+@property(nonatomic) NSInteger sizeHeaderText;
+
+@property(nonatomic, retain) UIButton *infoButton;
+
 //Metodos
 
 	-(void) loadThemesComponents;
 	-(void) loadThemes;
 
-	-(IBAction)showInfo:(id)sender;
+	-(void)showInfo:(id)sender;
+
+	-(void) createInfoButton;
+
 
 @end

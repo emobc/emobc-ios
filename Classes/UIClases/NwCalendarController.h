@@ -51,9 +51,16 @@
 	UIDeviceOrientation currentOrientation;
 	
 	bool loadContent;
+	
+	NSInteger sizeTop;
+	NSInteger sizeBottom;
+	NSInteger sizeHeaderText;
 }
 
 @property(nonatomic, retain) CalendarLevelData* data;
+@property (nonatomic) NSInteger sizeTop;
+@property (nonatomic) NSInteger sizeBottom;
+@property (nonatomic) NSInteger sizeHeaderText;
 
 -(void) kalInitialization;
 

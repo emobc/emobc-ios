@@ -41,9 +41,7 @@
 	
 //Outlets
 	UIImageView* imageView;
-	UIImageView* imageViewLandscape;
-	IBOutlet UIScrollView* scrollView;
-	IBOutlet UIScrollView* scrollViewLandscape;
+	UIScrollView* scrollView;
 	
 	AppStyles* varStyles;
 	AppFormatsStyles* varFormats;
@@ -53,23 +51,30 @@
 	
 	bool loadContent;
 	
+	NSInteger sizeTop;
+	NSInteger sizeBottom;
+	NSInteger sizeHeaderText;
 }
  
 @property(nonatomic, retain) ImageZoomLevelData* data;
 
 @property(nonatomic,retain) UIImageView* imageView;
-@property(nonatomic,retain) UIImageView* imageViewLandscape;
 @property(nonatomic,retain) UIScrollView* scrollView;
-@property(nonatomic,retain) UIScrollView* scrollViewLandscape;
 
 @property(nonatomic, retain) AppStyles* varStyles;
 @property(nonatomic, retain) AppFormatsStyles* varFormats;
 @property(nonatomic, retain) UIImageView *background;
+
+@property (nonatomic) NSInteger sizeTop;
+@property (nonatomic) NSInteger sizeBottom;
+@property (nonatomic) NSInteger sizeHeaderText;
 
 //Metodos
 
 	-(void) loadPhoto;
 	-(void)	loadThemesComponents;
 	-(void) loadThemes;
+
+	-(void) createScrollView;
 
 @end

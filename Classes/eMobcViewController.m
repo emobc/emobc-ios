@@ -1566,6 +1566,40 @@
 	}					
 }
 
+-(NSInteger) ifMenuAndAdsTop: (NSInteger) sizeTop{
+	
+	if(![appData.topMenu isEqualToString:@""]){
+		sizeTop = sizeTop + 38;	
+	}
+	
+	if(![appData.banner isEqualToString:@""] && [appData.bannerPos isEqualToString:@"top"] && ![appData.bannerId isEqualToString:@""]){
+		sizeTop = sizeTop + 50;
+	}
+	
+	if([eMobcViewController isIPad]){
+		sizeTop = sizeTop + 20;
+	}
+	
+	return sizeTop;
+}
+
+-(NSInteger) ifMenuAndAdsBottom: (NSInteger) sizeBottom{
+	
+	if(![appData.bottomMenu isEqualToString:@""]){
+		sizeBottom = sizeBottom + 38;
+	}
+	
+	if(![appData.banner isEqualToString:@""] && [appData.bannerPos isEqualToString:@"bottom"] && ![appData.bannerId isEqualToString:@""]){
+		sizeBottom = sizeBottom + 50;
+	}
+	
+	if([eMobcViewController isIPad]){
+		sizeBottom = sizeBottom + 20;
+	}
+	
+	return sizeBottom;
+}
+
 
 +(NSString *) whatDevice:(NSString *) directoryImages{
  

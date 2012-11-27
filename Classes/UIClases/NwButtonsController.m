@@ -37,12 +37,19 @@
 @synthesize varStyles;
 @synthesize varFormats;
 @synthesize background;
+@synthesize sizeTop;
+@synthesize sizeBottom;
 
 /**
  * Called after the controller’s view is loaded into memory.
  */
 - (void)viewDidLoad {
    	[super viewDidLoad];
+	sizeTop = 0;
+	sizeBottom = 0;
+	
+	sizeTop = [mainController ifMenuAndAdsTop:sizeTop];
+	sizeBottom = [mainController ifMenuAndAdsBottom:sizeBottom];
 	
 	if (data != nil) {
 		varStyles = [mainController.theStyle.stylesMap objectForKey:@"BUTTONS_ACTIVITY"];
@@ -65,7 +72,7 @@
 -(void)loadButtons{
 	// load buttons position
 	int x = 40;
-	int y = 120;
+	int y = sizeTop + 40;
 	
 	int width = 50;
 	int height = 28;
@@ -181,18 +188,20 @@
 		varFormats = [mainController.theFormat.formatsMap objectForKey:type];
 		UILabel *myLabel;
 		
+	
+		NSLog(@"top: %d", sizeTop);
 		if([var isEqualToString:@"header"]){
 			if([eMobcViewController isIPad]){
 				if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 108, 1024, 20)];	
+					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop, 1024, 20)];	
 				}else{
-					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 108, 768, 20)];
+					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop, 768, 20)];
 				}				
 			}else {
 				if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 88, 480, 20)];	
+					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop, 480, 20)];	
 				}else{
-					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 88, 320, 20)];
+					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop, 320, 20)];
 				}				
 			}
 			

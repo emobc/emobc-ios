@@ -32,7 +32,6 @@
 @implementation NwImageListController
 
 @synthesize imgListTableView;
-@synthesize imgListTableViewLandscape;
 @synthesize imgListImageView;
 @synthesize data;
 
@@ -40,11 +39,16 @@
 @synthesize varFormats;
 @synthesize background;
 
+@synthesize sizeTop;
+@synthesize sizeBottom;
+@synthesize sizeHeaderText;
+
 /**
  * Called after the controller’s view is loaded into memory.
  */
 -(void)viewDidLoad {
     [super viewDidLoad];
+	
 	loadContent = FALSE;
 	
 	[self loadImageList];
@@ -56,6 +60,13 @@
 -(void) loadImageList{
 	contentArray = [[NSMutableArray alloc] init];
 	
+	sizeTop = 0;
+	sizeBottom = 0;
+	sizeHeaderText = 20;
+	
+	sizeTop = [mainController ifMenuAndAdsTop:sizeTop];
+	sizeBottom = [mainController ifMenuAndAdsBottom:sizeBottom];
+	
 	if (data != nil) {
 		varStyles = [mainController.theStyle.stylesMap objectForKey:@"IMAGE_LIST_ACTIVITY"];
 		
@@ -63,18 +74,21 @@
 			[self loadThemes];
 		}
 		
-		
 		if([eMobcViewController isIPad]){
 			if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-				imgListImageView = [[UIImageView alloc] initWithFrame:CGRectMake(128, 128, 768, 290)];
+				imgListImageView = [[UIImageView alloc] initWithFrame:CGRectMake(128, sizeTop + sizeHeaderText, 768, 290)];
+				sizeTop += 290 + sizeHeaderText;
 			}else{
-				imgListImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 128 , 768, 290)];
+				imgListImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, sizeTop + sizeHeaderText , 768, 290)];
+				sizeTop += 290 + sizeHeaderText;
 			}				
 		}else {
 			if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-				imgListImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 108, 275, 174)];
+				imgListImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, sizeTop + sizeHeaderText, 275, 174)];
+				sizeTop += sizeHeaderText;
 			}else{
-				imgListImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 108, 320, 165)];
+				imgListImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, sizeTop + sizeHeaderText, 320, 165)];
+				sizeTop += 165 + sizeHeaderText;
 			}				
 		}
 		
@@ -83,6 +97,8 @@
 		[contentArray addObjectsFromArray:data.items];
 		
 		[self.view addSubview:imgListImageView];
+		
+		[self createTableView];
 
 	}else {
 		titleLabel.text = @"Neurowork";
@@ -90,6 +106,29 @@
 	}	
 
 }
+
+
+-(void) createTableView{
+	if([eMobcViewController isIPad]){
+		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+			imgListTableView = [[[UITableView alloc] initWithFrame:CGRectMake(0, sizeTop, 1024, 768 - sizeTop - sizeBottom) style:UITableViewStylePlain] autorelease];
+		}else{
+			imgListTableView = [[[UITableView alloc] initWithFrame:CGRectMake(0, sizeTop, 768, 1024 - sizeTop - sizeBottom) style:UITableViewStylePlain] autorelease];
+		}				
+	}else {
+		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+			imgListTableView = [[[UITableView alloc] initWithFrame:CGRectMake(273, sizeTop, 207, 320 - sizeTop - sizeBottom) style:UITableViewStylePlain] autorelease];
+		}else{
+			imgListTableView = [[[UITableView alloc] initWithFrame:CGRectMake(0, sizeTop, 320, 480 - sizeTop - sizeBottom) style:UITableViewStylePlain] autorelease];
+		}				
+	}
+	
+	imgListTableView.dataSource = self;
+	imgListTableView.delegate = self;
+	
+	[self.view addSubview:imgListTableView];
+}
+
 
 -(void) loadThemesComponents {
 	
@@ -104,15 +143,15 @@
 		if([var isEqualToString:@"header"]){
 			if([eMobcViewController isIPad]){
 				if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 108, 1024, 20)];	
+					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop, 1024, 20)];	
 				}else{
-					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 108, 768, 20)];
+					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop, 768, 20)];
 				}				
 			}else {
 				if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 88, 480, 20)];	
+					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop, 480, 20)];	
 				}else{
-					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 88, 320, 20)];
+					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop, 320, 20)];
 				}				
 			}
 			myLabel.text = data.headerText;

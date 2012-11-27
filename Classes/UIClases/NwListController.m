@@ -50,6 +50,10 @@
 @synthesize pathList;
 @synthesize imageToShow;
 
+@synthesize sizeTop;
+@synthesize sizeBottom;
+@synthesize sizeHeaderText;
+
 static NSString *cellIdentifier = @"NwTableCell";
 
 #pragma mark -
@@ -60,6 +64,13 @@ static NSString *cellIdentifier = @"NwTableCell";
  */
 - (void)viewDidLoad {
     [super viewDidLoad];
+	sizeTop = 0;
+	sizeBottom = 0;
+	sizeHeaderText = 0;
+	
+	sizeTop = [mainController ifMenuAndAdsTop:sizeTop];
+	sizeBottom = [mainController ifMenuAndAdsBottom:sizeBottom];
+	
 	loadContent = FALSE;
 	
 	//init data structures
@@ -77,6 +88,8 @@ static NSString *cellIdentifier = @"NwTableCell";
 		if(varStyles != nil) {
 			[self loadThemes];
 		}
+		
+		[self createTableView];
 		
 		//add items to array
 		[contentArray addObjectsFromArray:data.items];		
@@ -105,11 +118,32 @@ static NSString *cellIdentifier = @"NwTableCell";
 	[self restoreScrollPosition];
 }
 
+
+-(void) createTableView{
+	if([eMobcViewController isIPad]){
+		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+			listTableView = [[[UITableView alloc] initWithFrame:CGRectMake(0, sizeTop + sizeHeaderText, 1024, 768 - sizeTop - sizeBottom - sizeHeaderText) style:UITableViewStylePlain] autorelease];
+		}else{
+			listTableView = [[[UITableView alloc] initWithFrame:CGRectMake(0, sizeTop + sizeHeaderText, 768, 1024 - sizeTop - sizeBottom - sizeHeaderText) style:UITableViewStylePlain] autorelease];
+		}				
+	}else {
+		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+			listTableView = [[[UITableView alloc] initWithFrame:CGRectMake(0, sizeTop + sizeHeaderText, 480, 320 - sizeTop - sizeBottom - sizeHeaderText) style:UITableViewStylePlain] autorelease];
+		}else{
+			listTableView = [[[UITableView alloc] initWithFrame:CGRectMake(0, sizeTop + sizeHeaderText, 320, 480 - sizeTop - sizeBottom - sizeHeaderText) style:UITableViewStylePlain] autorelease];
+		}				
+	}
+	
+	listTableView.dataSource = self;
+	listTableView.delegate = self;
+	
+	[self.view addSubview:listTableView];
+}
+
 /**
  * Load themes from xml to components
  */
 -(void)loadThemesComponents {
-	
 	for(int x = 0; x < varStyles.listComponents.count; x++){
 		NSString *var = [varStyles.listComponents objectAtIndex:x];
 		
@@ -119,17 +153,18 @@ static NSString *cellIdentifier = @"NwTableCell";
 		UILabel *myLabel;
 		
 		if([var isEqualToString:@"header"]){
+			sizeHeaderText = 20;
 			if([eMobcViewController isIPad]){
 				if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 108, 1024, 20)];	
+					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop, 1024, sizeHeaderText)];	
 				}else{
-					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 108, 768, 20)];
+					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop, 768, sizeHeaderText)];
 				}				
 			}else {
 				if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 88, 480, 20)];	
+					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop, 480, sizeHeaderText)];	
 				}else{
-					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 88, 320, 20)];
+					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop, 320, sizeHeaderText)];
 				}				
 			}
 			
@@ -142,7 +177,7 @@ static NSString *cellIdentifier = @"NwTableCell";
 			
 			//Hay que convertirlo a hexadecimal.
 			//	varFormats.textColor
-			myLabel.textColor = [UIColor whiteColor];
+			myLabel.textColor = [UIColor blackColor];
 			myLabel.textAlignment = UITextAlignmentCenter;
 			
 			[self.view addSubview:myLabel];
@@ -218,10 +253,8 @@ static NSString *cellIdentifier = @"NwTableCell";
 -(void) loadImage:(ListItem *)theItem {
 	//load image 
 	UIImage *image = [theItem.itemImage imageContent];
-	
 	//save image into imageMap for future references
 	[imageMap setObject:image forKey:theItem.text];
-	
 	//add image into queue imageToShow
 	[imageToShow addObject:image];
 }
@@ -334,17 +367,14 @@ static NSString *cellIdentifier = @"NwTableCell";
  * An assertion is raised if you return nil.
  */
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-
 	//NSOperationQueue *queue = [NSOperationQueue new];
-	
 	ListItem* theItem = [contentArray objectAtIndex:indexPath.row];
 
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-
 	/*NSInvocationOperation *operation = [[NSInvocationOperation alloc] initWithTarget:self
 																			selector:@selector(loadImage:) 
 																			  object:cell];*/
-	
+
 	if (cell == nil) {
 		if (data.cellXib == nil) {
 			cell = [[[NwListMultiLineCell alloc] initWithStyle:UITableViewCellStyleDefault 
@@ -361,21 +391,20 @@ static NSString *cellIdentifier = @"NwTableCell";
 		}
 	}
 
-	
 	if (data.cellXib == nil) {
+
 		NwListMultiLineCell *nwCell = (NwListMultiLineCell*)cell;
-		
+
 		nwCell.listLabel.text = [theItem.text uppercaseString];
+
 		if(theItem.textDescr != nil){
 			nwCell.descrLabel.text = theItem.textDescr;
 		}
 	   
 		//nwCell.listImageView.image = [theItem.itemImage imageContent];
-		
 		//if there is a local imagen, we'll load it directly
 		if(theItem.itemImage.isLocal)
 			nwCell.listImageView.image = [theItem.itemImage imageContent]; 
-		
 		else{
 			UIImage *image = [self.imageMap objectForKey:theItem.text];
 			/*if(image == nil){
@@ -408,7 +437,6 @@ static NSString *cellIdentifier = @"NwTableCell";
 			img3 = (UIImageView*)[cell viewWithTag:3];
 			
 			//img3.image =  [theItem.itemImage imageContent];
-			
 			if(theItem.itemImage.isLocal)
 				img3.image =  [theItem.itemImage imageContent];
 			
@@ -424,9 +452,7 @@ static NSString *cellIdentifier = @"NwTableCell";
 			}
 		}		
 	}
-	
-	[self restoreScrollPosition];
-
+		  
 	return cell;
 }
 
@@ -454,7 +480,6 @@ static NSString *cellIdentifier = @"NwTableCell";
  * @see displayImage
  */ 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-	
 	UIFont* fontDescr = [UIFont fontWithName:@"Ubuntu-Medium" size:10];
 	CGSize constraintSize = CGSizeMake(150.0f, MAXFLOAT);
 	CGSize labelSize = [descrLabel.text sizeWithFont:fontDescr 
@@ -507,6 +532,8 @@ static NSString *cellIdentifier = @"NwTableCell";
 
 - (void)dealloc {
     [super dealloc];
+	
+	[listTableView release];
 }
 
 
@@ -523,6 +550,8 @@ static NSString *cellIdentifier = @"NwTableCell";
 	
 	[self performSelector:@selector(orientationChangedMethod) withObject: nil afterDelay: 0];
 }
+
+
 
 -(void) orientationChangedMethod{
 	
@@ -542,6 +571,8 @@ static NSString *cellIdentifier = @"NwTableCell";
 		if(![mainController.appData.backgroundMenu isEqualToString:@""]){
 			[self loadBackgroundMenu];
 		}
+		
+		[self createTableView];
 	
 		if(![mainController.appData.topMenu isEqualToString:@""]){
 			[self callTopMenu];
@@ -565,7 +596,7 @@ static NSString *cellIdentifier = @"NwTableCell";
 			ListItem *theItem = [data.items objectAtIndex:i];
 			if(!theItem.itemImage.isLocal){ //if the image isn't local ask if it exists in the system
 				UIImage *image = [imageMap objectForKey:theItem.text];
-				if(image == nil){  //if image doesn't exist in the syestem
+				if(image == nil){  //if image doesn't exist in the system
 					operation = [[NSInvocationOperation alloc] initWithTarget:self selector:@selector(loadImage:) object:theItem];
 					[queue addOperation:operation];
 					[operation release];
@@ -621,6 +652,5 @@ static NSString *cellIdentifier = @"NwTableCell";
 	CGPoint savedPosition = CGPointMake([x floatValue], [y floatValue]);
 	[listTableView setContentOffset:savedPosition animated:YES];
 }
-
 
 @end

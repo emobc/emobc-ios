@@ -67,6 +67,9 @@
 							
 	bool loadContent;
 							
+	NSInteger sizeTop;
+	NSInteger sizeBottom;
+	NSInteger sizeHeaderText;							
 }
 
 @property(nonatomic, retain) FormLevelData* data;
@@ -77,6 +80,10 @@
 @property(nonatomic, retain) AppStyles* varStyles;
 @property(nonatomic, retain) AppFormatsStyles* varFormats;
 @property(nonatomic, retain) UIImageView *background;
+
+@property (nonatomic) NSInteger sizeTop;
+@property (nonatomic) NSInteger sizeBottom;
+@property (nonatomic) NSInteger sizeHeaderText;
 
 -(float) addField:(NwAppField*)field ypos:(float) ypos withValue:(NSString*) value;
 -(float) addLabel:(NwAppField*)field ypos:(float) ypos;

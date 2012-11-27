@@ -80,7 +80,7 @@
 	
 	//Hay que convertirlo a hexadecimal.
 	//	varFormats.textColor
-	listLabel.textColor = [UIColor whiteColor];
+	listLabel.textColor = [UIColor blackColor];
 	[listLabel setBackgroundColor:[UIColor clearColor]];
 	
 }

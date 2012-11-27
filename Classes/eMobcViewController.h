@@ -152,4 +152,7 @@
 	+ (NSString *) addLandscapeImageSuffix:(NSString *) resourcesImageLandscape;
 	+ (NSString *) whatDevice:(NSString *) directoryImages;
 
+	-(NSInteger) ifMenuAndAdsTop: (NSInteger) sizeTop;
+	-(NSInteger) ifMenuAndAdsBottom: (NSInteger) sizeBottom;
+
 @end

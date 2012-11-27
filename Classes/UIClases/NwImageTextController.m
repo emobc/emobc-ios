@@ -33,15 +33,17 @@
 @implementation NwImageTextController
 
 @synthesize imageDescription;
-@synthesize imageDescriptionLandscape;
 @synthesize textDesccription;
-@synthesize textDesccriptionLandscape;
 @synthesize nextButton;
 @synthesize prevButton;
 @synthesize data;
 @synthesize varStyles;
 @synthesize varFormats;
 @synthesize background;
+
+@synthesize sizeTop;
+@synthesize sizeBottom;
+@synthesize sizeHeaderText;
 
 
 /**
@@ -86,10 +88,6 @@
  * see that if we get back payer stop top lay
  */
 -(void) backButtonPress:(id)sender {
-	[imageDescription release];
-	[imageDescriptionLandscape release];
-	[textDesccription release];
-	[textDesccriptionLandscape release];
 	[data release];
 	
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -218,38 +216,43 @@
 	loadContent = FALSE;
 	
 	[self loadImageText];
-	
 }
 
 /**
  * Load image text field
  */
 -(void) loadImageText{
+	int sw = 0;
 	playing = FALSE;
+	
+	sizeTop = 20;
+	sizeBottom = 0;
+	sizeHeaderText = 0;
+	
+	sizeTop = [mainController ifMenuAndAdsTop:sizeTop];
+	sizeBottom = [mainController ifMenuAndAdsBottom:sizeBottom];
 	
 	if(data != nil){
 		varStyles = [mainController.theStyle.stylesMap objectForKey:@"IMAGE_TEXT_DESCRIPTION_ACTIVITY"];
 		
-		if(varStyles != nil) {
-			[self loadThemes];
-		}
-	
-		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			imageDescriptionLandscape.userInteractionEnabled = YES;
-			imageDescriptionLandscape.image = [data.image imageContent];
-			textDesccriptionLandscape.text = data.text;
-		}else{
-			imageDescription.userInteractionEnabled = YES;
-			imageDescription.image = [data.image imageContent];
-			textDesccription.text = data.text;
-		}
+		[self createImageView];
+		[self createTextView];
 		
 		if(data.prevLevel != nil && ![data.prevLevel.levelId isEqualToString:@""] && ![data.prevLevel.dataId isEqualToString:@""]){
 			[self prevButtonCreate];
+			sw = 1;
 		}
 		
 		if(data.nextLevel != nil && ![data.nextLevel.levelId isEqualToString:@""] && ![data.nextLevel.dataId isEqualToString:@""]){
 			[self nextButtonCreate];
+			sw = 1;
+		}
+		
+		if(sw == 1)
+			sizeBottom += 25;
+			
+		if(varStyles != nil) {
+			[self loadThemes];
 		}
 
 	}else {
@@ -263,9 +266,30 @@
 	}
 }
 
+-(void) createImageView{
+	if([eMobcViewController isIPad]){
+		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+			imageDescription = [[[UIImageView alloc] initWithFrame:CGRectMake(512, sizeTop + sizeHeaderText, 512, 768 - sizeTop - sizeBottom - sizeHeaderText - 25)] autorelease];
+		}else{
+			imageDescription = [[[UIImageView alloc] initWithFrame:CGRectMake(0, 1024 - sizeBottom - 300, 768, 300)] autorelease];
+			sizeBottom += 300;
+		}				
+	}else {
+		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+			imageDescription = [[[UIImageView alloc] initWithFrame:CGRectMake(240, sizeTop + sizeHeaderText, 240, 320 - sizeTop - sizeBottom - sizeHeaderText - 25)] autorelease];
+		}else{
+			imageDescription = [[[UIImageView alloc] initWithFrame:CGRectMake(0, 480 - sizeBottom - 145, 320, 145)] autorelease];
+			sizeBottom += 145;
+		}				
+	}
+	
+	imageDescription.userInteractionEnabled = YES;
+	imageDescription.image = [data.image imageContent];
+	
+	[self.view addSubview:imageDescription];
+}
 
-
--(void)nextButtonCreate {
+-(void) nextButtonCreate {
 	
 	//create the button
 	nextButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -273,16 +297,15 @@
 	//set the position of the button
 	if([eMobcViewController isIPad]){
 		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			nextButton.frame = CGRectMake(917, 671, 87, 25);
+			nextButton.frame = CGRectMake(917, 768 - sizeBottom - 25, 87, 25);
 		}else{
-			nextButton.frame = CGRectMake(671, 438, 87, 25);
+			nextButton.frame = CGRectMake(671, 1024 - sizeBottom - 25, 87, 25);
 		}				
 	}else {
 		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			nextButton.frame = CGRectMake(388, 261, 80, 20);
+			nextButton.frame = CGRectMake(388, 320 - sizeBottom - 25, 90, 25);
 		}else{
-			nextButton.frame = CGRectMake(229, 272, 87, 25);
-			
+			nextButton.frame = CGRectMake(226, 480 - sizeBottom - 25, 90, 25);
 		}				
 	}
 	
@@ -292,6 +315,7 @@
 	
 	//set the button's title
 	[nextButton setTitle:@"Siguiente" forState:UIControlStateNormal];
+	[nextButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
 	//[button setImage:[UIImage imageWithContentsOfFile:imagePath] forState:UIControlStateNormal];
 	
 	//listen for clicks
@@ -301,8 +325,7 @@
 	[self.view addSubview:nextButton];
 }
 
-
--(void)prevButtonCreate {
+-(void) prevButtonCreate {
 	
 	//create the button
 	prevButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -310,16 +333,15 @@
 	//set the position of the button
 	if([eMobcViewController isIPad]){
 		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			prevButton.frame = CGRectMake(538, 671, 87, 25);
+			prevButton.frame = CGRectMake(538, 768 - sizeBottom - 25, 87, 25);
 		}else{
-			prevButton.frame = CGRectMake(12, 438, 87, 25);
+			prevButton.frame = CGRectMake(9, 1024 - sizeBottom - 25, 90, 25);
 		}				
 	}else {
 		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			prevButton.frame = CGRectMake(257, 261, 80, 20);
+			prevButton.frame = CGRectMake(257, 320 - sizeBottom - 25, 90, 25);
 		}else{
-			prevButton.frame = CGRectMake(4, 272, 87, 25);
-			
+			prevButton.frame = CGRectMake(4, 480 - sizeBottom - 25, 90, 25);
 		}				
 	}
 	
@@ -329,6 +351,7 @@
 	
 	//set the button's title
 	[prevButton setTitle:@"Anterior" forState:UIControlStateNormal];
+	[prevButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
 	//[button setImage:[UIImage imageWithContentsOfFile:imagePath] forState:UIControlStateNormal];
 	
 	//listen for clicks
@@ -336,6 +359,26 @@
 	
 	//add the button to the view
 	[self.view addSubview:prevButton];
+}
+
+-(void) createTextView{
+	if([eMobcViewController isIPad]){
+		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+			textDesccription = [[[UITextView alloc] initWithFrame:CGRectMake(0, sizeTop + sizeHeaderText, 512, 768 - sizeTop - sizeBottom - sizeHeaderText)] autorelease];
+		}else{
+			textDesccription = [[[UITextView alloc] initWithFrame:CGRectMake(0, sizeTop, 768, 1024 - sizeTop - sizeBottom - 25)] autorelease];
+		}				
+	}else {
+		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+			textDesccription = [[[UITextView alloc] initWithFrame:CGRectMake(0, sizeTop + sizeHeaderText, 240, 320 - sizeTop - sizeBottom - sizeHeaderText)] autorelease];
+		}else{
+			textDesccription = [[[UITextView alloc] initWithFrame:CGRectMake(0, sizeTop, 320, 480 - sizeTop - sizeBottom - 25)] autorelease];
+		}				
+	}
+	
+	textDesccription.text = data.text;
+	
+	[self.view addSubview:textDesccription];
 }
 
 
@@ -352,15 +395,15 @@
 		if([var isEqualToString:@"header"]){
 			if([eMobcViewController isIPad]){
 				if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 108, 1024, 20)];	
+					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop - 20, 1024, 20)];	
 				}else{
-					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 108, 768, 20)];
+					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop - 20, 768, 20)];
 				}				
 			}else {
 				if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 88, 480, 20)];	
+					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop - 20, 480, 20)];	
 				}else{
-					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 88, 320, 20)];
+					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop - 20, 320, 20)];
 				}				
 			}
 			
@@ -501,9 +544,7 @@
 
 -(void)dealloc {
 	[imageDescription release];
-	[imageDescriptionLandscape release];
 	[textDesccription release];
-	[textDesccriptionLandscape release];
 	[varStyles release];
 	[varFormats release];
 	[data release];

@@ -36,7 +36,6 @@
  */
 
 @interface NwPdfController : NwController<UIWebViewDelegate> {	
-
 //Objetos
 	PdfLevelData* data;
 	AppStyles* varStyles;
@@ -44,22 +43,28 @@
 	UIImageView *background;
 	
 //Outlets
-	IBOutlet UIWebView* webView;
-	IBOutlet UIWebView* webViewLandscape;
-	
+	UIWebView* webView;
+
 	bool isShowingLandscapeView;
 	
 	UIDeviceOrientation currentOrientation;
 	
 	bool loadContent;
+	
+	NSInteger sizeTop;
+	NSInteger sizeBottom;
+	NSInteger sizeHeaderText;
 }
 
 @property(nonatomic, retain) PdfLevelData* data;
 @property(nonatomic, retain) AppStyles* varStyles;
 @property(nonatomic, retain) AppFormatsStyles* varFormats;
 @property(nonatomic, retain) UIImageView *background;
-@property(nonatomic, retain) IBOutlet UIWebView* webView;
-@property(nonatomic, retain) IBOutlet UIWebView* webViewLandscape;
+@property(nonatomic, retain) UIWebView* webView;
+
+@property (nonatomic) NSInteger sizeTop;
+@property (nonatomic) NSInteger sizeBottom;
+@property (nonatomic) NSInteger sizeHeaderText;
 
 //Metodos
 	-(void) embedPdf:(NSString*)url frame:(CGRect)frame;
@@ -68,5 +73,7 @@
 
 	-(void) orientationChangedMethod;
 	-(void) orientationChanged:(NSNotification *)object;
+
+	-(void) createWebView;
 
 @end

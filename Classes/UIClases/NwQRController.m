@@ -32,9 +32,14 @@
 @synthesize data;
 
 @synthesize resultImage;
-@synthesize resultImageLandscape;
 @synthesize resultText;
-@synthesize resultTextLandscape;
+
+@synthesize sizeTop;
+@synthesize sizeBottom;
+@synthesize sizeHeaderText;
+
+@synthesize scanButton;
+
 
 /**
  * Called after the controller’s view is loaded into memory.
@@ -43,7 +48,101 @@
 	[super viewDidLoad];
 	
 	loadContent = FALSE;
+		
+	[self createImageView];
+	[self createScanButton];
+	[self createTextView];
 }
+
+
+-(void) createImageView{
+	sizeTop = 0;
+	sizeBottom = 0;
+	sizeHeaderText = 25;
+	
+	sizeTop = [mainController ifMenuAndAdsTop:sizeTop];
+	sizeBottom = [mainController ifMenuAndAdsBottom:sizeBottom];
+	
+	if([eMobcViewController isIPad]){
+		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+			resultImage = [[[UIImageView alloc] initWithFrame:CGRectMake(128, sizeTop + sizeHeaderText, 768, 400)] autorelease];
+			sizeTop += 400;
+		}else{
+			resultImage = [[[UIImageView alloc] initWithFrame:CGRectMake(0, sizeTop + sizeHeaderText, 768, 400)] autorelease];
+			sizeTop += 400;
+		}				
+	}else {
+		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+			resultImage = [[[UIImageView alloc] initWithFrame:CGRectMake(0, sizeTop + sizeHeaderText, 240, 320 - sizeTop - sizeBottom - sizeHeaderText)] autorelease];
+		}else{
+			resultImage = [[[UIImageView alloc] initWithFrame:CGRectMake(0, sizeTop + sizeHeaderText, 320, 180)] autorelease];
+			sizeTop += 180;
+		}				
+	}
+	
+	[self.view addSubview:resultImage];
+}
+
+
+-(void) createScanButton {
+	//create the button
+	scanButton = [UIButton buttonWithType:UIButtonTypeCustom];
+	
+	//set the position of the button
+	if([eMobcViewController isIPad]){
+		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+			scanButton.frame = CGRectMake(650, 768 - sizeBottom - 50, 200, 45);	
+		}else{
+			scanButton.frame = CGRectMake(284, 1024 - sizeBottom - 50, 200, 45);
+			sizeBottom += 55;
+		}				
+	}else {
+		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+			scanButton.frame = CGRectMake(260, 320 - sizeBottom - 50, 200, 45);	
+			sizeBottom += 55;
+		}else{
+			scanButton.frame = CGRectMake(60, 480 - sizeBottom - 50, 200, 45);
+			sizeBottom += 55;
+		}				
+	}
+	
+	//set the button's title
+	//[scanButton setTitle:@"Scan" forState:UIControlStateNormal];
+	
+	NSString *k = [eMobcViewController whatDevice:k];
+	
+	NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"images/icons/scanButton.png" ofType:nil inDirectory:k];
+	
+	[scanButton setImage:[UIImage imageWithContentsOfFile:imagePath] forState:UIControlStateNormal];
+	
+	//listen for clicks
+	[scanButton addTarget:self action:@selector(scanButtonTapped) forControlEvents:UIControlEventTouchUpInside];
+	
+	//add the button to the view
+	[self.view addSubview:scanButton];
+}
+
+
+-(void) createTextView{
+	if([eMobcViewController isIPad]){
+		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+			resultText = [[[UITextView alloc] initWithFrame:CGRectMake(5, sizeTop, 520, 768 - sizeTop - sizeBottom - sizeHeaderText)] autorelease];
+		}else{
+			resultText = [[[UITextView alloc] initWithFrame:CGRectMake(0, sizeTop, 768, 1024 - sizeTop - sizeBottom - sizeHeaderText)] autorelease];
+		}				
+	}else {
+		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+			resultText = [[[UITextView alloc] initWithFrame:CGRectMake(240, sizeTop, 240, 320 - sizeTop - sizeBottom - sizeHeaderText)] autorelease];
+		}else{
+			resultText = [[[UITextView alloc] initWithFrame:CGRectMake(0, sizeTop, 320, 480 - sizeTop - sizeBottom - sizeHeaderText)] autorelease];
+		}				
+	}
+	[resultText setEditable:NO];
+	[resultText setText:@"No barcode scanned..."];
+	
+	[self.view addSubview:resultText];
+} 
+
 
 /**
  * Sent to the view controller when the application receives a memory warning
@@ -65,12 +164,13 @@
     // e.g. self.myOutlet = nil;
 }
 
+
 /**
  * scan QR code when button is pressed
  *
  * @see ZBarSDK
  */
-- (IBAction) scanButtonTapped {
+- (void) scanButtonTapped {
     // ADD: present a barcode reader that scans from the camera feed
     ZBarReaderViewController *reader = [ZBarReaderViewController new];
     reader.readerDelegate = self;
@@ -106,20 +206,11 @@
         break;
 	
     // EXAMPLE: do something useful with the barcode data
-	if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-		resultTextLandscape.text = symbol.data;
-	}else{
-		resultText.text = symbol.data;
-	}	
+	resultText.text = symbol.data;
 	
     // EXAMPLE: do something useful with the barcode image
-	if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-		resultImageLandscape.image = [info objectForKey: UIImagePickerControllerOriginalImage];
-	}else{
-		resultImage.image = [info objectForKey: UIImagePickerControllerOriginalImage];
-	}
-	
-	
+	resultImage.image = [info objectForKey: UIImagePickerControllerOriginalImage];
+		
 	int count = [data.qrs count];
 	
 	for(int i=0; i < count; i++) {
@@ -191,6 +282,10 @@
 		}else if([mainController.appData.banner isEqualToString:@"yoc"]){
 			[self createYocBanner];
 		}
+		
+		[self createImageView];
+		[self createScanButton];
+		[self createTextView];
 	}
 	
 }
@@ -198,16 +293,15 @@
 
 - (void) dealloc {
     self.resultImage = nil;
-	self.resultImageLandscape = nil;
     self.resultText = nil;
-	self.resultTextLandscape = nil;
 	
 	[resultImage release];
-	[resultImageLandscape release];
 	[resultText release];
-	[resultTextLandscape release];
 	
     [super dealloc];
 }
 
 @end
+
+
+

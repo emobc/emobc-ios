@@ -14,12 +14,12 @@
 		Etiam nulla mauris, auctor vel mollis eget,consectetur in quam. Suspendisse potenti.</text>
 		<barText/>
 		<nextLevel>
-			<nextLevelLevelId/>
-			<nextLevelDataId/>
+			<nextLevelLevelId>PDF</nextLevelLevelId>
+			<nextLevelDataId>PDF</nextLevelDataId>
 		</nextLevel>
 		<prevLevel>
-			<nextLevelLevelId/>
-			<nextLevelDataId/>
+			<nextLevelLevelId>PDF</nextLevelLevelId>
+			<nextLevelDataId>PDF</nextLevelDataId>
 		</prevLevel>
 	</data>
 </levelData>

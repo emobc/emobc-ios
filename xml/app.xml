@@ -10,8 +10,8 @@
 		<pointDataId></pointDataId>
 	</entryPoint>
 	<menu>
-		<topMenu>top_menu.xml</topMenu>
-		<bottomMenu>bottom_menu.xml</bottomMenu>
+		<topMenu>top_Menu.xml</topMenu>
+		<bottomMenu></bottomMenu>
 		<backgroundMenu>images/menu/backgroundMenu.png</backgroundMenu>
 	</menu>
 	<pushUrl>www.emobc.com</pushUrl>
@@ -20,12 +20,12 @@
 		<type>admob</type>
 		<position>top</position>
 		<id>a14b5f8130c17ef</id>
-	</banner>
+	</banner>-->
 	<banner>
 		<type>yoc</type>
-		<position>top</position>
+		<position></position>
 		<id>32088</id>
-	</banner>-->
+	</banner>
 	<rotation></rotation>
 	<levels>
 		<level>

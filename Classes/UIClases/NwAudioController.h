@@ -53,7 +53,6 @@
 	NSTimer *timer;
 	NSTimer *tiempoAudio;
 	
-	UISlider *volumen;
 	UISlider *sTiempoAudio;
 	UILabel *segundero;
 	
@@ -69,7 +68,10 @@
 	UIDeviceOrientation currentOrientation;
 	
 	bool loadContent;
-
+	
+	NSInteger sizeTop;
+	NSInteger sizeBottom;
+	NSInteger sizeHeaderText;
 }
 
 @property(nonatomic, retain) AudioLevelData* data;
@@ -79,13 +81,16 @@
 
 @property(nonatomic, retain) UIImageView *imgView;
 
-@property(nonatomic, retain) UISlider *volumen;
 @property(nonatomic, retain) UISlider *sTiempoAudio;
 @property(nonatomic, retain) UILabel *segundero;
 
 @property(nonatomic, retain) UIButton *playButton;
 @property(nonatomic, retain) UIButton *pauseButton;
 @property(nonatomic, retain) UIButton *stopButton;
+
+@property (nonatomic) NSInteger sizeTop;
+@property (nonatomic) NSInteger sizeBottom;
+@property (nonatomic) NSInteger sizeHeaderText;
 
 
 //Metodos
@@ -99,7 +104,6 @@
 	-(void) play;
 	-(void) stop;
 	-(void) pause;
-	-(void) cambiarVolumen;
 	-(void) sliderAudioChanged:(id)sender;
 	-(void) loop;
 

@@ -35,7 +35,7 @@
 		
 		UIFont * font = [UIFont fontWithName:@"Ubuntu-Medium" size:16];
 		listLabel.font = font;
-		listLabel.textColor =  [UIColor whiteColor];
+		listLabel.textColor =  [UIColor blackColor];
 		[listLabel setBackgroundColor:[UIColor clearColor]];
 
 		

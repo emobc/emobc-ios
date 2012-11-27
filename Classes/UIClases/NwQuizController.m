@@ -52,6 +52,11 @@
 @synthesize numQuestion;
 @synthesize varStyles;
 @synthesize varFormats;
+@synthesize myLabel;
+
+@synthesize sizeTop;
+@synthesize sizeBottom;
+@synthesize sizeHeaderText;
 
 /**
  * Called after the controller’s view is loaded into memory.
@@ -59,79 +64,90 @@
 - (void)viewDidLoad {
    	[super viewDidLoad];
 	
+	sizeTop = 0;
+	sizeBottom = 0;
+	sizeHeaderText = 25;
+	
+	sizeTop = [mainController ifMenuAndAdsTop:sizeTop];
+	sizeBottom = [mainController ifMenuAndAdsBottom:sizeBottom];
+	
 	varStyles = [mainController.theStyle.stylesMap objectForKey:@"QUIZ_ACTIVITY"];
 	
 	if(varStyles != nil) {
 		[self loadThemes];
+		sizeTop += 20;
 	}
-	loadContent = FALSE;
 	
+	loadContent = FALSE;
+		
 	
 	score = [[NSMutableArray alloc] init];
 	questionRepeat = [[NSMutableArray alloc] init];
 	numQuestion = [[NSMutableArray alloc] init];
 	
-	//Iphone
-	int posY = 108;
+
+	[self createIntroduction];	
+}
+
+-(void) loadBackground{
 	
-	if(![data.headerText isEqualToString:@""]){
+	sizeTop = 0;
+	sizeBottom = 0;
+	
+	sizeTop = [mainController ifMenuAndAdsTop:sizeTop];
+	sizeBottom = [mainController ifMenuAndAdsBottom:sizeBottom];
+	
+	if(![varStyles.backgroundFileName isEqualToString:@""]) {
+		
 		if([eMobcViewController isIPad]){
 			if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-				myHeaderText = [[UILabel alloc] initWithFrame:CGRectMake(0, posY, 1014, 60)];
-				posY = posY + 80;
+				background = [[UIImageView alloc] initWithFrame:CGRectMake(0, sizeTop, 1024, 768 - sizeTop - sizeBottom)];
 			}else{
-				myHeaderText = [[UILabel alloc] initWithFrame:CGRectMake(0, posY, 758, 80)];
-				posY = posY+100;
+				background = [[UIImageView alloc] initWithFrame:CGRectMake(0, sizeTop, 768, 1024 - sizeTop - sizeBottom)];
 			}				
 		}else {
 			if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-				myHeaderText = [[UILabel alloc] initWithFrame:CGRectMake(0, posY, 480, 20)];
-				posY = posY+20;
+				background = [[UIImageView alloc] initWithFrame:CGRectMake(0, sizeTop, 480, 320 - sizeTop - sizeBottom)];
 			}else{
-				myHeaderText = [[UILabel alloc] initWithFrame:CGRectMake(0, posY, 320, 50)];
-				posY= posY + 50;
+				background = [[UIImageView alloc] initWithFrame:CGRectMake(0, sizeTop, 320, 480 - sizeTop - sizeBottom)];
 			}				
 		}
 		
-		myHeaderText.text = data.headerText;
+		NSString *k = [eMobcViewController whatDevice:k];
 		
-		/*Estilos
-		 
-		 int varSize = [varFormats.textSize intValue];
-		 
-		 myHeaderText.font = [UIFont fontWithName:varFormats.typeFace size:varSize];*/
-		myHeaderText.backgroundColor = [UIColor clearColor];
+		NSString *imagePath = [[NSBundle mainBundle] pathForResource:varStyles.backgroundFileName ofType:nil inDirectory:k];
 		
-		//Hay que convertirlo a hexadecimal.
-		//	varFormats.textColor*/
-		myHeaderText.textColor = [UIColor whiteColor];
-		myHeaderText.textAlignment = UITextAlignmentCenter;
+		background.image = [UIImage imageWithContentsOfFile:imagePath];
 		
-		[self.view addSubview:myHeaderText];
-		[myHeaderText release];
+		[self.view addSubview:background];
+	}else{
+		background.backgroundColor = [UIColor whiteColor];
+		background.opaque = NO;
 	}
-	
+}
+
+-(void) createIntroduction{
 	
 	if(![data.headerImageFile isEqualToString:@""]){
 		
 		if([eMobcViewController isIPad]){
 			if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-				imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, posY, 1024, 300)];
-				posY = posY + 320;
+				imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, sizeTop, 1024, 300)];
+				sizeTop += 320;
 			}else{
-				imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, posY, 768, 400)];
-				posY = posY + 420;
+				imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, sizeTop, 768, 400)];
+				sizeTop += 420;
 			}				
 		}else {
 			if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-				imgView = [[UIImageView alloc] initWithFrame:CGRectMake(80, posY, 320, 90)];
-				posY = posY + 90;
+				imgView = [[UIImageView alloc] initWithFrame:CGRectMake(80, sizeTop, 320, 90)];
+				sizeTop += 90;
 			}else{
-				imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, posY, 320, 120)];
-				posY = posY + 120;
+				imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, sizeTop, 320, 120)];
+				sizeTop += 120;
 			}				
 		}
-
+		
 		NSString *k = [eMobcViewController whatDevice:k];
 		
 		NSString *imagePath = [[NSBundle mainBundle] pathForResource:data.headerImageFile ofType:nil inDirectory:k];
@@ -141,25 +157,25 @@
 		[self.view addSubview:imgView];
 	}
 	
+	[self startButton];
+	
 	
 	if(![data.description isEqualToString:@""]){
 		
 		if([eMobcViewController isIPad]){
 			if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-				myDescription = [[UILabel alloc] initWithFrame:CGRectMake(0, posY, 1024, 100)];	
+				myDescription = [[UITextView alloc] initWithFrame:CGRectMake(0, sizeTop, 1024, 768 - sizeTop - sizeBottom)];	
 			}else{
-				myDescription = [[UILabel alloc] initWithFrame:CGRectMake(0, posY, 768, 200)];
+				myDescription = [[UITextView alloc] initWithFrame:CGRectMake(0, sizeTop, 768, 1024 - sizeTop - sizeBottom)];
 			}				
 		}else {
 			if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-				myDescription = [[UILabel alloc] initWithFrame:CGRectMake(0, posY, 480, 55)];	
+				myDescription = [[UITextView alloc] initWithFrame:CGRectMake(0, sizeTop, 480, 320 - sizeTop - sizeBottom)];	
 			}else{
-				myDescription = [[UILabel alloc] initWithFrame:CGRectMake(0, posY, 320, 65)];
+				myDescription = [[UITextView alloc] initWithFrame:CGRectMake(0, sizeTop, 320, 480 - sizeTop - sizeBottom)];
 			}				
 		}
 		myDescription.text = data.description;
-		myDescription.lineBreakMode = UILineBreakModeWordWrap;
-		myDescription.numberOfLines = 0;
 		
 		/*Estilos
 		 
@@ -170,14 +186,13 @@
 		
 		//Hay que convertirlo a hexadecimal.
 		//	varFormats.textColor*/
-		myDescription.textColor = [UIColor whiteColor];
+		myDescription.textColor = [UIColor blackColor];
 		myDescription.textAlignment = UITextAlignmentCenter;
+		[myDescription setUserInteractionEnabled:NO];
 		
 		[self.view addSubview:myDescription];
 		[myDescription release];
 	}
-	
-	[self startButton];
 	
 }
 
@@ -188,22 +203,23 @@
 	//set the position of the button
 	if([eMobcViewController isIPad]){
 		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			button.frame = CGRectMake(392, 600, 240, 50);	
+			button.frame = CGRectMake(392, 768 - sizeBottom - 55, 240, 50);	
 		}else{
-			button.frame = CGRectMake(264, 800, 240, 60);
+			button.frame = CGRectMake(264, 1024 - sizeBottom - 65, 240, 60);
 		}				
 	}else {
 		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			button.frame = CGRectMake(320, 250, 120, 30);	
+			button.frame = CGRectMake(320, 320 - sizeBottom - 35, 120, 30);	
 		}else{
-			button.frame = CGRectMake(180, 410, 120, 30);
+			button.frame = CGRectMake(180, 480 - sizeBottom - 35, 120, 30);
+			sizeBottom += 35;
 		}				
 	}
 	
 	
 	NSString *k = [eMobcViewController whatDevice:k];
 	
-	NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"quiz/start.png" ofType:nil inDirectory:k];
+	NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"images/quiz/start.png" ofType:nil inDirectory:k];
 	
 	//set the button's title
 	//[button setTitle:@"Comenzar" forState:UIControlStateNormal];
@@ -217,7 +233,7 @@
 }
 
 -(void) buttonPressed{
-	[myHeaderText removeFromSuperview];
+	[myLabel removeFromSuperview];
 	[imgView removeFromSuperview];
 	[myDescription removeFromSuperview];
 	[button removeFromSuperview];
@@ -229,242 +245,41 @@
 	}
 }
 
--(void) randomQuestion {
-	
-	if([varAnswer.correct isEqualToString:@"true"]){
-		[self scorePoints];
-	}
-	
-	[background release];
-	
-	if([eMobcViewController isIPad]){
-		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 88, 1024, 642)];
-		}else{
-			background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 88, 768, 898)];
-		}				
-	}else {
-		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 88, 480, 194)];
-		}else{
-			background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 88, 320, 354)];
-			
-		}				
-	}
-
-	NSString *k = [eMobcViewController whatDevice:k];
-	
-	NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"quiz/backgroundQuiz.png" ofType:nil inDirectory:k];
-	
-	background.image = [UIImage imageWithContentsOfFile:imagePath];
-	
-	[self.view addSubview:background];
-	
-	int count = [data.question count];
-	
-	if(count == [numQuestion count]){
-		[self quizFinish];
-	}else{
-		int fromNumber = 0;
-		int toNumber = count;
-		int randomNumber = (arc4random()%(toNumber - fromNumber)) + fromNumber;
-		
-		int p = [questionRepeat count];
-		int r;
-		int sw = 0;
-		
-		NSString *bString = [NSString stringWithFormat:@"%d", randomNumber];
-		
-		[questionRepeat addObject:bString];
-		
-		for(int j = 0; j < p; j++){
-			r =[[questionRepeat objectAtIndex:j] intValue];
-			
-			if(randomNumber == r){
-				sw = 1;
-			}
-		}
-		
-		int positionY = 108;
-		
-		if(sw == 0){
-			//El numero de preguntas para que no se repitan y se acabe el quiz.
-			[numQuestion addObject:bString];
-			
-			varQuestion = [data.question objectAtIndex:randomNumber];
-			
-			if(![varQuestion.imageFile isEqualToString:@""]){
-				
-				if([eMobcViewController isIPad]){
-					if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-						imgViewQuestion = [[UIImageView alloc] initWithFrame:CGRectMake(0, positionY, 1024, 300)];
-						positionY = positionY + 300;
-					}else{
-						imgViewQuestion = [[UIImageView alloc] initWithFrame:CGRectMake(0, positionY, 768, 300)];
-						positionY = positionY + 300;
-					}				
-				}else {
-					if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-						imgViewQuestion = [[UIImageView alloc] initWithFrame:CGRectMake(0, positionY, 480, 50)];
-						positionY = positionY + 50;
-					}else{
-						imgViewQuestion = [[UIImageView alloc] initWithFrame:CGRectMake(0, positionY, 320, 120)];
-						positionY = positionY + 120;
-					}				
-				}
-				
-				NSString *k = [eMobcViewController whatDevice:k];
-				
-				NSString *imagePath = [[NSBundle mainBundle] pathForResource:varQuestion.imageFile ofType:nil inDirectory:k];
-				
-				imgViewQuestion.image = [UIImage imageWithContentsOfFile:imagePath];
-				
-				[self.view addSubview:imgViewQuestion];
-			}
-			
-			if(![varQuestion.text isEqualToString:@""]){
-				
-				if([eMobcViewController isIPad]){
-					if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-						myText = [[UILabel alloc] initWithFrame:CGRectMake(0, positionY, 1024, 50)];
-						positionY = positionY + 50;
-					}else{
-						myText = [[UILabel alloc] initWithFrame:CGRectMake(0, positionY, 768, 50)];
-						positionY = positionY + 50;
-					}				
-				}else {
-					if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-						myText = [[UILabel alloc] initWithFrame:CGRectMake(0, positionY, 480, 65)];	
-						positionY = positionY + 65;
-					}else{
-						myText = [[UILabel alloc] initWithFrame:CGRectMake(0, positionY, 320, 65)];
-						positionY = positionY + 65;
-					}				
-				}
-				myText.text = varQuestion.text;
-				myText.lineBreakMode = UILineBreakModeWordWrap;
-				myText.numberOfLines = 0;
-				
-				/*Estilos
-				 
-				 int varSize = [varFormats.textSize intValue];
-				 
-				 myText.font = [UIFont fontWithName:varFormats.typeFace size:varSize];*/
-				myText.backgroundColor = [UIColor clearColor];
-				
-				//Hay que convertirlo a hexadecimal.
-				//	varFormats.textColor*/
-				myText.textColor = [UIColor whiteColor];
-				myText.textAlignment = UITextAlignmentCenter;
-				
-				[self.view addSubview:myText];
-			}
-			
-			
-			//cuantas preguntas
-			int count1 = [varQuestion.answers count];
-			int y = 200;
-			
-			for(int i = 0; i < count1; i++){
-				varAnswer = [varQuestion.answers objectAtIndex:i];
-				
-				but = [UIButton buttonWithType:UIButtonTypeCustom];
-				if([eMobcViewController isIPad]){
-					if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-						[but setFrame:CGRectMake(0, positionY, 1024, 50)];
-						positionY = positionY + 55;
-					}else{
-						[but setFrame:CGRectMake(0, positionY, 768, 50)];
-						positionY = positionY + 55;
-					}				
-				}else {
-					if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-						[but setFrame:CGRectMake(0, positionY, 320, 30)];
-						positionY = positionY + 35;
-					}else{
-						[but setFrame:CGRectMake(0, positionY, 320, 40)];
-						positionY = positionY + 45;
-					}				
-				}
-				
-				NSString *k = [eMobcViewController whatDevice:k];
-				
-				NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"quiz/answerButtonOff.png" ofType:nil inDirectory:k];
-				NSString *imagePath1 = [[NSBundle mainBundle] pathForResource:@"quiz/answerButtonOn.png" ofType:nil inDirectory:k];
-				
-				[but setImage:[UIImage imageWithContentsOfFile:imagePath] forState:UIControlStateNormal];
-				[but setImage:[UIImage imageWithContentsOfFile:imagePath1] forState:UIControlStateSelected];
-				
-				[but setTitle:varAnswer.answerText forState:UIControlStateNormal];
-				
-				[but setTag:i];
-				[but addTarget:self action:@selector(checkboxButtonRandom:) forControlEvents:UIControlEventTouchUpInside];
-				
-				[self.view addSubview:but];
-				y = y + 40;
-				
-			}	
-			
-		}else{
-			[self randomQuestion];
-		}
-	}
-	
-	
-}
-
 -(void) question:(NSString*) next{
 	[imgViewQuestion removeFromSuperview];
 	[myText removeFromSuperview];
 	[myAnswer removeFromSuperview];
 	
 	[but removeFromSuperview];
+	[but release];
 	
+	sizeTop = 0;
+	sizeBottom = 0;
 	
-	if([eMobcViewController isIPad]){
-		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 128, 1024, 582)];
-		}else{
-			background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 128, 768, 838)];
-		}				
-	}else {
-		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 88, 480, 194)];
-		}else{
-			background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 88, 320, 354)];
-			
-		}				
-	}
+	sizeTop = [mainController ifMenuAndAdsTop:sizeTop];
+	sizeBottom = [mainController ifMenuAndAdsBottom:sizeBottom];
 	
-	NSString *k = [eMobcViewController whatDevice:k];
-	
-	NSString *imagePathBg = [[NSBundle mainBundle] pathForResource:@"quiz/backgroundQuiz.png" ofType:nil inDirectory:k];
-	
-	background.image = [UIImage imageWithContentsOfFile:imagePathBg];
-	
-	[self.view addSubview:background];
-	
+	[self loadBackground];	
 	
 	varQuestion = [data.questionsMap objectForKey:next];
-	int positionY = 108;
 	
 	if(![varQuestion.imageFile isEqualToString:@""]){
 		
 		if([eMobcViewController isIPad]){
 			if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-				imgViewQuestion = [[UIImageView alloc] initWithFrame:CGRectMake(0, positionY, 1024, 300)];
-				positionY = positionY + 300;
+				imgViewQuestion = [[UIImageView alloc] initWithFrame:CGRectMake(0, sizeTop, 1024, 300)];
+				sizeTop += 300;
 			}else{
-				imgViewQuestion = [[UIImageView alloc] initWithFrame:CGRectMake(0, positionY, 768, 300)];
-				positionY = positionY + 300;
+				imgViewQuestion = [[UIImageView alloc] initWithFrame:CGRectMake(0, sizeTop, 768, 300)];
+				sizeTop += 300;
 			}				
 		}else {
 			if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-				imgViewQuestion = [[UIImageView alloc] initWithFrame:CGRectMake(0, positionY, 480, 50)];
-				positionY = positionY + 50;
+				imgViewQuestion = [[UIImageView alloc] initWithFrame:CGRectMake(100, sizeTop, 280, 70)];
+				sizeTop += 70;
 			}else{
-				imgViewQuestion = [[UIImageView alloc] initWithFrame:CGRectMake(0, positionY, 320, 120)];
-				positionY = positionY + 120;
+				imgViewQuestion = [[UIImageView alloc] initWithFrame:CGRectMake(0, sizeTop, 320, 120)];
+				sizeTop += 120;
 			}				
 		}
 		
@@ -475,27 +290,26 @@
 		imgViewQuestion.image = [UIImage imageWithContentsOfFile:imagePath];
 		
 		[self.view addSubview:imgViewQuestion];
-		//[imgViewQuestion release];
-		
+		[imgViewQuestion release];		
 	}
 	
 	if(![varQuestion.text isEqualToString:@""]){
 		
 		if([eMobcViewController isIPad]){
 			if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-				myText = [[UILabel alloc] initWithFrame:CGRectMake(0, positionY, 1024, 30)];
-				positionY = positionY + 50;
+				myText = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop, 1024, 30)];
+				sizeTop += 50;
 			}else{
-				myText = [[UILabel alloc] initWithFrame:CGRectMake(0, positionY, 768, 50)];
-				positionY = positionY + 70;
+				myText = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop, 768, 50)];
+				sizeTop += 70;
 			}				
 		}else {
 			if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-				myText = [[UILabel alloc] initWithFrame:CGRectMake(0, positionY, 480, 45)];	
-				positionY = positionY + 45;
+				myText = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop, 480, 45)];	
+				sizeTop += 45;
 			}else{
-				myText = [[UILabel alloc] initWithFrame:CGRectMake(0, positionY, 320, 60)];
-				positionY = positionY + 60;
+				myText = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop, 320, 60)];
+				sizeTop += 60;
 			}				
 		}
 		myText.text = varQuestion.text;
@@ -519,7 +333,7 @@
 	}
 	
 	
-	//cuantas preguntas
+	//cuantas respuestas
 	int count = [varQuestion.answers count];
 	
 	for(int i = 0; i < count; i++){
@@ -529,26 +343,26 @@
 		
 		if([eMobcViewController isIPad]){
 			if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-				[but setFrame:CGRectMake(0, positionY, 320, 40)];
-				positionY = positionY + 45;
+				[but setFrame:CGRectMake(0, sizeTop, 320, 40)];
+				sizeTop += 45;
 			}else{
-				[but setFrame:CGRectMake(0, positionY, 320, 40)];
-				positionY = positionY + 45;
+				[but setFrame:CGRectMake(0, sizeTop, 320, 40)];
+				sizeTop += 45;
 			}				
 		}else {
 			if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-				[but setFrame:CGRectMake(0, positionY, 320, 30)];
-				positionY = positionY + 35;
+				[but setFrame:CGRectMake(0, sizeTop, 320, 30)];
+				sizeTop += 35;
 			}else{
-				[but setFrame:CGRectMake(0, positionY, 320, 40)];
-				positionY = positionY + 45;
+				[but setFrame:CGRectMake(0, sizeTop, 320, 40)];
+				sizeTop += 45;
 			}				
 		}
 		
 		NSString *k = [eMobcViewController whatDevice:k];
 		
-		NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"quiz/answerButtonOff.png" ofType:nil inDirectory:k];
-		NSString *imagePath1 = [[NSBundle mainBundle] pathForResource:@"quiz/answerButtonOn.png" ofType:nil inDirectory:k];
+		NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"images/quiz/answerButtonOff.png" ofType:nil inDirectory:k];
+		NSString *imagePath1 = [[NSBundle mainBundle] pathForResource:@"images/quiz/answerButtonOn.png" ofType:nil inDirectory:k];
 		
 		[but setImage:[UIImage imageWithContentsOfFile:imagePath] forState:UIControlStateNormal];
 		[but setImage:[UIImage imageWithContentsOfFile:imagePath1] forState:UIControlStateSelected];
@@ -559,71 +373,7 @@
 		[but addTarget:self action:@selector(checkboxButton:) forControlEvents:UIControlEventTouchUpInside];
 		
 		[self.view addSubview:but];
-		
 	}	
-	
-}
-
--(void) checkboxButtonRandom:(UIButton*) buttons{
-	
-	int idAnswer = [buttons tag];
-	for(but in [self.view subviews]){
-		if([but isKindOfClass:[UIButton class]] && ![but isEqual:buttons]){
-			[but setSelected:NO];
-		}
-	}
-	if(!buttons.selected){
-		buttons.selected = !buttons.selected;
-		
-	}
-	
-	varAnswer = [varQuestion.answers objectAtIndex:idAnswer];
-	
-	
-	//[self randomQuestion];
-	
-	//Para utilizar el quiz con los button radios
-	[self nextButtonRandom];
-}
-
--(void) nextButtonRandom{
-	
-	//create the button
-	button = [UIButton buttonWithType:UIButtonTypeCustom];
-	
-	//set the position of the button
-	
-	if([eMobcViewController isIPad]){
-		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			button.frame = CGRectMake(800, 610, 240, 50);
-		}else{
-			button.frame = CGRectMake(560, 900, 240, 50);
-		}				
-	}else {
-		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			button.frame = CGRectMake(340, 240, 120, 30);
-		}else{
-			button.frame = CGRectMake(180, 410, 120, 30);
-			
-		}				
-	}
-	
-	NSString *k = [eMobcViewController whatDevice:k];
-	
-	NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"quiz/next.png" ofType:nil inDirectory:k];
-	
-	//set the button's title
-	[button setImage:[UIImage imageWithContentsOfFile:imagePath] forState:UIControlStateNormal];
-	
-	//listen for clicks
-	[button addTarget:self action:@selector(randomQuestion) forControlEvents:UIControlEventTouchUpInside];
-	
-	//add the button to the view
-	[self.view addSubview:button];
-}
-
--(void) scorePoints {
-	[score addObject:varQuestion.weight];
 }
 
 -(void) checkboxButton:(UIButton*) buttons{
@@ -670,22 +420,22 @@
 	//set the position of the button
 	if([eMobcViewController isIPad]){
 		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			button.frame = CGRectMake(800, 610, 240, 50);
+			button.frame = CGRectMake(800, 768 - sizeBottom - 55, 240, 50);
 		}else{
-			button.frame = CGRectMake(560, 900, 240, 50);
+			button.frame = CGRectMake(560, 1024 - sizeBottom - 55, 240, 50);
 		}				
 	}else {
 		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			button.frame = CGRectMake(340, 240, 120, 30);
+			button.frame = CGRectMake(340, 320 - sizeBottom - 35, 120, 30);
 		}else{
-			button.frame = CGRectMake(180, 410, 120, 30);
+			button.frame = CGRectMake(180, 480 - sizeBottom - 35, 120, 30);
 			
 		}				
 	}
 	
 	NSString *k = [eMobcViewController whatDevice:k];
 	
-	NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"quiz/next.png" ofType:nil inDirectory:k];
+	NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"images/quiz/next.png" ofType:nil inDirectory:k];
 	
 	//set the button's title
 	//[button setTitle:@"Responder" forState:UIControlStateNormal];
@@ -699,62 +449,243 @@
 }
 
 -(void) upgradeQuestion{
-	
-	[background release];
-	
-	if([eMobcViewController isIPad]){
-		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 88, 1024, 642)];
-		}else{
-			background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 88, 768, 898)];
-		}				
-	}else {
-		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 88, 480, 194)];
-		}else{
-			background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 88, 320, 354)];
-			
-		}				
-	}
-	
-	NSString *k = [eMobcViewController whatDevice:k];
-	
-	NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"quiz/backgroundQuiz.png" ofType:nil inDirectory:k];
-	
-	background.image = [UIImage imageWithContentsOfFile:imagePath];
-
-	[self.view addSubview:background];
-	
 	//El parametro selecionado sera guadado en una varible local y se le mandara el next a la funcion question por parametro.
 	[self question:a];
 }
 
--(void) quizFinish{
-	[background release];
+
+
+-(void) randomQuestion {
+	
+	if([varAnswer.correct isEqualToString:@"true"]){
+		[self scorePoints];
+	}
+	
+	sizeTop = 0;
+	sizeBottom = 0;
+	
+	sizeTop = [mainController ifMenuAndAdsTop:sizeTop];
+	sizeBottom = [mainController ifMenuAndAdsBottom:sizeBottom];
+	
+	[self loadBackground];
+	
+	int count = [data.question count];
+	
+	if(count == [numQuestion count]){
+		[self quizFinish];
+	}else{
+		int fromNumber = 0;
+		int toNumber = count;
+		int randomNumber = (arc4random()%(toNumber - fromNumber)) + fromNumber;
+		
+		int p = [questionRepeat count];
+		int r;
+		int sw = 0;
+		
+		NSString *bString = [NSString stringWithFormat:@"%d", randomNumber];
+		
+		[questionRepeat addObject:bString];
+		
+		for(int j = 0; j < p; j++){
+			r =[[questionRepeat objectAtIndex:j] intValue];
+			
+			if(randomNumber == r){
+				sw = 1;
+			}
+		}
+		
+		if(sw == 0){
+			//El numero de preguntas para que no se repitan y se acabe el quiz.
+			[numQuestion addObject:bString];
+			
+			varQuestion = [data.question objectAtIndex:randomNumber];
+			
+			if(![varQuestion.imageFile isEqualToString:@""]){
+				
+				if([eMobcViewController isIPad]){
+					if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+						imgViewQuestion = [[UIImageView alloc] initWithFrame:CGRectMake(0, sizeTop, 1024, 300)];
+						sizeTop += 300;
+					}else{
+						imgViewQuestion = [[UIImageView alloc] initWithFrame:CGRectMake(0, sizeTop, 768, 300)];
+						sizeTop += 300;
+					}				
+				}else {
+					if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+						imgViewQuestion = [[UIImageView alloc] initWithFrame:CGRectMake(0, sizeTop, 480, 50)];
+						sizeTop += 50;
+					}else{
+						imgViewQuestion = [[UIImageView alloc] initWithFrame:CGRectMake(0, sizeTop, 320, 120)];
+						sizeTop += 120;
+					}				
+				}
+				
+				NSString *k = [eMobcViewController whatDevice:k];
+				
+				NSString *imagePath = [[NSBundle mainBundle] pathForResource:varQuestion.imageFile ofType:nil inDirectory:k];
+				
+				imgViewQuestion.image = [UIImage imageWithContentsOfFile:imagePath];
+				
+				[self.view addSubview:imgViewQuestion];
+			}
+			
+			if(![varQuestion.text isEqualToString:@""]){
+				
+				if([eMobcViewController isIPad]){
+					if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+						myText = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop, 1024, 50)];
+						sizeTop += 50;
+					}else{
+						myText = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop, 768, 50)];
+						sizeTop += 50;
+					}				
+				}else {
+					if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+						myText = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop, 480, 65)];	
+						sizeTop += 65;
+					}else{
+						myText = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop, 320, 65)];
+						sizeTop += 65;
+					}				
+				}
+				myText.text = varQuestion.text;
+				myText.lineBreakMode = UILineBreakModeWordWrap;
+				myText.numberOfLines = 0;
+				
+				/*Estilos
+				 
+				 int varSize = [varFormats.textSize intValue];
+				 
+				 myText.font = [UIFont fontWithName:varFormats.typeFace size:varSize];*/
+				myText.backgroundColor = [UIColor clearColor];
+				
+				//Hay que convertirlo a hexadecimal.
+				//	varFormats.textColor*/
+				myText.textColor = [UIColor whiteColor];
+				myText.textAlignment = UITextAlignmentCenter;
+				
+				[self.view addSubview:myText];
+			}
+			
+			
+			//how many answers
+			int count1 = [varQuestion.answers count];
+			
+			for(int i = 0; i < count1; i++){
+				varAnswer = [varQuestion.answers objectAtIndex:i];
+				
+				but = [UIButton buttonWithType:UIButtonTypeCustom];
+				if([eMobcViewController isIPad]){
+					if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+						[but setFrame:CGRectMake(0, sizeTop, 1024, 50)];
+						sizeTop += 55;
+					}else{
+						[but setFrame:CGRectMake(0, sizeTop, 768, 50)];
+						sizeTop += 55;
+					}				
+				}else {
+					if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+						[but setFrame:CGRectMake(0, sizeTop, 320, 30)];
+						sizeTop += 35;
+					}else{
+						[but setFrame:CGRectMake(0, sizeTop, 320, 40)];
+						sizeTop += 45;
+					}				
+				}
+				
+				NSString *k = [eMobcViewController whatDevice:k];
+				
+				NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"images/quiz/answerButtonOff.png" ofType:nil inDirectory:k];
+				NSString *imagePath1 = [[NSBundle mainBundle] pathForResource:@"images/quiz/answerButtonOn.png" ofType:nil inDirectory:k];
+				
+				[but setImage:[UIImage imageWithContentsOfFile:imagePath] forState:UIControlStateNormal];
+				[but setImage:[UIImage imageWithContentsOfFile:imagePath1] forState:UIControlStateSelected];
+				
+				[but setTitle:varAnswer.answerText forState:UIControlStateNormal];
+				
+				[but setTag:i];
+				[but addTarget:self action:@selector(checkboxButtonRandom:) forControlEvents:UIControlEventTouchUpInside];
+				
+				[self.view addSubview:but];
+			}	
+			
+		}else{
+			[self randomQuestion];
+		}
+	}
+}
+
+-(void) checkboxButtonRandom:(UIButton*) buttons{
+	
+	int idAnswer = [buttons tag];
+	for(but in [self.view subviews]){
+		if([but isKindOfClass:[UIButton class]] && ![but isEqual:buttons]){
+			[but setSelected:NO];
+		}
+	}
+	if(!buttons.selected){
+		buttons.selected = !buttons.selected;
+		
+	}
+	
+	varAnswer = [varQuestion.answers objectAtIndex:idAnswer];
+	
+	
+	//[self randomQuestion];
+	
+	//Para utilizar el quiz con los button radios
+	[self nextButtonRandom];
+}
+
+-(void) nextButtonRandom{
+	
+	//create the button
+	button = [UIButton buttonWithType:UIButtonTypeCustom];
+	
+	//set the position of the button
 	
 	if([eMobcViewController isIPad]){
 		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 128, 1024, 582)];
+			button.frame = CGRectMake(800, 768 - sizeBottom - 55, 240, 50);
 		}else{
-			background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 128, 768, 838)];
+			button.frame = CGRectMake(560, 1024 - sizeBottom - 55, 240, 50);
 		}				
 	}else {
 		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 88, 480, 194)];
+			button.frame = CGRectMake(340, 320 - sizeBottom - 35, 120, 30);
 		}else{
-			background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 88, 320, 354)];
+			button.frame = CGRectMake(180, 480 - sizeBottom - 35, 120, 30);
 			
 		}				
 	}
 	
 	NSString *k = [eMobcViewController whatDevice:k];
 	
-	NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"quiz/backgroundQuiz.png" ofType:nil inDirectory:k];
+	NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"images/quiz/next.png" ofType:nil inDirectory:k];
 	
-	background.image = [UIImage imageWithContentsOfFile:imagePath];
+	//set the button's title
+	[button setImage:[UIImage imageWithContentsOfFile:imagePath] forState:UIControlStateNormal];
 	
-	[self.view addSubview:background];
+	//listen for clicks
+	[button addTarget:self action:@selector(randomQuestion) forControlEvents:UIControlEventTouchUpInside];
 	
+	//add the button to the view
+	[self.view addSubview:button];
+}
+
+
+-(void) scorePoints {
+	[score addObject:varQuestion.weight];
+}
+
+
+-(void) quizFinish{
+	
+	[self loadBackground];
+	
+	NSString *k = [eMobcViewController whatDevice:k];
+	
+		
 	if([eMobcViewController isIPad]){
 		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
 			imgViewFinish = [[UIImageView alloc] initWithFrame:CGRectMake(150, 108, 768, 400)];
@@ -773,7 +704,7 @@
 		}				
 	}
 	
-	NSString *imagePath1 = [[NSBundle mainBundle] pathForResource:@"quiz/imagenFinalizado.png" ofType:nil inDirectory:k];
+	NSString *imagePath1 = [[NSBundle mainBundle] pathForResource:@"images/quiz/imagenFinalizado.png" ofType:nil inDirectory:k];
 
 	imgViewFinish.image = [UIImage imageWithContentsOfFile:imagePath1];
 	
@@ -802,20 +733,19 @@
 	
 	if([eMobcViewController isIPad]){
 		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			button.frame = CGRectMake(400, 500, 240, 50);
+			button.frame = CGRectMake(400, 768 - sizeBottom - 55, 240, 50);
 		}else{
-			button.frame = CGRectMake(270, 900, 240, 50);
+			button.frame = CGRectMake(270, 1024 - sizeBottom - 55, 240, 50);
 		}				
 	}else {
 		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			button.frame = CGRectMake(340, 240, 120, 30);
+			button.frame = CGRectMake(340, 320 - sizeBottom - 35, 120, 30);
 		}else{
-			button.frame = CGRectMake(180, 410, 120, 30);
-			
+			button.frame = CGRectMake(180, 480 - sizeBottom - 35, 120, 30);
 		}				
 	}
 
-	NSString *imagePath2 = [[NSBundle mainBundle] pathForResource:@"quiz/close.png" ofType:nil inDirectory:k];
+	NSString *imagePath2 = [[NSBundle mainBundle] pathForResource:@"images/quiz/close.png" ofType:nil inDirectory:k];
 	
 	//set the button's title
 	//[button setTitle:@"Responder" forState:UIControlStateNormal];
@@ -904,20 +834,20 @@
 		NSString *type = [varStyles.mapFormatComponents objectForKey:var];
 		
 		varFormats = [mainController.theFormat.formatsMap objectForKey:type];
-		UILabel *myLabel;
+		
 		
 		if([var isEqualToString:@"header"]){
 			if([eMobcViewController isIPad]){
 				if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 108, 1024, 20)];	
+					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop, 1024, 20)];	
 				}else{
-					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 108, 768, 20)];
+					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop, 768, 20)];
 				}				
 			}else {
 				if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 88, 480, 20)];	
+					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop, 480, 20)];	
 				}else{
-					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 88, 320, 20)];
+					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop, 320, 20)];
 				}				
 			}
 			
@@ -931,9 +861,9 @@
 			//Hay que convertirlo a hexadecimal.
 			//	varFormats.textColor
 			
-			myLabel.textColor =  [UIColor colorWithRed:100 green:20 blue:10 alpha:1];
+			//myLabel.textColor =  [UIColor colorWithRed:100 green:20 blue:10 alpha:1];
 			
-			//myLabel.textColor = [UIColor whiteColor];
+			myLabel.textColor = [UIColor whiteColor];
 			myLabel.textAlignment = UITextAlignmentCenter;
 			
 			[self.view addSubview:myLabel];
@@ -947,35 +877,8 @@
  * Load themes
  */
 -(void) loadThemes {
-	if(![varStyles.backgroundFileName isEqualToString:@""]) {
-		
-		if([eMobcViewController isIPad]){
-			if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-				background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 88, 1024, 688)];
-			}else{
-				background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 88, 768, 936)];
-			}				
-		}else {
-			if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-				background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 88, 480, 232)];
-			}else{
-				background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 88, 320, 392)];
-			}				
-		}
-		
-		NSString *k = [eMobcViewController whatDevice:k];
-		
-		NSString *imagePath = [[NSBundle mainBundle] pathForResource:varStyles.backgroundFileName ofType:nil inDirectory:k];
-		
-		background.image = [UIImage imageWithContentsOfFile:imagePath];
-		
-		[self.view addSubview:background];
-		//[self.view sendSubviewToBack:background];
-	}else{
-		self.view.backgroundColor = [UIColor whiteColor];
-	}
-	[background release];
-	
+	[self loadBackground];
+
 	if(![varStyles.components isEqualToString:@""]) {
 		NSArray *separarComponents = [varStyles.components componentsSeparatedByString:@";"];
 		NSArray *assignment;

@@ -1,24 +1,3 @@
-
-/*NSString *k = [eMobcViewController whatDevice:k];
- 
- NSString *imagePath = [[NSBundle mainBundle] pathForResource:data.headerImageFile ofType:nil inDirectory:k];
- 
- imgView.image = [UIImage imageWithContentsOfFile:imagePath];
- 
- [self.view addSubview:imgView];
- [imgView release];
- 
- 
- 
- 
- 
- NSString *k = [eMobcViewController whatDevice:k];
- 
- NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"quiz/start.png" ofType:nil inDirectory:k];
- 
- [button setImage:[UIImage imageWithContentsOfFile:imagePath] forState:UIControlStateNormal];*/
-
-
 /**
  *  Copyright 2012 Neurowork Consulting S.L.
  *
@@ -56,6 +35,10 @@
 @synthesize varFormats;
 @synthesize background;
 @synthesize imagePickerController;
+
+@synthesize sizeTop;
+@synthesize sizeBottom;
+@synthesize sizeHeaderText;
 
 static CGFloat const kScreenWidth = 320.0;
 static CGFloat const kScreenHeight = 480.0;
@@ -161,15 +144,15 @@ static CGFloat const kTabBarHeightiPad = 58.0;
 		if([var isEqualToString:@"header"]){
 			if([eMobcViewController isIPad]){
 				if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 108, 1024, 20)];	
+					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop, 1024, 20)];	
 				}else{
-					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 108, 768, 20)];
+					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop, 768, 20)];
 				}				
 			}else {
 				if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 88, 480, 20)];	
+					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop, 480, 20)];	
 				}else{
-					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 88, 320, 20)];
+					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop, 320, 20)];
 				}				
 			}
 			
@@ -200,15 +183,15 @@ static CGFloat const kTabBarHeightiPad = 58.0;
 		
 		if([eMobcViewController isIPad]){
 			if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-				background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 108, 1024, 582)];
+				background = [[UIImageView alloc] initWithFrame:CGRectMake(0, sizeTop, 1024, 768 - sizeTop - sizeBottom)];
 			}else{
-				background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 108, 786, 838)];
+				background = [[UIImageView alloc] initWithFrame:CGRectMake(0, sizeTop, 786, 1024 - sizeTop - sizeBottom)];
 			}				
 		}else {
 			if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-				background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 108, 480, 174)];
+				background = [[UIImageView alloc] initWithFrame:CGRectMake(0, sizeTop, 480, 320 - sizeTop - sizeBottom)];
 			}else{
-				background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 108, 320, 334)];
+				background = [[UIImageView alloc] initWithFrame:CGRectMake(0, sizeTop, 320, 480 - sizeTop - sizeBottom)];
 			}				
 		}
 		
@@ -253,8 +236,13 @@ static CGFloat const kTabBarHeightiPad = 58.0;
  * Load and prepare the form
  */
 -(void) loadForm{
+	sizeTop = 0;
+	sizeBottom = 0;
+	sizeHeaderText = 25;
 	
-
+	sizeTop = [mainController ifMenuAndAdsTop:sizeTop];
+	sizeBottom = [mainController ifMenuAndAdsBottom:sizeBottom];
+	
 	if(data != nil || profile != nil){
 		varStyles = [mainController.theStyle.stylesMap objectForKey:@"FORM_ACTIVITY"];
 		
@@ -263,15 +251,15 @@ static CGFloat const kTabBarHeightiPad = 58.0;
 		}else{
 			if([eMobcViewController isIPad]){
 				if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-					background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 88, 1024, 642)];
+					background = [[UIImageView alloc] initWithFrame:CGRectMake(0, sizeTop, 1024, 768 - sizeTop - sizeBottom)];
 				}else{
-					background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 88, 768, 898)];
+					background = [[UIImageView alloc] initWithFrame:CGRectMake(0, sizeTop, 768, 1024 - sizeTop - sizeBottom)];
 				}				
 			}else {
 				if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-					background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 88, 480, 194)];
+					background = [[UIImageView alloc] initWithFrame:CGRectMake(0, sizeTop, 480, 320 - sizeTop - sizeBottom)];
 				}else{
-					background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 88, 320, 354)];
+					background = [[UIImageView alloc] initWithFrame:CGRectMake(0, sizeTop, 320, 480 - sizeTop - sizeBottom)];
 					
 				}				
 			}
@@ -289,15 +277,15 @@ static CGFloat const kTabBarHeightiPad = 58.0;
 		
 		if([eMobcViewController isIPad]){
 			if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-				scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 128, 1024, 582)];	
+				scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, sizeTop + sizeHeaderText, 1024, 768 - sizeTop - sizeBottom - sizeHeaderText)];	
 			}else{
-				scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 128, 786, 838)];
+				scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, sizeTop + sizeHeaderText, 786, 1024 - sizeTop - sizeBottom - sizeHeaderText)];
 			}
 		}else{
 			if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-				scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 108, 480, 174)];	
+				scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, sizeTop + sizeHeaderText, 480, 320 - sizeTop - sizeBottom - sizeHeaderText)];	
 			}else{
-				scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 108, 320, 334)];
+				scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, sizeTop + sizeHeaderText, 320, 480 - sizeTop - sizeBottom - sizeHeaderText)];
 			}
 		}
 		
@@ -341,7 +329,6 @@ static CGFloat const kTabBarHeightiPad = 58.0;
 			}
 			
 			NSString* value = [formData objectForKey:theField.fieldName];
-			NSLog(@"valor form : %@", value);
 			ypos += [self addField:theField ypos:ypos withValue:value];
             if ([eMobcViewController isIPad]) {
                 ypos += kFormSeparatorHeightiPad;

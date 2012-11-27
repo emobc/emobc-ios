@@ -40,25 +40,33 @@
 	QRLevelData* data;
 			
 //Outlets
-	IBOutlet UIImageView *resultImage;
-	IBOutlet UIImageView *resultImageLandscape;
-    IBOutlet UITextView *resultText;
-	IBOutlet UITextView *resultTextLandscape;
-	IBOutlet UIWebView* webView;
+	UIImageView *resultImage;
+    UITextView *resultText;
 	
 	UIDeviceOrientation currentOrientation;
 	
 	bool loadContent;
+	
+	NSInteger sizeTop;
+	NSInteger sizeBottom;
+	NSInteger sizeHeaderText;
+	
+	UIButton *scanButton;
 }
 
 @property (nonatomic, retain) QRLevelData* data;
-@property (nonatomic, retain) IBOutlet UIImageView *resultImage;
-@property (nonatomic, retain) IBOutlet UIImageView *resultImageLandscape;
-@property (nonatomic, retain) IBOutlet UITextView *resultText;
-@property (nonatomic, retain) IBOutlet UITextView *resultTextLandscape;
+@property (nonatomic, retain) UIImageView *resultImage;
+@property (nonatomic, retain) UITextView *resultText;
 
+@property(nonatomic, retain) UIButton *scanButton;
 
-//Acciones
-	-(IBAction) scanButtonTapped;
+@property (nonatomic) NSInteger sizeTop;
+@property (nonatomic) NSInteger sizeBottom;
+@property (nonatomic) NSInteger sizeHeaderText;
+
+	-(void) scanButtonTapped;
+	-(void) createImageView;
+	-(void) createTextView;	
+	-(void) createScanButton;
 
 @end

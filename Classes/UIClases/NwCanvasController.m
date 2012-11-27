@@ -47,8 +47,12 @@
 @synthesize varFormats;
 @synthesize background;
 
-BOOL WANTSPORTRAIT = NO;
+@synthesize sizeTop;
+@synthesize sizeBottom;
+@synthesize sizeHeaderText;
+@synthesize infoButton;
 
+BOOL WANTSPORTRAIT = NO;
 
 - (void)dealloc {
 	[varStyles release];
@@ -70,11 +74,20 @@ BOOL WANTSPORTRAIT = NO;
 -(void)viewDidLoad {
 	[super viewDidLoad];
 	
+
+	
 	/*transitionView.frame = CGRectMake(0, 0, 480	, 320);
 	transitionView.hidden = YES;*/
 	
 	if (data != nil) {
 		loadContent = FALSE;
+		
+		sizeTop = 0;
+		sizeBottom = 0;
+		sizeHeaderText = 25;
+		
+		sizeTop = [mainController ifMenuAndAdsTop:sizeTop];
+		sizeBottom = [mainController ifMenuAndAdsBottom:sizeBottom];
 		
 		varStyles = [mainController.theStyle.stylesMap objectForKey:@"CANVAS_ACTIVITY"];
 		
@@ -82,7 +95,35 @@ BOOL WANTSPORTRAIT = NO;
 			[self loadThemes];
 		}
 		
+		[self createInfoButton];
 	}
+}
+
+-(void) createInfoButton{
+	
+	//create the button
+	infoButton = [UIButton buttonWithType:UIButtonTypeInfoDark];
+	
+	//set the position of the button
+	if([eMobcViewController isIPad]){
+		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+			infoButton.frame = CGRectMake(989, 768 - sizeBottom - 35, 25, 25);	
+		}else{
+			infoButton.frame = CGRectMake(733, 1024 - sizeBottom - 35, 25, 25);
+		}				
+	}else {
+		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+			infoButton.frame = CGRectMake(220, 320 - sizeBottom - 25, 15, 15);	
+		}else{
+			infoButton.frame = CGRectMake(295, 480 - sizeBottom - 25, 15, 15);
+		}				
+	}
+
+	//listen for clicks
+	[infoButton addTarget:self action:@selector(showInfo:) forControlEvents:UIControlEventTouchUpInside];
+	
+	//add the button to the view
+	[self.view addSubview:infoButton];
 }
 
 
@@ -116,7 +157,7 @@ BOOL WANTSPORTRAIT = NO;
 
 #pragma mark - Public
 
-- (IBAction)showInfo:(id)sender {    
+- (void)showInfo:(id)sender {    
 
 	FlipsideViewController *controller = [[FlipsideViewController alloc] initWithNibName:@"FlipsideView" bundle:nil];
 	controller.delegate = self;
@@ -169,15 +210,15 @@ BOOL WANTSPORTRAIT = NO;
 		if([var isEqualToString:@"header"]){
 			if([eMobcViewController isIPad]){
 				if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 108, 1024, 20)];	
+					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop, 1024, 20)];	
 				}else{
-					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 108, 768, 20)];
+					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop, 768, 20)];
 				}				
 			}else {
 				if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 88, 480, 20)];	
+					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop, 480, 20)];	
 				}else{
-					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 88, 320, 20)];
+					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop, 320, 20)];
 				}				
 			}
 			
@@ -190,7 +231,7 @@ BOOL WANTSPORTRAIT = NO;
 			
 			//Hay que convertirlo a hexadecimal.
 			//	varFormats.textColor
-			myLabel.textColor = [UIColor whiteColor];
+			myLabel.textColor = [UIColor blackColor];
 			myLabel.textAlignment = UITextAlignmentCenter;
 			
 			[self.view addSubview:myLabel];
@@ -295,6 +336,8 @@ BOOL WANTSPORTRAIT = NO;
 		if(varStyles != nil) {
 			[self loadThemes];
 		}
+		
+		[self createInfoButton];
 		
 		if(![mainController.appData.topMenu isEqualToString:@""]){
 			[self callTopMenu];

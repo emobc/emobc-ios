@@ -21,7 +21,7 @@
 const CGSize kTileSizeIPad = { 109.7f, 109.0f };
 const CGSize kTileSizeIPadLandscape = { 80.f, 65.f };
 
-const CGSize kTileSizeLandscape = { 46.0f, 33.0f };
+const CGSize kTileSizeLandscape = { 37.9f, 30.0f };
 const CGSize kTileSize = { 46.0f, 37.0f };
 
 

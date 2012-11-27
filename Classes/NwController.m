@@ -462,14 +462,31 @@
  * create a yoc banner
  */
 -(void) createYocBanner {
+	int yTop = 0;
+	int yBottom = 0;
+	
+	if(![mainController.appData.topMenu isEqualToString:@""]){
+		if([eMobcViewController isIPad])
+			yTop += 58;
+		else
+			yTop += 38;
+	}
+	
+	if(![mainController.appData.bottomMenu isEqualToString:@""]){
+		if([eMobcViewController isIPad])
+			yBottom += 58;
+		else
+			yBottom += 38;
+	}	
+	
 	//banner create
 	// be carefull with banner postion
 	if([mainController.appData.bannerPos isEqualToString:@"top"])
-		self.yocBanner_ = [[SmartAdServerView alloc] initWithFrame:CGRectMake(0, 38, self.view.frame.size.width, 50) 
+		self.yocBanner_ = [[SmartAdServerView alloc] initWithFrame:CGRectMake(0, yTop, self.view.frame.size.width, 50) 
 															loader:SmartAdServerViewLoaderActivityIndicatorStyleWhite];
 	else if([mainController.appData.bannerPos isEqualToString:@"bottom"])
 		self.yocBanner_ = [[SmartAdServerView alloc] initWithFrame:
-						   CGRectMake(0, self.view.frame.size.height-50-38, self.view.frame.size.width, 50) 
+						   CGRectMake(0, self.view.frame.size.height-50-yBottom, self.view.frame.size.width, 50) 
 															loader:SmartAdServerViewLoaderActivityIndicatorStyleWhite];
 	
 	//banner ID

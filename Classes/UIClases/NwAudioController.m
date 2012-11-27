@@ -39,12 +39,15 @@
 @synthesize imgView;
 
 @synthesize segundero;
-@synthesize volumen;
 @synthesize sTiempoAudio;
 
 @synthesize playButton;
 @synthesize pauseButton;
 @synthesize stopButton;
+
+@synthesize sizeTop;
+@synthesize sizeBottom;
+@synthesize sizeHeaderText;
 
 
 -(NSString *) formatTime: (int) num {
@@ -101,9 +104,6 @@
 	}
 }
 
--(void) cambiarVolumen{
-	[myMusic setVolume:volumen.value];
-}
 
 -(void) loop{
 	if (loop == FALSE) {
@@ -146,6 +146,14 @@
 	if (data != nil) {
 		loadContent = FALSE;
 		
+		sizeTop = 0;
+		sizeBottom = 0;
+		sizeHeaderText = 25;
+		
+		sizeTop = [mainController ifMenuAndAdsTop:sizeTop];
+		sizeBottom = [mainController ifMenuAndAdsBottom:sizeBottom];
+		
+	
 		varStyles = [mainController.theStyle.stylesMap objectForKey:@"AUDIO_ACTIVITY"];
 		
 		if(varStyles != nil) {
@@ -161,21 +169,21 @@
 	
 	if([eMobcViewController isIPad]){
 		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			imgView = [[UIImageView alloc] initWithFrame:CGRectMake(362, 600, 300, 120)];
+			imgView = [[UIImageView alloc] initWithFrame:CGRectMake(362, 768 - sizeBottom - 120 - 10, 300, 120)];
 		}else{
-			imgView = [[UIImageView alloc] initWithFrame:CGRectMake(234, 850 , 300, 120)];
+			imgView = [[UIImageView alloc] initWithFrame:CGRectMake(234, 1024 - sizeBottom - 120 - 10 , 300, 120)];
 		}				
 	}else {
 		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			imgView = [[UIImageView alloc] initWithFrame:CGRectMake(80, 180, 320, 90)];
+			imgView = [[UIImageView alloc] initWithFrame:CGRectMake(80, 320 - sizeBottom - 90 - 5, 320, 90)];
 		}else{
-			imgView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 310, 300, 120)];
+			imgView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 480 - sizeBottom - 120 - 10, 300, 120)];
 		}				
 	}
 	
 	NSString *k = [eMobcViewController whatDevice:k];
 	
-	NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"multimedia/coverMultimedia.png" ofType:nil inDirectory:k];
+	NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"images/multimedia/coverMultimedia.png" ofType:nil inDirectory:k];
 	
 	imgView.image = [UIImage imageWithContentsOfFile:imagePath];
 	
@@ -183,17 +191,20 @@
 	[imgView release];
 	
 	
+	[self buttonMultimedia];
+	
+	
 	if([eMobcViewController isIPad]){
 		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			segundero = [[UILabel alloc] initWithFrame:CGRectMake(437, 605, 150, 50)];
+			segundero = [[UILabel alloc] initWithFrame:CGRectMake(437, 768 - sizeBottom - 60, 150, 50)];
 		}else{
-			segundero = [[UILabel alloc] initWithFrame:CGRectMake(309, 855, 150, 50)];
+			segundero = [[UILabel alloc] initWithFrame:CGRectMake(309, 1024 - sizeBottom - 60, 150, 50)];
 		}				
 	}else {
 		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			segundero = [[UILabel alloc] initWithFrame:CGRectMake(90, 315, 140, 50)];
+			segundero = [[UILabel alloc] initWithFrame:CGRectMake(170, 320 - sizeBottom - 45, 140, 50)];
 		}else{
-			segundero = [[UILabel alloc] initWithFrame:CGRectMake(90, 315, 140, 50)];
+			segundero = [[UILabel alloc] initWithFrame:CGRectMake(90, 480 - sizeBottom - 60, 140, 50)];
 		}				
 	}
 	
@@ -204,49 +215,20 @@
 	[self.view addSubview:segundero];
 	[segundero release];
 	
-	CGRect frame;
-	
-	if([eMobcViewController isIPad]){
-		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			frame = CGRectMake(910, 635.0, 190, 10.0);
-		}else{
-			frame = CGRectMake(620, 860.0, 190, 10.0);
-		}				
-	}else {
-		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			frame = CGRectMake(340, 180.0, 180, 10.0);
-		}else{
-			frame = CGRectMake(210, 190.0, 190, 10.0);
-		}				
-	}
-	
-	volumen = [[UISlider alloc] initWithFrame:frame];
-	[volumen addTarget:self action:@selector(cambiarVolumen) forControlEvents:UIControlEventValueChanged];
-	[volumen setBackgroundColor:[UIColor clearColor]];
-	volumen.minimumValue = 0.0;
-	volumen.maximumValue = 1.0;
-	volumen.continuous = YES;
-	volumen.value = 0.5;
-	//Slider vertical
-	CGAffineTransform trans = CGAffineTransformMakeRotation(M_PI * -0.5);
-    volumen.transform = trans;
-	
-	[self.view addSubview:volumen];
-	[volumen release];
 	
 	CGRect frame1;
 	
 	if([eMobcViewController isIPad]){
 		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			frame1 = CGRectMake(367.0, 655.0, 290.0, 10.0);
+			frame1 = CGRectMake(367.0, 768 - sizeBottom - 20, 290.0, 10.0);
 		}else{
-			frame1 = CGRectMake(239.0, 895.0, 290.0, 10.0);
+			frame1 = CGRectMake(239.0, 1024 - sizeBottom - 20, 290.0, 10.0);
 		}				
 	}else {
 		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			frame1 = CGRectMake(95.0, 200.0, 290.0, 10.0);
+			frame1 = CGRectMake(95.0, 320 - sizeBottom - 10, 290.0, 10.0);
 		}else{
-			frame1 = CGRectMake(15.0, 360.0, 290.0, 10.0);
+			frame1 = CGRectMake(15.0, 480 - sizeBottom - 20, 290.0, 10.0);
 		}				
 	}
 		
@@ -279,8 +261,6 @@
 	myMusic.volume = 1.0;
 	[myMusic setNumberOfLoops:0];
 	
-	[self buttonMultimedia];
-	
 }
 
 -(void) buttonMultimedia{
@@ -291,15 +271,15 @@
 	//set the position of the button
 	if([eMobcViewController isIPad]){
 		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			playButton.frame = CGRectMake(497, 675, 40, 40);	
+			playButton.frame = CGRectMake(497, 768 - sizeBottom - 60, 40, 40);	
 		}else{
-			playButton.frame = CGRectMake(368, 920, 40, 40);
+			playButton.frame = CGRectMake(368, 1024 - sizeBottom - 60, 40, 40);
 		}				
 	}else {
 		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			playButton.frame = CGRectMake(220, 230, 40, 40);	
+			playButton.frame = CGRectMake(220, 320 - sizeBottom - 50, 40, 40);	
 		}else{
-			playButton.frame = CGRectMake(143, 385, 40, 40);
+			playButton.frame = CGRectMake(143, 480 - sizeBottom - 60, 40, 40);
 		}				
 	}
 	
@@ -308,7 +288,7 @@
 	
 	NSString *k = [eMobcViewController whatDevice:k];
 	
-	NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"multimedia/buttonPlay.png" ofType:nil inDirectory:k];
+	NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"images/multimedia/buttonPlay.png" ofType:nil inDirectory:k];
 	
 	[playButton setImage:[UIImage imageWithContentsOfFile:imagePath] forState:UIControlStateNormal];
 	
@@ -329,22 +309,22 @@
 	//set the position of the button
 	if([eMobcViewController isIPad]){
 		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			pauseButton.frame = CGRectMake(542, 675, 40, 40);	
+			pauseButton.frame = CGRectMake(542, 768 - sizeBottom - 60, 40, 40);	
 		}else{
-			pauseButton.frame = CGRectMake(423, 920, 40, 40);
+			pauseButton.frame = CGRectMake(423, 1024 - sizeBottom - 60, 40, 40);
 		}				
 	}else {
 		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			pauseButton.frame = CGRectMake(270, 230, 40, 40);	
+			pauseButton.frame = CGRectMake(270, 320 - sizeBottom - 50, 40, 40);	
 		}else{
-			pauseButton.frame = CGRectMake(180, 385, 40, 40);
+			pauseButton.frame = CGRectMake(180, 480 - sizeBottom - 60, 40, 40);
 		}				
 	}
 	
 	//set the button's title
 	//[pauseButton setTitle:@"pause" forState:UIControlStateNormal];
 	
-	NSString *imagePath1 = [[NSBundle mainBundle] pathForResource:@"multimedia/buttonPause.png" ofType:nil inDirectory:k];
+	NSString *imagePath1 = [[NSBundle mainBundle] pathForResource:@"images/multimedia/buttonPause.png" ofType:nil inDirectory:k];
 	
 	[pauseButton setImage:[UIImage imageWithContentsOfFile:imagePath1] forState:UIControlStateNormal];
 	
@@ -365,22 +345,22 @@
 	//set the position of the button
 	if([eMobcViewController isIPad]){
 		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			stopButton.frame = CGRectMake(447, 675, 40, 40);	
+			stopButton.frame = CGRectMake(447, 768 - sizeBottom - 60, 40, 40);	
 		}else{
-			stopButton.frame = CGRectMake(313, 920, 40, 40);
+			stopButton.frame = CGRectMake(313, 1024 - sizeBottom - 60, 40, 40);
 		}				
 	}else {
 		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			stopButton.frame = CGRectMake(170, 230, 40, 40);	
+			stopButton.frame = CGRectMake(170, 320 - sizeBottom - 50, 40, 40);	
 		}else{
-			stopButton.frame = CGRectMake(100, 385, 40, 40);
+			stopButton.frame = CGRectMake(100, 480 - sizeBottom - 60, 40, 40);
 		}				
 	}
 	
 	//set the button's title
 	//[stopButton setTitle:@"stop" forState:UIControlStateNormal];
 	
-	NSString *imagePath2 = [[NSBundle mainBundle] pathForResource:@"multimedia/buttonStop.png" ofType:nil inDirectory:k];
+	NSString *imagePath2 = [[NSBundle mainBundle] pathForResource:@"images/multimedia/buttonStop.png" ofType:nil inDirectory:k];
 	
 	[stopButton setImage:[UIImage imageWithContentsOfFile:imagePath2] forState:UIControlStateNormal];
 
@@ -389,6 +369,8 @@
 	
 	//add the button to the view
 	[self.view addSubview:stopButton];
+	
+	sizeBottom += 60;
 }
 
 
@@ -408,15 +390,15 @@
 		if([var isEqualToString:@"header"]){
 			if([eMobcViewController isIPad]){
 				if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 108, 1024, 20)];	
+					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop, 1024, 20)];	
 				}else{
-					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 108, 768, 20)];
+					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop, 768, 20)];
 				}				
 			}else {
 				if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 88, 480, 20)];	
+					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop, 480, 20)];	
 				}else{
-					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 88, 320, 20)];
+					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop, 320, 20)];
 				}				
 			}
 			
@@ -429,7 +411,7 @@
 			
 			//Hay que convertirlo a hexadecimal.
 			//	varFormats.textColor
-			myLabel.textColor = [UIColor whiteColor];
+			myLabel.textColor = [UIColor blackColor];
 			myLabel.textAlignment = UITextAlignmentCenter;
 			
 			[self.view addSubview:myLabel];

@@ -32,12 +32,14 @@
 @implementation NwSearchController
 
 @synthesize tableView;
-@synthesize tableViewLandscape;
 @synthesize searchBar;
-@synthesize searchBarLandscape;
 @synthesize varStyles;
 @synthesize varFormats;
 @synthesize background;
+
+@synthesize sizeTop;
+@synthesize sizeBottom;
+@synthesize sizeHeaderText;
 
 #pragma mark -
 #pragma mark View lifecycle
@@ -47,15 +49,19 @@
  */
 -(void)viewDidLoad {
     [super viewDidLoad];
-	
 	loadContent = FALSE;
-	varStyles = [mainController.theStyle.stylesMap objectForKey:@"SEARCH_ACTIVITY"];
 	
+	[self loadSize];
+	
+	varStyles = [mainController.theStyle.stylesMap objectForKey:@"SEARCH_ACTIVITY"];
+			
 	if(varStyles != nil) {
 		[self loadThemes];
 	}
 	
-
+	[self createSearchBar];
+	[self createTableView];
+	
 	//Initialize the array.
 	listOfItems = [[NSMutableArray alloc] init];
 	
@@ -63,10 +69,62 @@
 	copyListOfItems = [[NSMutableArray alloc] init];
 	
 	searchBar.autocorrectionType = UITextAutocorrectionTypeNo;
-	searchBarLandscape.autocorrectionType = UITextAutocorrectionTypeNo;
 	
 	searching = NO;
 	letUserSelectRow = YES;
+}
+
+-(void) loadSize{
+	sizeTop = 0;
+	sizeBottom = 0;
+	sizeHeaderText = 20;
+	
+	sizeTop = [mainController ifMenuAndAdsTop:sizeTop];
+	sizeBottom = [mainController ifMenuAndAdsBottom:sizeBottom];
+}
+
+
+-(void) createSearchBar{
+	if([eMobcViewController isIPad]){
+		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+			searchBar = [[[UISearchBar alloc] initWithFrame:CGRectMake(0, sizeTop + sizeHeaderText, 1024, 44)] autorelease];
+		}else{
+			searchBar = [[[UISearchBar alloc] initWithFrame:CGRectMake(0, sizeTop + sizeHeaderText, 768, 44)] autorelease];
+		}				
+	}else {
+		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+			searchBar = [[[UISearchBar alloc] initWithFrame:CGRectMake(0, sizeTop + sizeHeaderText, 480, 44)] autorelease];
+		}else{
+			searchBar = [[[UISearchBar alloc] initWithFrame:CGRectMake(0, sizeTop + sizeHeaderText, 320, 44)] autorelease];
+		}				
+	}
+	sizeTop += 44 + sizeHeaderText;
+	
+	searchBar.delegate = self;
+	
+	[self.view addSubview:searchBar]; 
+}
+
+
+-(void) createTableView{
+	if([eMobcViewController isIPad]){
+		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+			tableView = [[[UITableView alloc] initWithFrame:CGRectMake(0, sizeTop, 1024, 768 - sizeTop - sizeBottom - sizeHeaderText) style:UITableViewStylePlain] autorelease];
+		}else{
+			tableView = [[[UITableView alloc] initWithFrame:CGRectMake(0, sizeTop, 768, 1024 - sizeTop - sizeBottom - sizeHeaderText) style:UITableViewStylePlain] autorelease];
+		}				
+	}else {
+		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+			tableView = [[[UITableView alloc] initWithFrame:CGRectMake(0, sizeTop, 480, 320 - sizeTop - sizeBottom - sizeHeaderText) style:UITableViewStylePlain] autorelease];
+		}else{
+			tableView = [[[UITableView alloc] initWithFrame:CGRectMake(0, sizeTop, 320, 480 - sizeTop - sizeBottom - sizeHeaderText) style:UITableViewStylePlain] autorelease];
+		}				
+	}
+	
+	tableView.dataSource = self;
+	tableView.delegate = self;
+	
+	[self.view addSubview:tableView];
 }
 
 
@@ -269,12 +327,10 @@
 	ovController.rvController = self;
 	
 	[self.tableView insertSubview:ovController.view aboveSubview:self.parentViewController.view];
-	[self.tableViewLandscape insertSubview:ovController.view aboveSubview:self.parentViewController.view];
 	
 	searching = YES;
 	letUserSelectRow = NO;
 	self.tableView.scrollEnabled = NO;
-	self.tableViewLandscape.scrollEnabled = NO;
 	
 	//Add the done button.
 	self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] 
@@ -301,23 +357,18 @@
 		searching = YES;
 		letUserSelectRow = YES;
 		self.tableView.scrollEnabled = YES;
-		self.tableViewLandscape.scrollEnabled = YES;
 		[self searchTableView];
 	}
 	else {
 		
 		[self.tableView insertSubview:ovController.view aboveSubview:self.parentViewController.view];
 		
-		[self.tableViewLandscape insertSubview:ovController.view aboveSubview:self.parentViewController.view];
-		
 		searching = NO;
 		letUserSelectRow = NO;
 		self.tableView.scrollEnabled = NO;
-		self.tableViewLandscape.scrollEnabled = NO;
 	}
 	
 	[self.tableView reloadData];
-	[self.tableViewLandscape reloadData];
 }
 
 
@@ -332,7 +383,6 @@
 	
 	[self searchTableView];
     [searchBar resignFirstResponder];
-	[searchBarLandscape resignFirstResponder];
 }
 
 
@@ -343,7 +393,6 @@
  */
 -(void)searchBarCancelButtonClicked:(UISearchBar *)theSearchBar { 
     [searchBar resignFirstResponder];
-	[searchBarLandscape resignFirstResponder];
 }
 
 
@@ -362,9 +411,8 @@
 	/*NSString *searchText = searchBarLandscape.text;
 	NSMutableArray *searchArray = [[NwUtil instance] searchText:searchText];*/
 	
-	for (SearchItem* searchItem in searchArray)
-	{
-		NSLog(@"%@", searchItem.text);
+	for (SearchItem* searchItem in searchArray) {
+		//NSLog(@"%@", searchItem.text);
 		[copyListOfItems addObject:searchItem];
 	}
 
@@ -382,21 +430,16 @@
 	searchBar.text = @"";
 	[searchBar resignFirstResponder];
 	
-	searchBarLandscape.text = @"";
-	[searchBarLandscape resignFirstResponder];
-	
 	letUserSelectRow = YES;
 	searching = NO;
 	self.navigationItem.rightBarButtonItem = nil;
 	self.tableView.scrollEnabled = YES;
-	self.tableViewLandscape.scrollEnabled = YES;
 	
 	[ovController.view removeFromSuperview];
 	[ovController release];
 	ovController = nil;
 	
 	[self.tableView reloadData];
-	[self.tableViewLandscape reloadData];
 }
 
 
@@ -418,18 +461,17 @@
 		if([var isEqualToString:@"header"]){
 			if([eMobcViewController isIPad]){
 				if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 108, 1024, 20)];	
+					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop, 1024, 20)];	
 				}else{
-					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 108, 768, 20)];
+					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop, 768, 20)];
 				}				
 			}else {
 				if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 88, 480, 20)];	
+					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop, 480, 20)];	
 				}else{
-					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 88, 320, 20)];
+					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop, 320, 20)];
 				}				
 			}
-			
 			myLabel.text = @"Buscador eMobc";
 			
 			int varSize = [varFormats.textSize intValue];
@@ -437,7 +479,7 @@
 			myLabel.font = [UIFont fontWithName:varFormats.typeFace size:varSize];
 			myLabel.backgroundColor = [UIColor clearColor];
 			
-			myLabel.textColor = [UIColor whiteColor];
+			myLabel.textColor = [UIColor blackColor];
 			myLabel.textAlignment = UITextAlignmentCenter;
 			
 			[self.view addSubview:myLabel];
@@ -536,9 +578,14 @@
 			[self loadBackgroundMenu];
 		}
 		
+		[self loadSize];
+		
 		if(varStyles != nil) {
 			[self loadThemes];
 		}
+		
+		[self createSearchBar];
+		[self createTableView];
 		
 		if(![mainController.appData.topMenu isEqualToString:@""]){
 			[self callTopMenu];

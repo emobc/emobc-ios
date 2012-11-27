@@ -63,6 +63,7 @@
 }
 
 -(NSData*) content{
+	
 	NSData* cachedData = nil;
 	if (isLocal)	{
 		//NSLog(@"Ruta al Contenido Local: %@", fileName);

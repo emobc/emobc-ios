@@ -37,8 +37,10 @@
 @synthesize background;
 
 @synthesize webView;
-@synthesize webViewLandscape;
 
+@synthesize sizeTop;
+@synthesize sizeBottom;
+@synthesize sizeHeaderText;
 
 
 /**
@@ -48,6 +50,13 @@
 	[super viewDidLoad];
 	
 	if (data != nil) {
+		sizeTop = 0;
+		sizeBottom = 0;
+		sizeHeaderText = 25;
+		
+		sizeTop = [mainController ifMenuAndAdsTop:sizeTop];
+		sizeBottom = [mainController ifMenuAndAdsBottom:sizeBottom];
+		
 		varStyles = [mainController.theStyle.stylesMap objectForKey:@"PDF_ACTIVITY"];
 		
 		if(varStyles != nil) {
@@ -56,13 +65,34 @@
 		
 		loadContent = FALSE;
 		
-	
+		[self createWebView];
+		
 		if (data.local) {
 		
 		}else{
 			[self embedPdf:data.pdfUrl frame:self.view.frame];	
 		}			
 	}
+}
+
+-(void) createWebView{
+	if([eMobcViewController isIPad]){
+		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+			webView = [[[UIWebView alloc] initWithFrame:CGRectMake(0, sizeTop + sizeHeaderText, 1024, 768 - sizeTop - sizeBottom - sizeHeaderText)] autorelease];
+		}else{
+			webView = [[[UIWebView alloc] initWithFrame:CGRectMake(0, sizeTop + sizeHeaderText, 768, 1024 - sizeTop - sizeBottom - sizeHeaderText)] autorelease];
+		}				
+	}else {
+		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+			webView = [[[UIWebView alloc] initWithFrame:CGRectMake(0, sizeTop + sizeHeaderText, 480, 320 - sizeTop - sizeBottom - sizeHeaderText)] autorelease];
+		}else{
+			webView = [[[UIWebView alloc] initWithFrame:CGRectMake(0, sizeTop + sizeHeaderText, 320, 480 - sizeTop - sizeBottom - sizeHeaderText)] autorelease];
+		}				
+	}
+	
+	webView.delegate = self;
+	
+	[self.view addSubview:webView];
 }
 
 /**
@@ -80,15 +110,15 @@
 		if([var isEqualToString:@"header"]){
 			if([eMobcViewController isIPad]){
 				if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 108, 1024, 20)];	
+					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop, 1024, 20)];	
 				}else{
-					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 108, 768, 20)];
+					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop, 768, 20)];
 				}				
 			}else {
 				if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 88, 480, 20)];	
+					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop, 480, 20)];	
 				}else{
-					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 88, 320, 20)];
+					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop, 320, 20)];
 				}				
 			}
 			
@@ -102,9 +132,9 @@
 			//Hay que convertirlo a hexadecimal.
 			//	varFormats.textColor
 						
-			myLabel.textColor =  [UIColor colorWithRed:100 green:20 blue:10 alpha:1];
+			//myLabel.textColor =  [UIColor colorWithRed:100 green:20 blue:10 alpha:1];
 			
-			//myLabel.textColor = [UIColor whiteColor];
+			myLabel.textColor = [UIColor whiteColor];
 			myLabel.textAlignment = UITextAlignmentCenter;
 			
 			[self.view addSubview:myLabel];
@@ -185,14 +215,6 @@
 	webView.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
 	[webView loadRequest:requestObj];
 	webView.delegate = self;
-	
-	if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-		webViewLandscape.scalesPageToFit = YES;
-		webViewLandscape.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
-		[webViewLandscape loadRequest:requestObj];
-		webViewLandscape.delegate = self;
-	}
-
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -251,6 +273,8 @@
 		}else if([mainController.appData.banner isEqualToString:@"yoc"]){
 			[self createYocBanner];
 		}
+		
+		[self createWebView];
 	
 		if (data.local) {
 		

@@ -59,6 +59,10 @@
 	UIDeviceOrientation currentOrientation;
 	
 	bool loadContent;
+	
+	NSInteger sizeTop;
+	NSInteger sizeBottom;
+	NSInteger sizeHeaderText;
 }
 
 @property(nonatomic, retain) ImageGalleryLevelData* data;
@@ -67,6 +71,10 @@
 @property(nonatomic, retain) UIImageView *background;
 @property(nonatomic, retain) IBOutlet UIScrollView* scroll;
 @property(nonatomic, retain) IBOutlet UILabel* labelImageCount;
+
+@property (nonatomic) NSInteger sizeTop;
+@property (nonatomic) NSInteger sizeBottom;
+@property (nonatomic) NSInteger sizeHeaderText;
 
 
 //Metodos
@@ -78,4 +86,3 @@
 	-(void) loadThemes;
 
 @end
-

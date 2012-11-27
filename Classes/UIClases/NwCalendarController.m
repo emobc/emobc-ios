@@ -29,7 +29,9 @@
 
 //Datos parseados del fichero calendar.xml
 @synthesize data;
-
+@synthesize sizeTop;
+@synthesize sizeBottom;
+@synthesize sizeHeaderText;
 
 /**
  * Called after the controller’s view is loaded into memory.
@@ -45,6 +47,22 @@
 }
 
 -(void) kalInitialization{
+	sizeTop = 0;
+	sizeBottom = 0;
+	sizeHeaderText = 25;
+	
+	sizeTop = [mainController ifMenuAndAdsTop:sizeTop];
+	sizeBottom = [mainController ifMenuAndAdsBottom:sizeBottom];
+	
+	//Control ads in NwCalendarController 
+	if(sizeTop == 88){
+		sizeTop -= 50;
+	}
+	
+	if(sizeBottom == 88 ){
+		sizeBottom -= 50;
+	}
+	
 	/*
 	 *    Kal Initialization
 	 *
@@ -62,15 +80,15 @@
 	
 	if([eMobcViewController isIPad]){
 		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			kal.view.frame = CGRectMake(221, 128, 582, 582);
+			kal.view.frame = CGRectMake(221, sizeTop, 582, 768 - sizeTop - sizeBottom);
 		}else{
-			kal.view.frame = CGRectMake(0, 128, 768, 838);
+			kal.view.frame = CGRectMake(0, sizeTop, 768, 1024 - sizeTop - sizeBottom);
 		}				
 	}else {
 		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			kal.view.frame = CGRectMake(0, 38, 320, 244);
+			kal.view.frame = CGRectMake(110, sizeTop, 259, 320 - sizeTop - sizeBottom);
 		}else{
-			kal.view.frame = CGRectMake(0, 88, 320, 354);
+			kal.view.frame = CGRectMake(0, sizeTop, 320, 480 - sizeTop - sizeBottom);
 			
 		}				
 	}
@@ -160,11 +178,11 @@
 		}
 		
 		//publicity
-		if([mainController.appData.banner isEqualToString:@"admob"]){
+	/*	if([mainController.appData.banner isEqualToString:@"admob"]){
 			[self createAdmobBanner];
 		}else if([mainController.appData.banner isEqualToString:@"yoc"]){
 			[self createYocBanner];
-		}
+		}*/
 		
 		[self kalInitialization];
 	}	

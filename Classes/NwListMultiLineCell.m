@@ -45,7 +45,7 @@
 		
 		theStyle = [[NwUtil instance] readStyles];
 		theFormat =[[NwUtil instance] readFormats];
-		
+
 		varStyles = [theStyle.stylesMap objectForKey:@"LIST_ACTIVITY"];
 		
 		if(varStyles != nil) {
@@ -62,8 +62,7 @@
        // UIColor* color = [UIColor colorWithRed:167.0/255 green:184.0/255 blue:216.0/255 alpha:1];
 		[bgColorView setBackgroundColor:[UIColor grayColor]];
 		self.selectedBackgroundView = bgColorView;
-		[bgColorView release];	
-		
+		//[bgColorView release];	
 		
 		[self.contentView addSubview:listImageView];
 		[self.contentView addSubview:listLabel];
@@ -138,7 +137,6 @@
         
         frame = CGRectMake(boundsX+70, 8, 210, 20);
         listLabel.frame = frame;
-        
 		
 		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
 			frame = CGRectMake(boundsX+455, 20, 9, 13);
@@ -147,7 +145,6 @@
 		}
 		
 		listNextImageView.frame = frame;
-        
         if (descrLabel.text != nil) {
             UIFont* fontDescr = [UIFont fontWithName:@"Ubuntu-Medium" size:10];
             CGSize constraintSize = CGSizeMake(150.0f, MAXFLOAT);
@@ -226,9 +223,9 @@
 
 
 -(void)dealloc {
-	[listImageView release];
+/*	[listImageView release];
 	[listLabel release];
-	[descrLabel release];
+	[descrLabel release];*/
 	
     [super dealloc];
 }

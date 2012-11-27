@@ -44,6 +44,10 @@
 @synthesize varStyles;
 @synthesize varFormats;
 @synthesize background;
+
+@synthesize sizeTop;
+@synthesize sizeBottom;
+@synthesize sizeHeaderText;
  
 
 
@@ -63,20 +67,20 @@
  
 	if([eMobcViewController isIPad]){
 		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			view1.frame = CGRectMake(0, 0, 900, 600);
-			view2.frame = CGRectMake(900, 0, 900, 600);
+			view1.frame = CGRectMake(0, 0, 900, 768 - sizeTop - sizeBottom);
+			view2.frame = CGRectMake(900, 0, 900, 768 - sizeTop - sizeBottom);
 		}else {
-			view1.frame = CGRectMake(0, 0, 768, 800);
-			view2.frame = CGRectMake(768, 0, 768, 800);
+			view1.frame = CGRectMake(0, 0, 768, 1024 - sizeTop - sizeBottom);
+			view2.frame = CGRectMake(768, 0, 768, 1024 - sizeTop - sizeBottom);
 		}
 	}else{
 		
 		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			view1.frame = CGRectMake(0, 0, 320, 174);
-			view2.frame = CGRectMake(320, 0, 320, 174);
+			view1.frame = CGRectMake(0, 0, 320, 320 - sizeTop - sizeBottom);
+			view2.frame = CGRectMake(320, 0, 320, 320 - sizeTop - sizeBottom);
 		}else {
-			view1.frame = CGRectMake(0, 0, 320, 334);
-			view2.frame = CGRectMake(320, 0, 320, 334);
+			view1.frame = CGRectMake(0, 0, 320, 480 - sizeTop - sizeBottom);
+			view2.frame = CGRectMake(320, 0, 320, 480 - sizeTop - sizeBottom);
 		}
 	}
 	
@@ -95,17 +99,17 @@
 	
 	if([eMobcViewController isIPad]){
 		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			scroll.contentSize = CGSizeMake([imageSet count]*900, 600);
+			scroll.contentSize = CGSizeMake([imageSet count]*900, 768 - sizeTop - sizeBottom);
 			
 		}else {
-			scroll.contentSize = CGSizeMake([imageSet count]*768, 800);
+			scroll.contentSize = CGSizeMake([imageSet count]*768, 1024 - sizeTop - sizeBottom);
 		}
 	}else{
 		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			scroll.contentSize = CGSizeMake([imageSet count]*320, 174);
+			scroll.contentSize = CGSizeMake([imageSet count]*320, 320 - sizeTop - sizeBottom);
 			
 		}else {
-			scroll.contentSize = CGSizeMake([imageSet count]*320, 334);
+			scroll.contentSize = CGSizeMake([imageSet count]*320, 480 - sizeTop - sizeBottom);
 		}
 	}
 }
@@ -152,15 +156,15 @@
 
 		if([eMobcViewController isIPad]){
 			if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-				nextView.frame = CGRectMake(nextpage*900, 0, 900, 600);
+				nextView.frame = CGRectMake(nextpage*900, 0, 900, 768 - sizeTop - sizeBottom);
 			}else{
-				nextView.frame = CGRectMake(nextpage*768, 0, 768, 800);
+				nextView.frame = CGRectMake(nextpage*768, 0, 768, 1024 - sizeTop - sizeBottom);
 			}
 		}else{
 			if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-				nextView.frame = CGRectMake(nextpage*320, 0, 320, 174);
+				nextView.frame = CGRectMake(nextpage*320, 0, 320, 320 - sizeTop - sizeBottom);
 			}else{
-				nextView.frame = CGRectMake(nextpage*320, 0, 320, 334);
+				nextView.frame = CGRectMake(nextpage*320, 0, 320, 480 - sizeTop - sizeBottom);
 			}
 		}
 		
@@ -192,6 +196,7 @@
  */
 - (void)viewDidLoad {
     [super viewDidLoad];
+	
 	loadContent = FALSE;
    
 	//Init view into landscape orientation when devide didn't move
@@ -218,15 +223,15 @@
 	//check if device is an iPad
 	if([eMobcViewController isIPad]){
 		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			scroll.frame = CGRectMake(62, 128, 900, 600);
+			scroll.frame = CGRectMake(62, sizeTop, 900, 768 - sizeTop - sizeBottom);
 		}else {
-			scroll.frame = CGRectMake(0, 128, 768, 800);
+			scroll.frame = CGRectMake(0, sizeTop, 768, 1024 - sizeTop - sizeBottom);
 		}
 	}else{
 		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			scroll.frame = CGRectMake(80, 108, 320, 174);
+			scroll.frame = CGRectMake(80, sizeTop, 320, 320 - sizeTop - sizeBottom);
 		}else {
-			scroll.frame = CGRectMake(0, 108, 320, 334);
+			scroll.frame = CGRectMake(0, sizeTop, 320, 480 - sizeTop - sizeBottom);
 		}
 	}
 }
@@ -241,22 +246,31 @@
  */
 -(void) loadsView {
 	
-	[self propiedadesScroll];
-	[self.view addSubview:scroll];
-	[scroll release];
+	sizeTop = 0;
+	sizeBottom = 0;
+	sizeHeaderText = 0;
 	
-	view1 = [NwButton buttonWithType:UIButtonTypeCustom];
-	[scroll addSubview:view1];
-	
-	view2 = [NwButton buttonWithType:UIButtonTypeCustom];
-	[scroll addSubview:view2];	
+	sizeTop = [mainController ifMenuAndAdsTop:sizeTop];
+	sizeBottom = [mainController ifMenuAndAdsBottom:sizeBottom];
 	
 	if(data != nil){
 		varStyles = [mainController.theStyle.stylesMap objectForKey:@"IMAGE_GALLERY_ACTIVITY"];
 		
 		if(varStyles != nil) {
 			[self loadThemes];
+			sizeTop += 20;
 		}
+		
+		[self propiedadesScroll];
+		[self.view addSubview:scroll];
+		[scroll release];
+		
+		
+		view1 = [NwButton buttonWithType:UIButtonTypeCustom];
+		[scroll addSubview:view1];
+		
+		view2 = [NwButton buttonWithType:UIButtonTypeCustom];
+		[scroll addSubview:view2];
 		
 		if (data.showAllImages) {
 			NSMutableArray *searchArray = [[NwUtil instance] findAllImages];
@@ -300,15 +314,15 @@
 		if([var isEqualToString:@"header"]){
 			if([eMobcViewController isIPad]){
 				if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 108, 1024, 20)];	
+					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop, 1024, 20)];	
 				}else{
-					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 108, 768, 20)];
+					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop, 768, 20)];
 				}				
 			}else {
 				if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 88, 480, 20)];	
+					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop, 480, 20)];	
 				}else{
-					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 88, 320, 20)];
+					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop, 320, 20)];
 				}				
 			}
 			
@@ -406,6 +420,7 @@
 	
 	[self performSelector:@selector(orientationChangedMethod) withObject: nil afterDelay: 0];
 }
+
 
 -(void) orientationChangedMethod{
 	

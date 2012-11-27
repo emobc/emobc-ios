@@ -28,7 +28,7 @@
 #import "AppStyles.h"
 #import "AppFormatsStyles.h"
 
-@interface NwImageListController : NwController {
+@interface NwImageListController : NwController <UITableViewDelegate, UITableViewDataSource>{
 	
 //Objetos
 	ImageListLevelData* data;
@@ -36,7 +36,6 @@
 	
 //Outlets
 	UITableView* imgListTableView;
-	UITableView* imgListTableViewLandscape;
 	UIImageView* imgListImageView;
 
 	AppStyles* varStyles;
@@ -46,22 +45,29 @@
 	UIDeviceOrientation currentOrientation;
 	
 	bool loadContent;
+	
+	NSInteger sizeTop;
+	NSInteger sizeBottom;
+	NSInteger sizeHeaderText;
 }
 
 @property(nonatomic, retain) ImageListLevelData* data;
 
 @property (nonatomic, retain) IBOutlet UITableView* imgListTableView;
-@property (nonatomic, retain) IBOutlet UITableView* imgListTableViewLandscape;
 @property (nonatomic, retain) UIImageView* imgListImageView;
-
 
 @property (nonatomic, retain) AppStyles* varStyles;
 @property (nonatomic, retain) AppFormatsStyles* varFormats;
 @property (nonatomic, retain) UIImageView *background;
 
+@property (nonatomic) NSInteger sizeTop;
+@property (nonatomic) NSInteger sizeBottom;
+@property (nonatomic) NSInteger sizeHeaderText;
+
 //Methods
 	-(void) loadImageList;
 	-(void) loadThemesComponents;
 	-(void) loadThemes;
+	-(void) createTableView;
 
 @end

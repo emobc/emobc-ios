@@ -30,18 +30,28 @@
 
 @synthesize data;
 @synthesize imageView;
-@synthesize imageViewLandscape; 
 @synthesize scrollView; 
-@synthesize scrollViewLandscape;
 @synthesize varStyles;
 @synthesize varFormats;
 @synthesize background;
+
+@synthesize sizeTop;
+@synthesize sizeBottom;
+@synthesize sizeHeaderText;
 
 /**
  * Called after the controller’s view is loaded into memory.
  */
 -(void)viewDidLoad {
     [super viewDidLoad];
+	
+	sizeTop = 0;
+	sizeBottom = 0;
+	sizeHeaderText = 25;
+	
+	sizeTop = [mainController ifMenuAndAdsTop:sizeTop];
+	sizeBottom = [mainController ifMenuAndAdsBottom:sizeBottom];
+	
 	loadContent = FALSE;
 		
 	[self loadPhoto];
@@ -62,28 +72,36 @@
 	
 	if(varStyles != nil) {
 		[self loadThemes];
-	}
-	
+	}	
 	
 	self.imageView = tempImageView;
-	self.imageViewLandscape = tempImageView;
 	[tempImageView release];
+	
+	[self createScrollView];
+}
 
+-(void) createScrollView{
+	if([eMobcViewController isIPad]){
+		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+			scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, sizeTop + sizeHeaderText, 1024, 768 - sizeTop - sizeBottom - sizeHeaderText)];	
+		}else{
+			scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, sizeTop + sizeHeaderText, 786, 1024 - sizeTop - sizeBottom - sizeHeaderText)];
+		}
+	}else{
+		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+			scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, sizeTop + sizeHeaderText, 480, 320 - sizeTop - sizeBottom - sizeHeaderText)];	
+		}else{
+			scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, sizeTop + sizeHeaderText, 320, 480 - sizeTop - sizeBottom - sizeHeaderText)];
+		}
+	}
 	scrollView.contentSize = CGSizeMake(imageView.frame.size.width, imageView.frame.size.height);
 	scrollView.maximumZoomScale = 4.0;
 	scrollView.minimumZoomScale = 0.75;
 	scrollView.clipsToBounds = YES;
 	scrollView.delegate = self;
-	[scrollView addSubview:imageView];	
 	
-	if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-		scrollViewLandscape.contentSize = CGSizeMake(imageViewLandscape.frame.size.width, imageViewLandscape.frame.size.height);
-		scrollViewLandscape.maximumZoomScale = 4.0;
-		scrollViewLandscape.minimumZoomScale = 0.75;
-		scrollViewLandscape.clipsToBounds = YES;
-		scrollViewLandscape.delegate = self;
-		[scrollViewLandscape addSubview:imageViewLandscape];
-	}
+	[self.view addSubview:scrollView];
+	[scrollView addSubview:imageView];
 }
 
 /**
@@ -102,15 +120,15 @@
 		if([var isEqualToString:@"header"]){
 			if([eMobcViewController isIPad]){
 				if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 108, 1024, 20)];	
+					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop, 1024, 20)];	
 				}else{
-					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 108, 768, 20)];
+					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop, 768, 20)];
 				}				
 			}else {
 				if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 88, 480, 20)];	
+					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop, 480, 20)];	
 				}else{
-					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 88, 320, 20)];
+					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop, 320, 20)];
 				}				
 			}
 			
@@ -283,15 +301,12 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     self.scrollView = nil;
-	self.scrollViewLandscape = nil;
 }
 
 
 -(void)dealloc {
 	[imageView release];
-	[imageViewLandscape release];
 	[scrollView release];
-	[scrollViewLandscape release];
 	[varStyles release];
 	[varFormats release];
 	

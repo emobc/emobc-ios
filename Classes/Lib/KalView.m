@@ -39,17 +39,18 @@ static const CGFloat kMonthLabelHeight = 17.f;
 		  }else{
 			  headerView = [[[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, frame.size.width, kHeaderHeight)] autorelease];
 		  }
-		  
-		  headerView.backgroundColor = [UIColor grayColor];
-		  [self addSubviewsToHeaderView:headerView];
-		  [self addSubview:headerView];
-	  
 	  }else{
-		  UIView *headerView = [[[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, frame.size.width, kHeaderHeight)] autorelease];		  
-		  headerView.backgroundColor = [UIColor grayColor];
-		  [self addSubviewsToHeaderView:headerView];
-		  [self addSubview:headerView]; 
+		  
+		  if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+			  headerView = [[[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, 265, kHeaderHeight)] autorelease];
+		  }else{
+			  headerView = [[[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, frame.size.width, kHeaderHeight)] autorelease];
+		  }
 	  }
+	  
+	  headerView.backgroundColor = [UIColor grayColor];
+	  [self addSubviewsToHeaderView:headerView];
+	  [self addSubview:headerView]; 
 	  
 	  UIView *contentView;
 	  if([eMobcViewController isIPad]){
@@ -59,16 +60,17 @@ static const CGFloat kMonthLabelHeight = 17.f;
 			  contentView = [[[UIView alloc] initWithFrame:CGRectMake(0.f, kHeaderHeight, frame.size.width, frame.size.height - kHeaderHeight)] autorelease];
 		  }
 	
-		  contentView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-		  [self addSubviewsToContentView:contentView];
-		  [self addSubview:contentView];
-	
 	  }else{
-		  UIView *contentView = [[[UIView alloc] initWithFrame:CGRectMake(0.f, kHeaderHeight, frame.size.width, frame.size.height - kHeaderHeight)] autorelease];
-		  contentView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
-		  [self addSubviewsToContentView:contentView];
-		  [self addSubview:contentView];
+		  if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+			  contentView = [[[UIView alloc] initWithFrame:CGRectMake(0.f, kHeaderHeightLandscape, 265, frame.size.height - kHeaderHeight)] autorelease];
+		  }else{
+			  contentView = [[[UIView alloc] initWithFrame:CGRectMake(0.f, kHeaderHeight, frame.size.width, frame.size.height - kHeaderHeight)] autorelease];
+		  }
 	  }
+	  
+	  contentView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+	  [self addSubviewsToContentView:contentView];
+	  [self addSubview:contentView];
 	      
   }
   
@@ -160,10 +162,18 @@ static const CGFloat kMonthLabelHeight = 17.f;
 													kChangeMonthButtonHeight);
 		}
 	}else{
-		nextMonthButtonFrame = CGRectMake(self.width - kChangeMonthButtonWidth,
-										  kHeaderVerticalAdjust,
-										  kChangeMonthButtonWidth,
-										  kChangeMonthButtonHeight);
+		
+		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+			nextMonthButtonFrame = CGRectMake(265 - kChangeMonthButtonWidth,
+											  kHeaderVerticalAdjust,
+											  kChangeMonthButtonWidth,
+											  kChangeMonthButtonHeight);
+		}else{
+			nextMonthButtonFrame = CGRectMake(self.width - kChangeMonthButtonWidth,
+											  kHeaderVerticalAdjust,
+											  kChangeMonthButtonWidth,
+											  kChangeMonthButtonHeight);
+		}
 	}
 	
 
@@ -217,8 +227,8 @@ static const CGFloat kMonthLabelHeight = 17.f;
 		}				
 	}else {
 		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			for (CGFloat xOffset = 0.f; xOffset < headerView.width; xOffset += 46.0f, i = (i+1)%7) {
-				CGRect weekdayFrame = CGRectMake(xOffset, 30.f, 46.f, kHeaderHeight - 29.f);
+			for (CGFloat xOffset = 0.f; xOffset < headerView.width; xOffset += 39.0f, i = (i+1)%7) {
+				CGRect weekdayFrame = CGRectMake(xOffset, 30.f, 39.f, kHeaderHeight - 29.f);
 				UILabel *weekdayLabel = [[UILabel alloc] initWithFrame:weekdayFrame];
 				weekdayLabel.backgroundColor = [UIColor clearColor];
 				weekdayLabel.font = [UIFont boldSystemFontOfSize:10.f];
@@ -259,32 +269,36 @@ static const CGFloat kMonthLabelHeight = 17.f;
   // out to fit the # of weeks in the currently displayed month.
   // So the only part of the frame that we need to specify is the width.
 	CGRect fullWidthAutomaticLayoutFrame = CGRectMake(0.f, 0.f, self.width, 0.f);
-	CGRect fullWidthAutomaticLayoutFrameLandscape = CGRectMake(0.f, 0.f, 560, 0.f);
+	CGRect fullWidthAutomaticLayoutIPadFrameLandscape = CGRectMake(0.f, 0.f, 560, 0.f);
+	CGRect fullWidthAutomaticLayoutFrameLandscape = CGRectMake(0.f, 0.f, 265, 0.f);
 
 	if([eMobcViewController isIPad]){
 		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
 			// The tile grid (the calendar body)
-			gridView = [[KalGridView alloc] initWithFrame:fullWidthAutomaticLayoutFrameLandscape logic:logic delegate:delegate];
-			[gridView addObserver:self forKeyPath:@"frame" options:NSKeyValueObservingOptionNew context:NULL];
-			[contentView addSubview:gridView];
+			gridView = [[KalGridView alloc] initWithFrame:fullWidthAutomaticLayoutIPadFrameLandscape logic:logic delegate:delegate];
 		}else{
 			// The tile grid (the calendar body)
 			gridView = [[KalGridView alloc] initWithFrame:fullWidthAutomaticLayoutFrame logic:logic delegate:delegate];
 		}
-		
-		[gridView addObserver:self forKeyPath:@"frame" options:NSKeyValueObservingOptionNew context:NULL];
-		[contentView addSubview:gridView];
+
 	}else{
-		gridView = [[KalGridView alloc] initWithFrame:fullWidthAutomaticLayoutFrame logic:logic delegate:delegate];
-		[gridView addObserver:self forKeyPath:@"frame" options:NSKeyValueObservingOptionNew context:NULL];
-		[contentView addSubview:gridView];
+		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+			// The tile grid (the calendar body)
+			gridView = [[KalGridView alloc] initWithFrame:fullWidthAutomaticLayoutFrameLandscape logic:logic delegate:delegate];
+		}else{
+			// The tile grid (the calendar body)
+			gridView = [[KalGridView alloc] initWithFrame:fullWidthAutomaticLayoutFrame logic:logic delegate:delegate];
+		}
 	}
+	
+	[gridView addObserver:self forKeyPath:@"frame" options:NSKeyValueObservingOptionNew context:NULL];
+	[contentView addSubview:gridView];
 
 	
 	// The list of events for the selected day
 	if([eMobcViewController isIPad]){
 		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			tableView = [[UITableView alloc] initWithFrame:fullWidthAutomaticLayoutFrameLandscape style:UITableViewStylePlain];
+			tableView = [[UITableView alloc] initWithFrame:fullWidthAutomaticLayoutIPadFrameLandscape style:UITableViewStylePlain];
 		}else{
 			// The list of events for the selected day
 			tableView = [[UITableView alloc] initWithFrame:fullWidthAutomaticLayoutFrame style:UITableViewStylePlain];
@@ -293,30 +307,36 @@ static const CGFloat kMonthLabelHeight = 17.f;
 		tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 		[contentView addSubview:tableView];
 	}else{
-		tableView = [[UITableView alloc] initWithFrame:fullWidthAutomaticLayoutFrame style:UITableViewStylePlain];
-		tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-		[contentView addSubview:tableView];
+		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+			tableView = [[UITableView alloc] initWithFrame:fullWidthAutomaticLayoutFrameLandscape style:UITableViewStylePlain];
+		}else{
+			// The list of events for the selected day
+			tableView = [[UITableView alloc] initWithFrame:fullWidthAutomaticLayoutFrame style:UITableViewStylePlain];
+		}
 	}
+	
+	tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+	[contentView addSubview:tableView];
 	
 	// Drop shadow below tile grid and over the list of events for the selected day
 	if([eMobcViewController isIPad]){
+		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+			shadowView = [[UIImageView alloc] initWithFrame:fullWidthAutomaticLayoutIPadFrameLandscape];
+		}else{
+			shadowView = [[UIImageView alloc] initWithFrame:fullWidthAutomaticLayoutFrame];
+		}
+	}else{
 		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
 			shadowView = [[UIImageView alloc] initWithFrame:fullWidthAutomaticLayoutFrameLandscape];
 		}else{
 			shadowView = [[UIImageView alloc] initWithFrame:fullWidthAutomaticLayoutFrame];
 		}
-		
-		shadowView.image = [UIImage imageNamed:@"Kal.bundle/kal_grid_shadow.png"];
-		shadowView.height = shadowView.image.size.height;
-		[contentView addSubview:shadowView];
-		
-	}else{
-		// Drop shadow below tile grid and over the list of events for the selected day
-		shadowView = [[UIImageView alloc] initWithFrame:fullWidthAutomaticLayoutFrame];
-		shadowView.image = [UIImage imageNamed:@"Kal.bundle/kal_grid_shadow.png"];
-		shadowView.height = shadowView.image.size.height;
-		[contentView addSubview:shadowView];
 	}
+	
+	// Drop shadow below tile grid and over the list of events for the selected day
+	shadowView.image = [UIImage imageNamed:@"Kal.bundle/kal_grid_shadow.png"];
+	shadowView.height = shadowView.image.size.height;
+	[contentView addSubview:shadowView];
 	  
   // Trigger the initial KVO update to finish the contentView layout
   [gridView sizeToFit];
@@ -352,9 +372,9 @@ static const CGFloat kMonthLabelHeight = 17.f;
 	
 	  }else {
 		  if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			  tableView.frame = CGRectMake(320 ,0 ,160 ,194);
+			  tableView.frame = frame;
 		  }else{
-				tableView.frame = frame;
+			tableView.frame = frame;
 		  }
 			  
 		}	

@@ -28,6 +28,9 @@
 #import "NwController.h"
 #import "NearUtil.h"
 
+#import "AppStyles.h"
+#import "AppFormatsStyles.h"
+
 /**
  * CLASS SUMMARY
  * NwMapController is map viewController so It is going to handle map view
@@ -48,21 +51,39 @@
 	NSMutableArray *copyListOfItems;
 	MapItem* itemToGo;
 	
+	AppStyles* varStyles;
+	AppFormatsStyles* varFormats;
+	UIImageView *background;
+	
 //Outlets
 	IBOutlet UISearchBar *searchBar;
-	IBOutlet MKMapView *mapView;
-	IBOutlet MKMapView *mapViewLandscape;
+	MKMapView *mapView;
 	
 	UIDeviceOrientation currentOrientation;
 	
 	bool loadContent;
+	
+	NSInteger sizeTop;
+	NSInteger sizeBottom;
+	NSInteger sizeHeaderText;
+	
+	UIButton *nearPosButton;
 } 
 
-@property(nonatomic, retain) IBOutlet MKMapView *mapView;
-@property(nonatomic, retain) IBOutlet MKMapView *mapViewLandscape;
+@property(nonatomic, retain) MKMapView *mapView;
 @property(nonatomic, retain) MapLevelData* data;
 @property(nonatomic, retain) MapItem* itemToGo;
 @property(nonatomic, retain) NSMutableArray* annotations;
+
+@property(nonatomic, retain) AppStyles* varStyles;
+@property(nonatomic, retain) AppFormatsStyles* varFormats;
+@property(nonatomic, retain) UIImageView *background;
+
+@property (nonatomic) NSInteger sizeTop;
+@property (nonatomic) NSInteger sizeBottom;
+@property (nonatomic) NSInteger sizeHeaderText;
+
+@property(nonatomic, retain) UIButton *nearPosButton;
 
 //Acciones
 	-(IBAction) back:(id)sender;
@@ -75,6 +96,11 @@
 	-(void) loadMapItems;
 	-(void) goToItem;
 	-(void) loadMapa;
+	-(void) createMapView;
+	-(void) createButtonNear;
+
+	-(void) loadThemesComponents;
+	-(void) loadThemes;
 
 NSComparisonResult compareDistance(NearUtil* first, NearUtil *second, void *context);
 

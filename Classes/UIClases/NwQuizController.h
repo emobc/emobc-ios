@@ -56,10 +56,11 @@
 	UIImageView *imgViewQuestion;
 	UIImageView *imgViewFinish;
 	UIImageView *background;
-	UILabel *myDescription;
+	UITextView *myDescription;
 	UILabel *myText;
 	UILabel *myTextPoint;
 	UIButton *button;
+	UILabel *myLabel;
 	
 	UILabel *myAnswer;
 	
@@ -75,6 +76,9 @@
 	
 	bool loadContent;
 	
+	NSInteger sizeTop;
+	NSInteger sizeBottom;
+	NSInteger sizeHeaderText;	
 }
 
 @property (nonatomic, retain) QuizLevelData* data;
@@ -86,12 +90,13 @@
 @property (nonatomic, retain) UIImageView *imgViewQuestion;
 @property (nonatomic, retain) UIImageView *imgViewFinish;
 @property (nonatomic, retain) UIImageView *background;
-@property (nonatomic, retain) UILabel *myDescription;
+@property (nonatomic, retain) UITextView *myDescription;
 @property (nonatomic, retain) UILabel *myText;
 @property (nonatomic, retain) UILabel *myTextPoint;
 @property (nonatomic, retain) UIButton *button;
 @property (nonatomic, retain) NSString *a;
 @property (nonatomic, retain) UILabel *myAnswer;
+@property (nonatomic, retain) UILabel *myLabel;
 
 @property (nonatomic, retain) UIButton *but;
 
@@ -99,8 +104,12 @@
 @property (nonatomic, retain) NSMutableArray *questionRepeat;
 @property (nonatomic, retain) NSMutableArray *numQuestion;
 
-@property(nonatomic, retain) AppStyles* varStyles;
-@property(nonatomic, retain) AppFormatsStyles* varFormats;
+@property (nonatomic, retain) AppStyles* varStyles;
+@property (nonatomic, retain) AppFormatsStyles* varFormats;
+
+@property (nonatomic) NSInteger sizeTop;
+@property (nonatomic) NSInteger sizeBottom;
+@property (nonatomic) NSInteger sizeHeaderText;
 
 -(void) startButton;
 -(void) buttonPressed;
@@ -123,5 +132,8 @@
 
 -(void) loadThemesComponents;
 -(void) loadThemes;
+
+-(void) createIntroduction;
+-(void) loadBackground;
 
 @end

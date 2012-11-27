@@ -30,15 +30,26 @@
 //#import "SM3DAR.h"
 #import "NwListNearPositionController.h"
 #import "eMobcViewController.h"
+#import "AppFormatsStyles.h"
+#import "AppStyles.h"
 
 
 @implementation NwMapController
 
 @synthesize mapView;
-@synthesize mapViewLandscape;
 @synthesize data;
 @synthesize annotations;
 @synthesize itemToGo;
+
+@synthesize varStyles;
+@synthesize varFormats;
+@synthesize background;
+
+@synthesize sizeTop;
+@synthesize sizeBottom;
+@synthesize sizeHeaderText;
+
+@synthesize nearPosButton;
  
 /**
  * Returns a newly initialized view controller with the nib file in the specified bundle.
@@ -82,13 +93,18 @@
  * Load map in MKMapView 
  */
 -(void) loadMapa{
-	if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-		[mapViewLandscape setMapType:MKMapTypeHybrid];
-	}else{
-		[mapView setMapType:MKMapTypeHybrid];
-	}
 	
-    
+	sizeTop = 0;
+	sizeBottom = 0;
+	sizeHeaderText = 25;
+	
+	sizeTop = [mainController ifMenuAndAdsTop:sizeTop];
+	sizeBottom = [mainController ifMenuAndAdsBottom:sizeBottom];
+	
+	[self createMapView];
+	
+	[mapView setMapType:MKMapTypeHybrid];
+
     MKCoordinateRegion region;
 	
 	if (itemToGo == nil){
@@ -102,16 +118,21 @@
 		region.span.latitudeDelta = 2.0;
 		region.span.longitudeDelta = 2.0;		
 	}
+		
+	[mapView setRegion:region animated:YES];
 	
-	
-	
-	if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-		[mapViewLandscape setRegion:region animated:YES];
-	}else{
-		[mapView setRegion:region animated:YES];
-	}
 	
 	if(data != nil){
+		
+		varStyles = [mainController.theStyle.stylesMap objectForKey:@"MAP_ACTIVITY"];
+		
+		if(varStyles != nil) {
+			[self loadThemes];
+		}
+		
+		[self createButtonNear];
+		
+		
 		if (data.showAllPositions == TRUE){
 			NSMutableArray *searchArray = [[NwUtil instance] findAllGeoReferences];
 			
@@ -134,26 +155,15 @@
 		
 	}
 	
+	mapView.showsUserLocation = YES;
+	mapView.delegate=self;
 	
-	if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-		mapViewLandscape.showsUserLocation = YES;
-		mapViewLandscape.delegate=self;  
-    }else{
-		mapView.showsUserLocation = YES;
-		mapView.delegate=self;
-	}
 	
     CLLocationCoordinate2D coordinate;
     
     if ([CLLocationManager locationServicesEnabled]){
-		
-		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			coordinate.latitude = self.mapViewLandscape.userLocation.location.coordinate.latitude;
-			coordinate.longitude = self.mapViewLandscape.userLocation.location.coordinate.longitude;
-		}else{
-			coordinate.latitude = self.mapView.userLocation.location.coordinate.latitude;
-			coordinate.longitude = self.mapView.userLocation.location.coordinate.longitude;
-		}
+		coordinate.latitude = self.mapView.userLocation.location.coordinate.latitude;
+		coordinate.longitude = self.mapView.userLocation.location.coordinate.longitude;
     }
     
     //NSLog(@"Longitud: %f",  self.mapView.userLocation.location.coordinate.longitude);
@@ -188,6 +198,63 @@
 	controller.mainController = mainController;
 }
 
+
+-(void) createMapView {
+	if([eMobcViewController isIPad]){
+		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+			mapView = [[[MKMapView alloc] initWithFrame:CGRectMake(0, sizeTop + sizeHeaderText, 1024, 768 - sizeTop - sizeBottom - sizeHeaderText)] autorelease];
+		}else{
+			mapView = [[[MKMapView alloc] initWithFrame:CGRectMake(0, sizeTop + sizeHeaderText, 768, 1024 - sizeTop - sizeBottom - sizeHeaderText)] autorelease];
+		}				
+	}else {
+		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+			mapView = [[[MKMapView alloc] initWithFrame:CGRectMake(0, sizeTop + sizeHeaderText, 480, 320 - sizeTop - sizeBottom - sizeHeaderText)] autorelease];
+		}else{
+			mapView = [[[MKMapView alloc] initWithFrame:CGRectMake(0, sizeTop + sizeHeaderText, 320, 480 - sizeTop - sizeBottom - sizeHeaderText)] autorelease];
+		}				
+	}
+
+	mapView.delegate = self;
+	
+	[self.view addSubview:mapView];
+}
+
+-(void) createButtonNear{
+	//create the button
+	nearPosButton = [UIButton buttonWithType:UIButtonTypeCustom];
+	
+	//set the position of the button
+	if([eMobcViewController isIPad]){
+		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+			nearPosButton.frame = CGRectMake(966, sizeTop + 33, 50, 50);	
+		}else{
+			nearPosButton.frame = CGRectMake(710, sizeTop + 33, 50, 50);
+		}				
+	}else {
+		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+			nearPosButton.frame = CGRectMake(435, sizeTop + 30, 40, 40);	
+		}else{
+			nearPosButton.frame = CGRectMake(275, sizeTop + 30, 40, 40);
+		}				
+	}
+	
+	//set the button's title
+	//[nearPosButton setTitle:@"Near position" forState:UIControlStateNormal];
+	
+	NSString *k = [eMobcViewController whatDevice:k];
+	
+	NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"images/icons/nearMap.png" ofType:nil inDirectory:k];
+	
+	[nearPosButton setImage:[UIImage imageWithContentsOfFile:imagePath] forState:UIControlStateNormal];
+	
+	//listen for clicks
+	[nearPosButton addTarget:self action:@selector(nearPositions:) forControlEvents:UIControlEventTouchUpInside];
+	
+	//add the button to the view
+	[self.view addSubview:nearPosButton];
+}
+
+
 /**
  * Tells the delegate that the location of the user was updated
  *
@@ -197,19 +264,11 @@
 - (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation{
     MKCoordinateRegion mapRegion;   
     	
-	if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-		mapRegion.center = mapViewLandscape.userLocation.coordinate;
-	}else{
-		mapRegion.center = mapView.userLocation.coordinate;
-	}
+	mapRegion.center = mapView.userLocation.coordinate;
 	
     mapRegion.span = MKCoordinateSpanMake(0.1, 0.1);
     	
-	if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-		[mapViewLandscape setRegion:mapRegion animated: YES];
-	}else{
-		[mapView setRegion:mapRegion animated: YES];
-	}
+	[mapView setRegion:mapRegion animated: YES];
 }
 
 /**
@@ -230,11 +289,7 @@
 		region.span.longitudeDelta = 2.0;		
 	}
 	
-	if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-		[mapViewLandscape setRegion:region animated:YES];
-	}else{
-		[mapView setRegion:region animated:YES];
-	}
+	[mapView setRegion:region animated:YES];
 }
 
 /**
@@ -260,15 +315,8 @@
 			
 				
 			//[self.annotations addObject:placemark];
-			
-			if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-				[mapViewLandscape addAnnotation:placemark];
-			}else{
-				[mapView addAnnotation:placemark];
-			}
-
+			[mapView addAnnotation:placemark];
 		}
-
 	}
 }
 
@@ -310,13 +358,8 @@
 -(void)viewDidUnload {
     [super viewDidUnload];
     
-    if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-		self.mapViewLandscape.showsUserLocation = NO;
-		self.mapViewLandscape = nil;
-    }else{
-		self.mapView.showsUserLocation = NO;
-		self.mapView = nil;
-	}
+	self.mapView.showsUserLocation = NO;
+	self.mapView = nil;
 		
 	// Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -324,14 +367,9 @@
 
 
 - (void)dealloc{
-    
-	if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-		[self.mapViewLandscape removeFromSuperview]; // release crashes app
-		self.mapViewLandscape = nil;
-	}else{
-		[self.mapView removeFromSuperview]; // release crashes app
-		self.mapView = nil;
-	}
+	[self.mapView removeFromSuperview]; // release crashes app
+	self.mapView = nil;
+
 	[data release];
 
     [super dealloc];
@@ -344,13 +382,7 @@
  * @see goBack
  */
 -(IBAction) back:(id)sender{
-    
-	if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-		self.mapViewLandscape.showsUserLocation = NO;
-	}else{
-		self.mapView.showsUserLocation = NO;
-	}
-	
+	self.mapView.showsUserLocation = NO;	
 	[mainController goBack];	
 }
 
@@ -407,22 +439,15 @@
 	
 	NwPlacemark *placemark = (NwPlacemark*)annotation;
 	
-	NwCustomPin *pin;
-	
-    if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-		pin = (NwCustomPin *)[self.mapViewLandscape dequeueReusableAnnotationViewWithIdentifier:@"CustomId"];
-	}else{
-		pin = (NwCustomPin *)[self.mapView dequeueReusableAnnotationViewWithIdentifier:@"CustomId"];
-	}
-	
-    	
+	NwCustomPin *pin = (NwCustomPin *)[self.mapView dequeueReusableAnnotationViewWithIdentifier:@"CustomId"];
+	    	
 	if (pin == nil) {
         pin = [[[NwCustomPin alloc] initWithAnnotation:placemark] autorelease];
     } else {
         pin.annotation = annotation;
     }
 	
-	if(annotation == mapView.userLocation || annotation == mapViewLandscape.userLocation){
+	if(annotation == mapView.userLocation){
 		if (data.currentPositionIconFileName != nil){
 			pin.image = [UIImage imageNamed:data.currentPositionIconFileName]; 
 		}		
@@ -501,15 +526,8 @@
     CLLocationCoordinate2D coordinate;
     
     if ([CLLocationManager locationServicesEnabled]){
-        		
-		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			coordinate.latitude = self.mapViewLandscape.userLocation.location.coordinate.latitude;
-			coordinate.longitude = self.mapViewLandscape.userLocation.location.coordinate.longitude;
-		}else{
-			coordinate.latitude = self.mapView.userLocation.location.coordinate.latitude;
-			coordinate.longitude = self.mapView.userLocation.location.coordinate.longitude;
-		}
-			
+		coordinate.latitude = self.mapView.userLocation.location.coordinate.latitude;
+		coordinate.longitude = self.mapView.userLocation.location.coordinate.longitude;
     }
     
      CLLocation *location = [[CLLocation alloc] initWithLatitude:coordinate.latitude longitude:coordinate.longitude]; 
@@ -648,12 +666,7 @@ NSComparisonResult compareDistance(NearUtil* first, NearUtil *second, void *cont
  * Add properties to placemarks
  */
 - (void) loadMapItems{
-		
-	if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-		[mapViewLandscape removeAnnotations:annotations];
-	}else{
-		[mapView removeAnnotations:annotations];
-	}
+	[mapView removeAnnotations:annotations];
 	
 	[annotations removeAllObjects];
 	
@@ -677,13 +690,113 @@ NSComparisonResult compareDistance(NearUtil* first, NearUtil *second, void *cont
 		
 		[annotations addObject:placemark];
 				
-		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			[mapViewLandscape addAnnotation:placemark];
-		}else{
-			[mapView addAnnotation:placemark];
-		}
+		[mapView addAnnotation:placemark];
 	}	
 }
+
+
+
+/**
+ * Load themes from xml to components
+ */
+-(void)loadThemesComponents {
+	for(int x = 0; x < varStyles.listComponents.count; x++){
+		NSString *var = [varStyles.listComponents objectAtIndex:x];
+		
+		NSString *type = [varStyles.mapFormatComponents objectForKey:var];
+		
+		varFormats = [mainController.theFormat.formatsMap objectForKey:type];
+		UILabel *myLabel;
+		
+		if([var isEqualToString:@"header"]){
+			if([eMobcViewController isIPad]){
+				if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop, 1024, 20)];	
+				}else{
+					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop, 768, 20)];
+				}				
+			}else {
+				if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop, 480, 20)];	
+				}else{
+					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop, 320, 20)];
+				}				
+			}
+			
+			myLabel.text = data.headerText;
+			
+			int varSize = [varFormats.textSize intValue];
+			
+			myLabel.font = [UIFont fontWithName:varFormats.typeFace size:varSize];
+			myLabel.backgroundColor = [UIColor clearColor];
+			
+			//Hay que convertirlo a hexadecimal.
+			//	varFormats.textColor
+			myLabel.textColor = [UIColor blackColor];
+			myLabel.textAlignment = UITextAlignmentCenter;
+			
+			[self.view addSubview:myLabel];
+			[myLabel release];
+		}
+	}
+}
+
+
+/**
+ * Load themes
+ */
+-(void) loadThemes {
+	if(![varStyles.backgroundFileName isEqualToString:@""]) {
+		
+		if([eMobcViewController isIPad]){
+			if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+				background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 128, 1024, 630)];
+			}else{
+				background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 128, 768, 886)];
+			}				
+		}else {
+			if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+				background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 108, 480, 320)];
+			}else{
+				background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 108, 320, 480)];
+			}				
+		}
+		
+		NSString *k = [eMobcViewController whatDevice:k];
+		
+		NSString *imagePath = [[NSBundle mainBundle] pathForResource:varStyles.backgroundFileName ofType:nil inDirectory:k];
+		
+		background.image = [UIImage imageWithContentsOfFile:imagePath];
+		
+		//[self.view addSubview:background];
+		//[self.view sendSubviewToBack:background];
+	}else{
+		self.view.backgroundColor = [UIColor whiteColor];
+	}
+	
+	if(![varStyles.components isEqualToString:@""]) {
+		NSArray *separarComponents = [varStyles.components componentsSeparatedByString:@";"];
+		NSArray *assignment;
+		NSString *component;
+		
+		for(int i = 0; i < separarComponents.count - 1; i++){
+			assignment = [[separarComponents objectAtIndex:i] componentsSeparatedByString:@"="];
+			
+			component = [assignment objectAtIndex:0];
+			NSString *format = [assignment objectAtIndex:1];
+			
+			[varStyles.mapFormatComponents setObject:format forKey:component];
+			
+			if(![component isEqual:@"selection_list"]){
+				[varStyles.listComponents addObject:component];
+			}else{
+				varStyles.selectionList = format;
+			}
+		}
+		[self loadThemesComponents];
+	}
+}
+
 
 -(void) orientationChanged:(NSNotification *)object{
 	UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
@@ -699,6 +812,7 @@ NSComparisonResult compareDistance(NearUtil* first, NearUtil *second, void *cont
 	[self performSelector:@selector(orientationChangedMethod) withObject: nil afterDelay: 0];
 }
 
+
 -(void) orientationChangedMethod{
 	
 	if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
@@ -710,6 +824,11 @@ NSComparisonResult compareDistance(NearUtil* first, NearUtil *second, void *cont
 	if(loadContent == FALSE){
 		loadContent = TRUE;
 	
+		
+		if(varStyles != nil) {
+			[self loadThemes];
+		}
+		
 		if(![mainController.appData.backgroundMenu isEqualToString:@""]){
 			[self loadBackgroundMenu];
 		}

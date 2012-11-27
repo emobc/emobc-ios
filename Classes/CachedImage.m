@@ -43,7 +43,7 @@
 }
 
 -(UIImage*) imageContent{
-	if (image == nil) {
+	//if (image == nil) {
 		if (isLocal)	{
 			//NSLog(@"Ruta a Imagen Local: %@", fileName);
 			image = [UIImage imageNamed:fileName];
@@ -73,7 +73,7 @@
 				image = [[UIImage imageWithData:cachedData] retain];
 			}
 		}
-	}
+	//}
 	return image;
 }
 

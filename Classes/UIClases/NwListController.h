@@ -36,7 +36,7 @@
 
 @interface NwListController : NwController<UITableViewDelegate, UITableViewDataSource> {
 	
-//Objetos
+	//Objetos
 	ListLevelData* data;
 	AppStyles* varStyles;
 	AppFormatsStyles* varFormats;
@@ -44,13 +44,13 @@
 	
 	NSMutableArray* contentArray;
 	
-//Objects need for asynchronous image charge
+	//Objects need for asynchronous image charge
 	
 	NSMutableArray *pathList;
 	NSMutableDictionary* imageMap;	//diccionary -> key: item.text  value:image
 	NSMutableArray *imageToShow;	// Contains all images ready to be showen. Its behavior is like a queue
 	
-//Outlets
+	//Outlets
 	IBOutlet UITableView* listTableView;
 	IBOutlet UIImageView *listImageView; 
 	IBOutlet UIImageView *listNextImageView; 
@@ -60,6 +60,10 @@
 	UIDeviceOrientation currentOrientation;
 	
 	bool loadContent;
+	
+	NSInteger sizeTop;
+	NSInteger sizeBottom;
+	NSInteger sizeHeaderText;
 }
 
 @property (nonatomic, retain) ListLevelData* data;
@@ -79,21 +83,27 @@
 @property (nonatomic, retain) NSMutableArray *pathList;
 @property (nonatomic, retain) NSMutableArray *imageToShow;
 
+@property (nonatomic) NSInteger sizeTop;
+@property (nonatomic) NSInteger sizeBottom;
+@property (nonatomic) NSInteger sizeHeaderText;
+
 
 //Metodos
-	-(void) saveScrollPosition;
-	-(void) restoreScrollPosition;
+-(void) saveScrollPosition;
+-(void) restoreScrollPosition;
 
 //Medotos para la carga asíncrona de imagenes
-	/*-(void) loadImage:(UITableViewCell *)cell;
-	 -(UITableViewCell *) displayImage:(UITableViewCell *)cell;*/
-	-(void) loadImage:(ListItem *)theItem;
-	-(UITableViewCell *) displayImage:(UITableView *)tableView;
+/*-(void) loadImage:(UITableViewCell *)cell;
+ -(UITableViewCell *) displayImage:(UITableViewCell *)cell;*/
+-(void) loadImage:(ListItem *)theItem;
+-(UITableViewCell *) displayImage:(UITableView *)tableView;
 
-	-(void) loadThemesComponents;
-	-(void) loadThemes;
+-(void) loadThemesComponents;
+-(void) loadThemes;
 
-	-(void) orientationChangedMethod;
-	-(void) orientationChanged:(NSNotification *)object;
+-(void) orientationChangedMethod;
+-(void) orientationChanged:(NSNotification *)object;
+
+-(void) createTableView;
 
 @end

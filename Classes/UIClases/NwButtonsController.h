@@ -54,6 +54,9 @@
 	UIDeviceOrientation currentOrientation;
 	
 	bool loadContent;
+	
+	NSInteger sizeTop;
+	NSInteger sizeBottom;
 }
 
 @property(nonatomic, retain) ButtonsLevelData* data;
@@ -62,6 +65,8 @@
 @property(nonatomic, retain) AppFormatsStyles* varFormats;
 @property(nonatomic, retain) UIImageView *background;
 @property(nonatomic, retain) FormatsStylesLevelData* formatData;
+@property(nonatomic) NSInteger sizeTop;
+@property(nonatomic) NSInteger sizeBottom;
 
 //Methods
 	-(void) loadButtons;

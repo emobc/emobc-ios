@@ -35,32 +35,65 @@
 @synthesize varStyles;
 @synthesize varFormats;
 @synthesize webView;
-@synthesize webViewLandscape;
 @synthesize background;
+
+@synthesize sizeTop;
+@synthesize sizeBottom;
+@synthesize sizeHeaderText;
 
 /**
  * Called after the controller’s view is loaded into memory.
  */
 -(void)viewDidLoad {
 	[super viewDidLoad];	
-	
+		
 	if (data != nil) {
 		loadContent = FALSE;
+		
+		sizeTop = 0;
+		sizeBottom = 0;
+		sizeHeaderText = 25;
+		
+		sizeTop = [mainController ifMenuAndAdsTop:sizeTop];
+		sizeBottom = [mainController ifMenuAndAdsBottom:sizeBottom];
+		
 		varStyles = [mainController.theStyle.stylesMap objectForKey:@"WEB_ACTIVITY"];
 		
 		if(varStyles != nil) {
 			[self loadThemes];
 		}
 		
+		[self createWebView];
+		
 		if (data.local) { 
 			//if is local tag, load data html file
 			[self embedHTML:data.webUrl frame:self.view.frame];
-			
 		}else{
 			//if isn't local, load web site
 			[self embedWeb:data.webUrl frame:self.view.frame];	
 		}				
 	}
+}
+
+
+-(void) createWebView {
+	if([eMobcViewController isIPad]){
+		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+			webView = [[[UIWebView alloc] initWithFrame:CGRectMake(0, sizeTop + sizeHeaderText, 1024, 768 - sizeTop - sizeBottom - sizeHeaderText)] autorelease];
+		}else{
+			webView = [[[UIWebView alloc] initWithFrame:CGRectMake(0, sizeTop + sizeHeaderText, 768, 1024 - sizeTop - sizeBottom - sizeHeaderText)] autorelease];
+		}				
+	}else {
+		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+			webView = [[[UIWebView alloc] initWithFrame:CGRectMake(0, sizeTop + sizeHeaderText, 480, 320 - sizeTop - sizeBottom - sizeHeaderText)] autorelease];
+		}else{
+			webView = [[[UIWebView alloc] initWithFrame:CGRectMake(0, sizeTop + sizeHeaderText, 320, 480 - sizeTop - sizeBottom - sizeHeaderText)] autorelease];
+		}				
+	}
+	
+	webView.delegate = self;
+	
+	[self.view addSubview:webView];
 }
 
 /**
@@ -79,15 +112,15 @@
 		if([var isEqualToString:@"header"]){
 			if([eMobcViewController isIPad]){
 				if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 108, 1024, 20)];	
+					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop, 1024, 20)];	
 				}else{
-					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 108, 768, 20)];
+					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop, 768, 20)];
 				}				
 			}else {
 				if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 88, 480, 20)];	
+					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop, 480, 20)];	
 				}else{
-					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 88, 320, 20)];
+					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop, 320, 20)];
 				}				
 			}
 			
@@ -182,13 +215,6 @@
 	webView.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
 	[webView loadRequest:requestObj];
 	webView.delegate = self;
-	
-	if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-		webViewLandscape.scalesPageToFit = YES;
-		webViewLandscape.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
-		[webViewLandscape loadRequest:requestObj];
-		webViewLandscape.delegate = self;
-	}
 }
 
 /**
@@ -203,13 +229,6 @@
     [webView loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] 
 																			  pathForResource:@"test" ofType:@"html"]isDirectory:NO]]];
     webView.delegate = self;
-	
-	if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-		[webViewLandscape loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:[[NSBundle mainBundle] 
-																				  pathForResource:@"test" ofType:@"html"]isDirectory:NO]]];
-		webViewLandscape.delegate = self;
-	}
-	
 }
 
 
@@ -226,6 +245,7 @@
 	
 	[self performSelector:@selector(orientationChangedMethod) withObject: nil afterDelay: 0];
 }
+
 
 -(void) orientationChangedMethod{
 	
@@ -245,6 +265,8 @@
 		if(varStyles != nil) {
 			[self loadThemes];
 		}
+		
+		[self createWebView];
 	
 		if(![mainController.appData.topMenu isEqualToString:@""]){
 			[self callTopMenu];

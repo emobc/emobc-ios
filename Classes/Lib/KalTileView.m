@@ -133,7 +133,7 @@ extern const CGSize kTileSizeIPadLandscape;
 			}
 		}else{
 			if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-				[markerImage drawInRect:CGRectMake(21.f, 5.f, 4.f, 5.f)];
+				[markerImage drawInRect:CGRectMake(16.f, 1.f, 4.f, 5.f)];
 			}else{
 				[markerImage drawInRect:CGRectMake(21.f, 5.f, 4.f, 5.f)];
 			}
