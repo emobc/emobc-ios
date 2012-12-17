@@ -14,8 +14,11 @@
 		<bottomMenu></bottomMenu>
 		<backgroundMenu>images/menu/backgroundMenu.png</backgroundMenu>
 	</menu>
-	<pushUrl>www.emobc.com</pushUrl>
-	<appId>emobc</appId>   
+	<push>
+		<server></server>
+		<sender></sender>
+		<appName></appName>
+	</push>
 	<!--<banner>
 		<type>admob</type>
 		<position>top</position>

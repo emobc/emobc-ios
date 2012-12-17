@@ -33,6 +33,7 @@
 @implementation NwImageTextController
 
 @synthesize imageDescription;
+@synthesize contentImageDescription;
 @synthesize textDesccription;
 @synthesize nextButton;
 @synthesize prevButton;
@@ -44,6 +45,7 @@
 @synthesize sizeTop;
 @synthesize sizeBottom;
 @synthesize sizeHeaderText;
+@synthesize swSize;
 
 
 /**
@@ -215,6 +217,7 @@
     [super viewDidLoad];
 	loadContent = FALSE;
 	
+
 	[self loadImageText];
 }
 
@@ -225,19 +228,24 @@
 	int sw = 0;
 	playing = FALSE;
 	
-	sizeTop = 20;
-	sizeBottom = 0;
-	sizeHeaderText = 0;
-	
-	sizeTop = [mainController ifMenuAndAdsTop:sizeTop];
-	sizeBottom = [mainController ifMenuAndAdsBottom:sizeBottom];
-	
+
 	if(data != nil){
+		sizeTop = 0;
+		sizeBottom = 0;
+		sizeHeaderText = 0;
+		
+		sizeTop = [mainController ifMenuAndAdsTop:sizeTop];
+		sizeBottom = [mainController ifMenuAndAdsBottom:sizeBottom];
+		
 		varStyles = [mainController.theStyle.stylesMap objectForKey:@"IMAGE_TEXT_DESCRIPTION_ACTIVITY"];
 		
-		[self createImageView];
-		[self createTextView];
+		if(varStyles != nil) {
+			[self loadThemes];
+			sizeTop += 25;
+		}
 		
+		[self createImageView];
+				
 		if(data.prevLevel != nil && ![data.prevLevel.levelId isEqualToString:@""] && ![data.prevLevel.dataId isEqualToString:@""]){
 			[self prevButtonCreate];
 			sw = 1;
@@ -250,10 +258,8 @@
 		
 		if(sw == 1)
 			sizeBottom += 25;
-			
-		if(varStyles != nil) {
-			[self loadThemes];
-		}
+		
+		[self createTextView];
 
 	}else {
 		self.titleLabel.text = @"eMobc Madrid";
@@ -266,27 +272,86 @@
 	}
 }
 
+
 -(void) createImageView{
+	swSize = 0;
+	
+	imageDescription = [[UIImageView alloc] init];
+	imageDescription.image = [data.image imageContent];
+	
+	int width, height;
+	
+	width = imageDescription.image.size.width;
+	height = imageDescription.image.size.height;
+	
 	if([eMobcViewController isIPad]){
 		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			imageDescription = [[[UIImageView alloc] initWithFrame:CGRectMake(512, sizeTop + sizeHeaderText, 512, 768 - sizeTop - sizeBottom - sizeHeaderText - 25)] autorelease];
+			if(width < 512 && height < (768 - sizeTop - sizeBottom - sizeHeaderText)){
+				swSize = 1;
+				int posY = ((512 - sizeTop - sizeBottom - sizeHeaderText) - height)/2;
+				contentImageDescription = [[UIImageView alloc] initWithFrame:CGRectMake(1024 - width, sizeTop + sizeHeaderText + posY , width, height)];
+			}else{
+				contentImageDescription = [[UIImageView alloc] initWithFrame:CGRectMake(512, sizeTop + sizeHeaderText, 512, 768 - sizeTop - sizeBottom - sizeHeaderText)];
+			}
+			
+			if(swSize == 1){
+				imageDescription.frame = CGRectMake(0, 0, width, height);
+			}else{
+				imageDescription.frame = CGRectMake(0, 0, 512, 768 - sizeTop - sizeBottom - sizeHeaderText);
+			}
 		}else{
-			imageDescription = [[[UIImageView alloc] initWithFrame:CGRectMake(0, 1024 - sizeBottom - 300, 768, 300)] autorelease];
-			sizeBottom += 300;
+			if(width < 768 && height < 400){
+				swSize = 1;
+				contentImageDescription = [[UIImageView alloc] initWithFrame:CGRectMake(0, sizeTop + sizeHeaderText + 5, width, height)];
+				sizeTop += imageDescription.image.size.height + sizeHeaderText + 10;
+			}else{
+				contentImageDescription = [[UIImageView alloc] initWithFrame:CGRectMake(0, sizeTop + sizeHeaderText, 768, 400)];
+				sizeTop += 405 + sizeHeaderText;
+			}
+			
+			if(swSize == 1){
+				imageDescription.frame = CGRectMake((768 - width)/2, 0, width, height);
+			}else{
+				imageDescription.frame = CGRectMake(0, 0, 768, 400);
+			}
 		}				
 	}else {
 		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			imageDescription = [[[UIImageView alloc] initWithFrame:CGRectMake(240, sizeTop + sizeHeaderText, 240, 320 - sizeTop - sizeBottom - sizeHeaderText - 25)] autorelease];
+			if(width < 240 && height < (320 - sizeTop - sizeBottom - sizeHeaderText)){
+				swSize = 1;
+				int posY = ((320 - sizeTop - sizeBottom - sizeHeaderText) - height)/2;
+				contentImageDescription = [[UIImageView alloc] initWithFrame:CGRectMake(480 - width, sizeTop + sizeHeaderText + posY , width, height)];
+			}else{
+				contentImageDescription = [[UIImageView alloc] initWithFrame:CGRectMake(240, sizeTop + sizeHeaderText, 240, 320 - sizeTop - sizeBottom - sizeHeaderText)];
+			}
+			
+			if(swSize == 1){
+				imageDescription.frame = CGRectMake(0, 0, width, height);
+			}else{
+				imageDescription.frame = CGRectMake(0, 0, 240, 320 - sizeTop - sizeBottom - sizeHeaderText);
+			}
 		}else{
-			imageDescription = [[[UIImageView alloc] initWithFrame:CGRectMake(0, 480 - sizeBottom - 145, 320, 145)] autorelease];
-			sizeBottom += 145;
+			if(width < 320 && height < 160){
+				swSize = 1;
+				contentImageDescription = [[UIImageView alloc] initWithFrame:CGRectMake(0, sizeTop + sizeHeaderText + 5, width, height)];
+				sizeTop += imageDescription.image.size.height + sizeHeaderText + 10;
+			}else{
+				contentImageDescription = [[UIImageView alloc] initWithFrame:CGRectMake(0, sizeTop + sizeHeaderText, 320, 160)];
+				sizeTop += 165 + sizeHeaderText;
+			}
+			
+			if(swSize == 1){
+				imageDescription.frame = CGRectMake((320 - width)/2, 0, width, height);
+			}else{
+				imageDescription.frame = CGRectMake(0, 0, 320, 160);
+			}
 		}				
 	}
 	
-	imageDescription.userInteractionEnabled = YES;
-	imageDescription.image = [data.image imageContent];
-	
-	[self.view addSubview:imageDescription];
+	imageDescription.contentMode = UIViewContentModeScaleAspectFit;
+		
+	[self.view addSubview:contentImageDescription];
+	[contentImageDescription addSubview:imageDescription];
 }
 
 -(void) nextButtonCreate {
@@ -364,17 +429,27 @@
 -(void) createTextView{
 	if([eMobcViewController isIPad]){
 		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			textDesccription = [[[UITextView alloc] initWithFrame:CGRectMake(0, sizeTop + sizeHeaderText, 512, 768 - sizeTop - sizeBottom - sizeHeaderText)] autorelease];
+			if(swSize == 1){
+				textDesccription = [[[UITextView alloc]initWithFrame:CGRectMake(0, sizeTop + sizeHeaderText, 1024 - imageDescription.image.size.width, 768 - sizeTop - sizeBottom - sizeHeaderText)]autorelease];
+			}else{
+				textDesccription = [[[UITextView alloc]initWithFrame:CGRectMake(0, sizeTop + sizeHeaderText, 512, 768 - sizeTop - sizeBottom - sizeHeaderText)] autorelease];
+			}
 		}else{
-			textDesccription = [[[UITextView alloc] initWithFrame:CGRectMake(0, sizeTop, 768, 1024 - sizeTop - sizeBottom - 25)] autorelease];
+			textDesccription = [[[UITextView alloc] initWithFrame:CGRectMake(0, sizeTop, 768, 1024 - sizeTop - sizeBottom - 5)] autorelease];
 		}				
 	}else {
 		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			textDesccription = [[[UITextView alloc] initWithFrame:CGRectMake(0, sizeTop + sizeHeaderText, 240, 320 - sizeTop - sizeBottom - sizeHeaderText)] autorelease];
+			if(swSize == 1){
+				textDesccription = [[[UITextView alloc]initWithFrame:CGRectMake(0, sizeTop, 480 - imageDescription.image.size.width, 320 - sizeTop - sizeBottom - sizeHeaderText)]autorelease];
+			}else{
+				textDesccription = [[[UITextView alloc]initWithFrame:CGRectMake(0, sizeTop, 240, 320 - sizeTop - sizeBottom - sizeHeaderText)] autorelease];
+			}
 		}else{
-			textDesccription = [[[UITextView alloc] initWithFrame:CGRectMake(0, sizeTop, 320, 480 - sizeTop - sizeBottom - 25)] autorelease];
+			textDesccription = [[[UITextView alloc] initWithFrame:CGRectMake(0, sizeTop, 320, 480 - sizeTop - sizeBottom - 5 )] autorelease];
 		}				
 	}
+
+	[textDesccription setEditable:NO];
 	
 	textDesccription.text = data.text;
 	
@@ -395,15 +470,15 @@
 		if([var isEqualToString:@"header"]){
 			if([eMobcViewController isIPad]){
 				if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop - 20, 1024, 20)];	
+					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop, 1024, 20)];	
 				}else{
-					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop - 20, 768, 20)];
+					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop, 768, 20)];
 				}				
 			}else {
 				if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop - 20, 480, 20)];	
+					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop, 480, 20)];	
 				}else{
-					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop - 20, 320, 20)];
+					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop, 320, 20)];
 				}				
 			}
 			

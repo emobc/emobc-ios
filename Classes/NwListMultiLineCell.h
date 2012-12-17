@@ -32,9 +32,12 @@
 	
 //Outlets	
 	IBOutlet UIImageView *listImageView; 
-	IBOutlet UIImageView *listNextImageView; 
+	IBOutlet UIImageView *listNextImageView;
 	IBOutlet UILabel *listLabel;
 	IBOutlet UILabel *descrLabel;
+	
+	UIImageView *contentListImageView;
+	UIImageView *contentListNextImage;
 	
 	AppStyles* varStyles;
 	AppFormatsStyles* varFormats;
@@ -48,11 +51,14 @@
 @property (nonatomic, retain) IBOutlet UILabel *listLabel;
 @property (nonatomic, retain) IBOutlet UILabel *descrLabel;
 
-@property(nonatomic, retain) AppStyles* varStyles;
-@property(nonatomic, retain) AppFormatsStyles* varFormats;
+@property (nonatomic, retain) UIImageView *contentListImageView; 
+@property (nonatomic, retain) UIImageView *contentListNextImage; 
 
-@property(nonatomic, retain) StylesLevelData* theStyle; 
-@property(nonatomic, retain) FormatsStylesLevelData* theFormat;
+@property (nonatomic, retain) AppStyles* varStyles;
+@property (nonatomic, retain) AppFormatsStyles* varFormats;
+
+@property (nonatomic, retain) StylesLevelData* theStyle; 
+@property (nonatomic, retain) FormatsStylesLevelData* theFormat;
 
 -(void) loadThemesComponents;
 -(void) loadThemes;

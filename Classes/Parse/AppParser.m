@@ -45,6 +45,10 @@ static NSString * const kTopMenuElementName = @"topMenu";
 static NSString * const kBottomMenuElementName = @"bottomMenu";
 static NSString * const kBackgroundMenuElementName = @"backgroundMenu";
 
+static NSString * const kServerElementName = @"server";
+static NSString * const kSenderElementName = @"sender";
+static NSString * const kAppNameElementName = @"appName";
+
 static NSString * const kPushUrlElementName = @"pushUrl";
 static NSString * const kAppIdElementName = @"appId";
 
@@ -137,6 +141,9 @@ static NSString * const kActTypeAudio = @"AUDIO_ACTIVITY";
 			   [elementName isEqualToString:kIDElementName] ||
 			   [elementName isEqualToString:kTopMenuElementName] ||
 			   [elementName isEqualToString:kBackgroundMenuElementName] ||
+			   [elementName isEqualToString:kServerElementName] ||
+			   [elementName isEqualToString:kSenderElementName] ||
+			   [elementName isEqualToString:kAppNameElementName] ||
 			   [elementName isEqualToString:kBottomMenuElementName] ||
 			   [elementName isEqualToString:kAdsElementName] ||
 			   [elementName isEqualToString:kPushUrlElementName] ||
@@ -194,6 +201,12 @@ static NSString * const kActTypeAudio = @"AUDIO_ACTIVITY";
 		self.currentApplicationDataObject.bottomMenu = self.currentParsedCharacterData;
 	} else if ([elementName isEqualToString:kBackgroundMenuElementName]) {
 		self.currentApplicationDataObject.backgroundMenu = self.currentParsedCharacterData;
+	} else if ([elementName isEqualToString:kServerElementName]) {
+		self.currentApplicationDataObject.server = self.currentParsedCharacterData;
+	} else if ([elementName isEqualToString:kSenderElementName]) {
+		self.currentApplicationDataObject.sender = self.currentParsedCharacterData;
+	} else if ([elementName isEqualToString:kAppNameElementName]) {
+		self.currentApplicationDataObject.appName = self.currentParsedCharacterData;
 	} else if ([elementName isEqualToString:kLevelElementName]) {
 		[self.currentApplicationDataObject addLevel: self.currentAppLevelObject];
 		self.currentAppLevelObject = nil;		

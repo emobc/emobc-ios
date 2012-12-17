@@ -69,7 +69,9 @@
 							
 	NSInteger sizeTop;
 	NSInteger sizeBottom;
-	NSInteger sizeHeaderText;							
+	NSInteger sizeHeaderText;	
+							
+	UIImageView *imageSize;
 }
 
 @property(nonatomic, retain) FormLevelData* data;
@@ -84,6 +86,8 @@
 @property (nonatomic) NSInteger sizeTop;
 @property (nonatomic) NSInteger sizeBottom;
 @property (nonatomic) NSInteger sizeHeaderText;
+
+@property (nonatomic, retain) UIImageView *imageSize;
 
 -(float) addField:(NwAppField*)field ypos:(float) ypos withValue:(NSString*) value;
 -(float) addLabel:(NwAppField*)field ypos:(float) ypos;

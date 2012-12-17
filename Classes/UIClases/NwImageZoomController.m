@@ -94,6 +94,7 @@
 			scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, sizeTop + sizeHeaderText, 320, 480 - sizeTop - sizeBottom - sizeHeaderText)];
 		}
 	}
+	
 	scrollView.contentSize = CGSizeMake(imageView.frame.size.width, imageView.frame.size.height);
 	scrollView.maximumZoomScale = 4.0;
 	scrollView.minimumZoomScale = 0.75;
@@ -141,7 +142,7 @@
 			
 			//Hay que convertirlo a hexadecimal.
 			//	varFormats.textColor
-			myLabel.textColor = [UIColor whiteColor];
+			myLabel.textColor = [UIColor blackColor];
 			myLabel.textAlignment = UITextAlignmentCenter;
 			
 			[self.view addSubview:myLabel];

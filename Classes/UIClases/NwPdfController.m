@@ -134,7 +134,7 @@
 						
 			//myLabel.textColor =  [UIColor colorWithRed:100 green:20 blue:10 alpha:1];
 			
-			myLabel.textColor = [UIColor whiteColor];
+			myLabel.textColor = [UIColor blackColor];
 			myLabel.textAlignment = UITextAlignmentCenter;
 			
 			[self.view addSubview:myLabel];

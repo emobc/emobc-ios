@@ -34,6 +34,10 @@ static NSString * const kDescriptionElementName = @"description";
 static NSString * const kTimeElementName = @"time";
 static NSString * const kFirstElementName = @"first";
 
+static NSString * const kStartImageElementName = @"startImage";
+static NSString * const kNextImageElementName = @"nextImage";
+static NSString * const kFinishImageElementName = @"finishImage";
+
 static NSString * const kQuestionsElementName = @"questions";
 static NSString * const kQuestionElementName = @"question";
 static NSString * const kIdQElementName = @"idQ";
@@ -123,6 +127,12 @@ static NSString * const kNextElementName = @"next";
 		self.parsedItem.headerImageFile = self.currentParsedCharacterData;			
 	} else if ([elementName isEqualToString:kHeaderTextElementName]){
 		self.parsedItem.headerText = self.currentParsedCharacterData;	
+	} else if ([elementName isEqualToString:kStartImageElementName]) {
+		((QuizLevelData*)self.parsedItem).startImage = self.currentParsedCharacterData;
+	} else if ([elementName isEqualToString:kNextImageElementName]) {
+		((QuizLevelData*)self.parsedItem).nextImage = self.currentParsedCharacterData;
+	} else if ([elementName isEqualToString:kFinishImageElementName]) {
+		((QuizLevelData*)self.parsedItem).finishImage = self.currentParsedCharacterData;
 	} else if ([elementName isEqualToString:kDescriptionElementName]){
 		((QuizLevelData*)self.parsedItem).description = self.currentParsedCharacterData;
 	} else if ([elementName isEqualToString:kTimeElementName]){

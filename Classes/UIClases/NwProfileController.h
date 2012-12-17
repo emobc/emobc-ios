@@ -74,6 +74,11 @@
 							
 	int sw;
 							
+	NSInteger sizeTop;
+	NSInteger sizeBottom;
+	NSInteger sizeHeaderText;
+							
+	UIImageView *imageSize;
 }
 
 @property(nonatomic, retain) ProfileLevelData* profile;
@@ -85,6 +90,12 @@
 @property(nonatomic, retain) UIImageView *background;
 
 @property(nonatomic, retain) UITextView* textFieldRounded;
+
+@property (nonatomic) NSInteger sizeTop;
+@property (nonatomic) NSInteger sizeBottom;
+@property (nonatomic) NSInteger sizeHeaderText;
+
+@property (nonatomic, retain) UIImageView *imageSize;
 
 -(float) addField:(NwAppField*)field ypos:(float) ypos withValue:(NSString*) value;
 -(float) addLabel:(NwAppField*)field ypos:(float) ypos;

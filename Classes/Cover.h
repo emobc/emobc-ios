@@ -37,7 +37,9 @@
 	NSString *backgroundFileName;
 	NSString *titleFileName;
 	NSString *facebook;
+	NSString *facebookImage;
 	NSString *twitter;
+	NSString *twitterImage;
 	NSString *www;
 	NSMutableArray *buttons;
 }
@@ -47,7 +49,9 @@
 @property(nonatomic, copy) NSString *backgroundFileName;
 @property(nonatomic, copy) NSString *titleFileName;
 @property(nonatomic, copy) NSString *facebook;
+@property(nonatomic, copy) NSString *facebookImage;
 @property(nonatomic, copy) NSString *twitter;
+@property(nonatomic, copy) NSString *twitterImage;
 @property(nonatomic, copy) NSString *www;
 @property(nonatomic, retain) NSMutableArray *buttons;
 

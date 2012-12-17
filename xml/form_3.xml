@@ -3,6 +3,9 @@
 	<data>
 		<dataId>Formulario3</dataId>
 		<headerText>Contacto</headerText>
+		<submitImage></submitImage>
+		<cameraImage></cameraImage>
+		<libraryImage></libraryImage>
 		<nextLevel>
 			<nextLevelLevelId>envio</nextLevelLevelId>
 			<nextLevelDataId>ok</nextLevelDataId>

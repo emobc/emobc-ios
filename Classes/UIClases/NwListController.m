@@ -486,9 +486,9 @@ static NSString *cellIdentifier = @"NwTableCell";
 								   constrainedToSize:constraintSize
 									   lineBreakMode:UILineBreakModeWordWrap];
     if ([eMobcViewController isIPad])
-        return 103 + labelSize.height;	
+        return 108 + labelSize.height;	
     else
-        return 53 + labelSize.height;	
+        return 58 + labelSize.height;	
 }
 
 

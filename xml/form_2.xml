@@ -3,6 +3,9 @@
 	<data>
 		<dataId>Formulario2</dataId>
 		<headerText>Alta Bolsa de trabajo</headerText>
+		<submitImage></submitImage>
+		<cameraImage></cameraImage>
+		<libraryImage></libraryImage>
 		<nextLevel>
 			<nextLevelLevelId>envio</nextLevelLevelId>
 			<nextLevelDataId>ok</nextLevelDataId>

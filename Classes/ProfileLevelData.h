@@ -30,11 +30,19 @@
 	
 //Objetos	
 	NSMutableArray *fieldsProfile;
+	NSString *saveImage;
+	NSString *editImage;
+	NSString *cameraImage;
+	NSString *libraryImage;
 	NextLevel* nextLevel;
 	NextLevel* parentNextLevel;
 }
 
 @property (nonatomic, retain) NSMutableArray *fieldsProfile;
+@property (nonatomic, copy) NSString *saveImage;
+@property (nonatomic, copy) NSString *editImage;
+@property (nonatomic, copy) NSString *cameraImage;
+@property (nonatomic, copy) NSString *libraryImage;
 @property (nonatomic, retain) NextLevel* nextLevel;
 @property (nonatomic, retain) NextLevel* parentNextLevel;
 

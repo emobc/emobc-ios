@@ -48,6 +48,9 @@
 	AppFormatsStyles* varFormats;
 	UIImageView *background;
 	
+	UIImageView *imageSize;
+	UIImageView *contentImage;
+	
 	NSArray *imageSet;
 	NwButton* view1;
 	NwButton* view2;
@@ -63,18 +66,22 @@
 	NSInteger sizeTop;
 	NSInteger sizeBottom;
 	NSInteger sizeHeaderText;
+	NSInteger swSize;
 }
 
 @property(nonatomic, retain) ImageGalleryLevelData* data;
 @property(nonatomic, retain) AppStyles* varStyles;
 @property(nonatomic, retain) AppFormatsStyles* varFormats;
 @property(nonatomic, retain) UIImageView *background;
+@property(nonatomic, retain) UIImageView *imageSize;
+@property(nonatomic, retain) UIImageView *contentImage;
 @property(nonatomic, retain) IBOutlet UIScrollView* scroll;
 @property(nonatomic, retain) IBOutlet UILabel* labelImageCount;
 
 @property (nonatomic) NSInteger sizeTop;
 @property (nonatomic) NSInteger sizeBottom;
 @property (nonatomic) NSInteger sizeHeaderText;
+@property (nonatomic) NSInteger swSize;
 
 
 //Metodos

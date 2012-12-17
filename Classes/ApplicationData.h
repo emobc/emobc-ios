@@ -41,6 +41,10 @@
 	NSString *topMenu;
 	NSString *bottomMenu;
 	NSString *backgroundMenu;
+	
+	NSString *server;
+	NSString *sender;
+	NSString *appName;
 
 	NSMutableArray *levels;
 	NSMutableDictionary *levelMap;
@@ -63,6 +67,11 @@
 @property (nonatomic, copy) NSString *topMenu;
 @property (nonatomic, copy) NSString *bottomMenu;
 @property (nonatomic, copy) NSString *backgroundMenu;
+
+@property (nonatomic, copy) NSString *server;
+@property (nonatomic, copy) NSString *sender;
+@property (nonatomic, copy) NSString *appName;
+
 @property (nonatomic, copy) NSString *banner;
 @property (nonatomic, copy) NSString *bannerPos;
 @property (nonatomic, copy) NSString *bannerId;

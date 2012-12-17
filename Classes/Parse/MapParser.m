@@ -48,6 +48,8 @@ static NSString * const kDataIdElementName = @"dataId";
 static NSString * const kHeaderImageFileElementName = @"headerImageFile";
 static NSString * const kHeaderTextElementName = @"headerText";
 
+static NSString * const kNearPosImageElementName = @"nearPosImage";
+
 static NSString * const kPositionElementName = @"position";
 
 static NSString * const kPositionTitleElementName = @"positionTitle";
@@ -121,6 +123,8 @@ static NSString * const kNLDataIdElementName = @"nextLevelDataId";
 		self.parsedItem.headerImageFile = self.currentParsedCharacterData;
 	}else if ([elementName isEqualToString:kHeaderTextElementName]) {
 		self.parsedItem.headerText = self.currentParsedCharacterData;
+	}else if ([elementName isEqualToString:kNearPosImageElementName]) {
+		((MapLevelData*)self.parsedItem).nearPosImage = self.currentParsedCharacterData;
 	}else if ([elementName isEqualToString:kLocalizeMeElementName]) {
 		((MapLevelData*)self.parsedItem).localizeMe = [self.currentParsedCharacterData isEqualToString:@"true"];
 	}else if ([elementName isEqualToString:kShowAllElementName]) {

@@ -40,13 +40,15 @@
 
 @synthesize scanButton;
 
+@synthesize imageSize;
+
 
 /**
  * Called after the controller’s view is loaded into memory.
  */
 - (void)viewDidLoad {
 	[super viewDidLoad];
-	
+
 	loadContent = FALSE;
 		
 	[self createImageView];
@@ -56,6 +58,7 @@
 
 
 -(void) createImageView{
+	
 	sizeTop = 0;
 	sizeBottom = 0;
 	sizeHeaderText = 25;
@@ -85,39 +88,75 @@
 
 
 -(void) createScanButton {
+	imageSize = [[UIImageView alloc] init];
 	//create the button
 	scanButton = [UIButton buttonWithType:UIButtonTypeCustom];
+		
+	NSString *k = [eMobcViewController whatDevice:k];
+	
+	NSString *imagePath = [[NSBundle mainBundle] pathForResource:data.scanImage ofType:nil inDirectory:k];
+	
+	[scanButton setImage:[UIImage imageWithContentsOfFile:imagePath] forState:UIControlStateNormal];
+	
+	imageSize.image = [UIImage imageWithContentsOfFile:imagePath];
+	
+	int width,height;
+	
+	if(![data.scanImage isEqualToString:@""] && data.scanImage != nil){
+		width = imageSize.image.size.width;
+		height = imageSize.image.size.height;
+	}else{
+		width = 200;
+		height = 45;
+	}
 	
 	//set the position of the button
 	if([eMobcViewController isIPad]){
 		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			scanButton.frame = CGRectMake(650, 768 - sizeBottom - 50, 200, 45);	
+			if(width > 200 || height > 45){
+				scanButton.frame = CGRectMake(650, 768 - sizeBottom - 50, 200, 45);
+			}else{
+				scanButton.frame = CGRectMake(512 + (512 - width)/2, 768 - sizeBottom - height - 10, width, height);
+			}
 		}else{
-			scanButton.frame = CGRectMake(284, 1024 - sizeBottom - 50, 200, 45);
-			sizeBottom += 55;
-		}				
+			if(width > 200 || height > 45){
+				scanButton.frame = CGRectMake(284, 1024 - sizeBottom - 50, 200, 45);
+			}else{
+				scanButton.frame = CGRectMake((768 - width)/2, 1024 - sizeBottom - height - 10, width, height);
+			}
+		}	
+		sizeBottom += 55;
 	}else {
 		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			scanButton.frame = CGRectMake(260, 320 - sizeBottom - 50, 200, 45);	
-			sizeBottom += 55;
+			if(width > 200 || height > 45){
+				scanButton.frame = CGRectMake(260, 320 - sizeBottom - 50, 200, 45);
+			}else{
+				scanButton.frame = CGRectMake(260 + (260 - width)/2, 320 - sizeBottom - height - 10, width, height);
+			}
 		}else{
-			scanButton.frame = CGRectMake(60, 480 - sizeBottom - 50, 200, 45);
-			sizeBottom += 55;
-		}				
+			if(width > 200 || height > 45){
+				scanButton.frame = CGRectMake(60, 480 - sizeBottom - 50, 200, 45);
+			}else{
+				scanButton.frame = CGRectMake((320 - width)/2, 480 - sizeBottom - height - 10, width, height);
+			}
+		}
+		sizeBottom += 55;
 	}
 	
-	//set the button's title
-	//[scanButton setTitle:@"Scan" forState:UIControlStateNormal];
+	if([data.scanImage isEqualToString:@""] || data.scanImage == nil){
+		//set the button's title
+		[scanButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+		[scanButton setTitle:@"Scan" forState:UIControlStateNormal];
+		
+	}
 	
-	NSString *k = [eMobcViewController whatDevice:k];
-	
-	NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"images/icons/scanButton.png" ofType:nil inDirectory:k];
-	
-	[scanButton setImage:[UIImage imageWithContentsOfFile:imagePath] forState:UIControlStateNormal];
+	scanButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
+	scanButton.adjustsImageWhenHighlighted = NO;
 	
 	//listen for clicks
 	[scanButton addTarget:self action:@selector(scanButtonTapped) forControlEvents:UIControlEventTouchUpInside];
 	
+			
 	//add the button to the view
 	[self.view addSubview:scanButton];
 }

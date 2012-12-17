@@ -3,6 +3,7 @@
 	<data>
 		<dataId>Mapa</dataId>
 		<headerText>Mapa</headerText>
+		<nearPosImage></nearPosImage>
 		<localizeMe>true</localizeMe>
 		<showAll>false</showAll>
 		<currentPositionIconFile>punto.png</currentPositionIconFile>

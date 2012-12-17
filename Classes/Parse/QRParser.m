@@ -31,6 +31,8 @@ static NSString * const kDataIdElementName = @"dataId";
 static NSString * const kHeaderImageFileElementName = @"headerImageFile";
 static NSString * const kHeaderTextElementName = @"headerText";
 
+static NSString * const kScanImageElementName = @"scanImage";
+
 static NSString * const kQrsElementName = @"qrs";
 static NSString * const kQrElementName = @"qr";
 static NSString * const kIdQrTitleElementName = @"idQr";
@@ -112,6 +114,8 @@ static NSString * const kNLDataIdElementName = @"nextLevelDataId";
 		self.parsedItem.headerImageFile = self.currentParsedCharacterData;
 	}else if ([elementName isEqualToString:kHeaderTextElementName]) {
 		self.parsedItem.headerText = self.currentParsedCharacterData;
+	}else if ([elementName isEqualToString:kScanImageElementName]) {
+		((QRLevelData*) self.parsedItem).scanImage = self.currentParsedCharacterData;
 	}else if([elementName isEqualToString:kQrElementName]){
 		[((QRLevelData*) self.parsedItem) addQrs:self.currentQrs];	
 	}else if([elementName isEqualToString:kIdQrTitleElementName]){

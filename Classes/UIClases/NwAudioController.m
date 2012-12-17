@@ -165,27 +165,57 @@
 }
 
 
+
 -(void) loadAudio{
-	
-	if([eMobcViewController isIPad]){
-		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			imgView = [[UIImageView alloc] initWithFrame:CGRectMake(362, 768 - sizeBottom - 120 - 10, 300, 120)];
-		}else{
-			imgView = [[UIImageView alloc] initWithFrame:CGRectMake(234, 1024 - sizeBottom - 120 - 10 , 300, 120)];
-		}				
-	}else {
-		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			imgView = [[UIImageView alloc] initWithFrame:CGRectMake(80, 320 - sizeBottom - 90 - 5, 320, 90)];
-		}else{
-			imgView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 480 - sizeBottom - 120 - 10, 300, 120)];
-		}				
-	}
+	imgView = [[UIImageView alloc]init];
 	
 	NSString *k = [eMobcViewController whatDevice:k];
 	
-	NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"images/multimedia/coverMultimedia.png" ofType:nil inDirectory:k];
+	NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"images/" ofType:nil inDirectory:k];
 	
 	imgView.image = [UIImage imageWithContentsOfFile:imagePath];
+	
+	int width,height;
+	
+	if(imgView.image.size.width != 0){
+		width = imgView.image.size.width;
+		height = imgView.image.size.height;
+	}else{
+		width = 300;
+		height = 120;
+	}
+	
+	if([eMobcViewController isIPad]){
+		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+			if(width > 300 || height > 120){
+				imgView.frame = CGRectMake(80, 768 - sizeBottom - 120 - 10, 300, 120);
+			}else{
+				imgView.frame = CGRectMake((1024 - width)/2, 768 - sizeBottom - height - 10, width, height);
+			}
+		}else{
+			if(width > 300 || height > 120){
+				imgView.frame = CGRectMake(234, 1024 - sizeBottom - 120 - 10, 300, 120);
+			}else{
+				imgView.frame = CGRectMake((768 - width)/2, 768 - sizeBottom - height - 10, width, height);
+			}
+		}				
+	}else {
+		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+			if(width > 300 || height > 120){
+				imgView.frame = CGRectMake(80, 320 - sizeBottom - 120 - 10, 300, 120);
+			}else{
+				imgView.frame = CGRectMake((480 - width)/2, 320 - sizeBottom - height - 10, width, height);
+			}
+		}else{
+			if(width > 300 || height > 120){
+				imgView.frame = CGRectMake(10, 480 - sizeBottom - 120 - 10, 300, 120);
+			}else{
+				imgView.frame = CGRectMake((320 - width)/2, 480 - sizeBottom - height - 10, width, height);
+			}
+		}				
+	}
+	
+	imgView.contentMode = UIViewContentModeScaleAspectFit;
 	
 	[self.view addSubview:imgView];
 	[imgView release];
@@ -264,41 +294,72 @@
 }
 
 -(void) buttonMultimedia{
-		
 	//create the button
 	playButton = [UIButton buttonWithType:UIButtonTypeCustom];
+	
+	NSString *k = [eMobcViewController whatDevice:k];
+	
+	NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"images/" ofType:nil inDirectory:k];
+	
+	[playButton setImage:[UIImage imageWithContentsOfFile:imagePath] forState:UIControlStateNormal];
+		
+	int width,height;
+	
+	if(playButton.imageView.image.size.width != 0){
+		width = playButton.imageView.image.size.width;
+		height = playButton.imageView.image.size.height;
+	}else{
+		width = 40;
+		height = 40;
+	}
 	
 	//set the position of the button
 	if([eMobcViewController isIPad]){
 		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			playButton.frame = CGRectMake(497, 768 - sizeBottom - 60, 40, 40);	
+			if(width > 40 || height > 40){
+				playButton.frame = CGRectMake(492, 768 - sizeBottom - 60, 40, 40);
+			}else{
+				playButton.frame = CGRectMake((1024 - width)/2, 768 - sizeBottom - height - 10, width, height);
+			}
 		}else{
-			playButton.frame = CGRectMake(368, 1024 - sizeBottom - 60, 40, 40);
+			if(width > 40 || height > 40){
+				playButton.frame = CGRectMake(364, 1024 - sizeBottom - 60, 40, 40);
+			}else{
+				playButton.frame = CGRectMake((768 - width)/2, 1024 - sizeBottom - height - 10, width, height);
+			}
 		}				
 	}else {
 		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			playButton.frame = CGRectMake(220, 320 - sizeBottom - 50, 40, 40);	
+			if(width > 40 || height > 40){
+				playButton.frame = CGRectMake(220, 320 - sizeBottom - 50, 40, 40);
+			}else{
+				playButton.frame = CGRectMake((480 - width)/2, 320 - sizeBottom - height - 10, width, height);
+			}
 		}else{
-			playButton.frame = CGRectMake(143, 480 - sizeBottom - 60, 40, 40);
+			if(width > 40 || height > 40){
+				playButton.frame = CGRectMake(140, 480 - sizeBottom - 60, 40, 40);
+			}else{
+				playButton.frame = CGRectMake((320 - width)/2, 480 - sizeBottom - height - 10, width, height);
+			}
 		}				
 	}
 	
-	//set the button's title
-	//[playButton setTitle:@"play" forState:UIControlStateNormal];
+	if(playButton.imageView.image.size.width == 0){
+		//set the button's title
+		[playButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+		[playButton setTitle:@"play" forState:UIControlStateNormal];
+	}
 	
-	NSString *k = [eMobcViewController whatDevice:k];
-	
-	NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"images/multimedia/buttonPlay.png" ofType:nil inDirectory:k];
-	
-	[playButton setImage:[UIImage imageWithContentsOfFile:imagePath] forState:UIControlStateNormal];
-	
+	playButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
+	playButton.adjustsImageWhenHighlighted = NO;
+		
 	//listen for clicks
 	[playButton addTarget:self action:@selector(play) forControlEvents:UIControlEventTouchUpInside];
 	
 	//add the button to the view
 	[self.view addSubview:playButton];
 
-	
+		
 	/*
 	 *Pause audio button
 	 *
@@ -306,33 +367,64 @@
 	//create the button
 	pauseButton = [UIButton buttonWithType:UIButtonTypeCustom];
 	
+	NSString *imagePath1 = [[NSBundle mainBundle] pathForResource:@"images/" ofType:nil inDirectory:k];
+	
+	[pauseButton setImage:[UIImage imageWithContentsOfFile:imagePath1] forState:UIControlStateNormal];
+	
+	if(pauseButton.imageView.image.size.width != 0){
+		width = pauseButton.imageView.image.size.width;
+		height = pauseButton.imageView.image.size.height;
+	}else{
+		width = 40;
+		height = 40;
+	}
+	
 	//set the position of the button
 	if([eMobcViewController isIPad]){
 		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			pauseButton.frame = CGRectMake(542, 768 - sizeBottom - 60, 40, 40);	
+			if(width > 40 || height > 40){
+				pauseButton.frame = CGRectMake(537, 768 - sizeBottom - 60, 40, 40);
+			}else{
+				pauseButton.frame = CGRectMake(((1024 - width)/2) + 45, 768 - sizeBottom - height - 10, width, height);
+			}
 		}else{
-			pauseButton.frame = CGRectMake(423, 1024 - sizeBottom - 60, 40, 40);
+			if(width > 40 || height > 40){
+				pauseButton.frame = CGRectMake(409, 1024 - sizeBottom - 60, 40, 40);
+			}else{
+				pauseButton.frame = CGRectMake(((768 - width)/2) + 45, 1024 - sizeBottom - height - 10, width, height);
+			}
 		}				
 	}else {
 		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			pauseButton.frame = CGRectMake(270, 320 - sizeBottom - 50, 40, 40);	
+			if(width > 40 || height > 40){
+				pauseButton.frame = CGRectMake(265, 320 - sizeBottom - 50, 40, 40);
+			}else{
+				pauseButton.frame = CGRectMake(((480 - width)/2) + 45, 320 - sizeBottom - height - 10, width, height);
+			}
 		}else{
-			pauseButton.frame = CGRectMake(180, 480 - sizeBottom - 60, 40, 40);
+			if(width > 40 || height > 40){
+				pauseButton.frame = CGRectMake(185, 480 - sizeBottom - 60, 40, 40);
+			}else{
+				pauseButton.frame = CGRectMake(((320 - width)/2) + 45, 480 - sizeBottom - height - 10, width, height);
+			}
 		}				
 	}
 	
-	//set the button's title
-	//[pauseButton setTitle:@"pause" forState:UIControlStateNormal];
+	if(playButton.imageView.image.size.width == 0){
+		//set the button's title
+		[pauseButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+		[pauseButton setTitle:@"pause" forState:UIControlStateNormal];
+	}
 	
-	NSString *imagePath1 = [[NSBundle mainBundle] pathForResource:@"images/multimedia/buttonPause.png" ofType:nil inDirectory:k];
-	
-	[pauseButton setImage:[UIImage imageWithContentsOfFile:imagePath1] forState:UIControlStateNormal];
+	pauseButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
+	pauseButton.adjustsImageWhenHighlighted = NO;
 	
 	//listen for clicks
 	[pauseButton addTarget:self action:@selector(pause) forControlEvents:UIControlEventTouchUpInside];
 	
 	//add the button to the view
 	[self.view addSubview:pauseButton];
+	
 	
 	
 	/*
@@ -342,28 +434,59 @@
 	//create the button
 	stopButton = [UIButton buttonWithType:UIButtonTypeCustom];
 	
+	NSString *imagePath2 = [[NSBundle mainBundle] pathForResource:@"images/imagen0.png" ofType:nil inDirectory:k];
+	
+	[stopButton setImage:[UIImage imageWithContentsOfFile:imagePath2] forState:UIControlStateNormal];
+	
+	if(stopButton.imageView.image.size.width != 0){
+		width = stopButton.imageView.image.size.width;
+		height = stopButton.imageView.image.size.height;
+	}else{
+		width = 40;
+		height = 40;
+	}
+	
 	//set the position of the button
 	if([eMobcViewController isIPad]){
 		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			stopButton.frame = CGRectMake(447, 768 - sizeBottom - 60, 40, 40);	
+			if(width > 40 || height > 40){
+				stopButton.frame = CGRectMake(447, 768 - sizeBottom - 60, 40, 40);
+			}else{
+				stopButton.frame = CGRectMake(((1024 - width)/2) - 45, 768 - sizeBottom - height - 10, width, height);
+			}
 		}else{
-			stopButton.frame = CGRectMake(313, 1024 - sizeBottom - 60, 40, 40);
+			if(width > 40 || height > 40){
+				stopButton.frame = CGRectMake(319, 1024 - sizeBottom - 60, 40, 40);
+			}else{
+				stopButton.frame = CGRectMake(((768 - width)/2) - 45, 1024 - sizeBottom - height - 10, width, height);
+			}
 		}				
 	}else {
 		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			stopButton.frame = CGRectMake(170, 320 - sizeBottom - 50, 40, 40);	
+			if(width > 40 || height > 40){
+				stopButton.frame = CGRectMake(175, 320 - sizeBottom - 50, 40, 40);
+			}else{
+				stopButton.frame = CGRectMake(((480 - width)/2) - 45, 320 - sizeBottom - height - 10, width, height);
+			}
 		}else{
-			stopButton.frame = CGRectMake(100, 480 - sizeBottom - 60, 40, 40);
+			if(width > 40 || height > 40){
+				stopButton.frame = CGRectMake(95, 480 - sizeBottom - 60, 40, 40);
+			}else{
+				stopButton.frame = CGRectMake(((320 - width)/2) - 45, 480 - sizeBottom - height - 10, width, height);
+			}
 		}				
 	}
 	
-	//set the button's title
-	//[stopButton setTitle:@"stop" forState:UIControlStateNormal];
+	if(playButton.imageView.image.size.width == 0){
+		//set the button's title
+		[stopButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+		[stopButton setTitle:@"stop" forState:UIControlStateNormal];
+	}
 	
-	NSString *imagePath2 = [[NSBundle mainBundle] pathForResource:@"images/multimedia/buttonStop.png" ofType:nil inDirectory:k];
-	
-	[stopButton setImage:[UIImage imageWithContentsOfFile:imagePath2] forState:UIControlStateNormal];
+	stopButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
+	stopButton.adjustsImageWhenHighlighted = NO;
 
+	
 	//listen for clicks
 	[stopButton addTarget:self action:@selector(stop) forControlEvents:UIControlEventTouchUpInside];
 	

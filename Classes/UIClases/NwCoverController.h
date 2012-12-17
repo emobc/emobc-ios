@@ -45,6 +45,9 @@
 //Outlets	
 	UIImageView *coverBgImage;
 	UIImageView *coverTitleImage;	
+	
+	UIImageView *contentCoverTitleImage;
+	
 	UIButton *buttonFacebook;
 	UIButton *buttonTwitter;
 	UIView* indicator;
@@ -67,6 +70,7 @@
 @property(nonatomic, retain) eMobcViewController* mainController;
 @property(nonatomic, retain) UIImageView *coverBgImage;
 @property(nonatomic, retain) UIImageView *coverTitleImage;
+@property(nonatomic, retain) UIImageView *contentCoverTitleImage;
 @property(nonatomic, retain) UIButton *buttonFacebook;
 @property(nonatomic, retain) UIButton *buttonTwitter;
 
@@ -93,6 +97,7 @@
 	-(void) createAnimationCover;
 	-(void) createIndicator;
 
-	-(void) crearBotones;
+	-(void) createButtons;
+	-(void) createCoverTitleImage;
 
 @end

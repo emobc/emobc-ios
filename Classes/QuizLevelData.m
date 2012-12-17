@@ -32,10 +32,17 @@
 @synthesize first;
 @synthesize question;
 
+@synthesize startImage;
+@synthesize nextImage;
+@synthesize finishImage;
+
 -(void) dealloc{
 	[description release];
 	[time release];
 	[first release];
+	[startImage release];
+	[nextImage release];
+	[finishImage release];
 	[question release];
 	[questionsMap release];
 	
@@ -63,6 +70,3 @@
 }
 
 @end
-
-
-

@@ -44,11 +44,13 @@
 @synthesize varStyles;
 @synthesize varFormats;
 @synthesize background;
+@synthesize imageSize;
+@synthesize contentImage;
 
 @synthesize sizeTop;
 @synthesize sizeBottom;
 @synthesize sizeHeaderText;
- 
+@synthesize swSize;
 
 
 /////////////////////////////////////////////////////////////////////////////////////
@@ -64,49 +66,79 @@
 	if(imageSet) [imageSet release];
  
 	imageSet = [images retain];
- 
-	if([eMobcViewController isIPad]){
-		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			view1.frame = CGRectMake(0, 0, 900, 768 - sizeTop - sizeBottom);
-			view2.frame = CGRectMake(900, 0, 900, 768 - sizeTop - sizeBottom);
-		}else {
-			view1.frame = CGRectMake(0, 0, 768, 1024 - sizeTop - sizeBottom);
-			view2.frame = CGRectMake(768, 0, 768, 1024 - sizeTop - sizeBottom);
-		}
-	}else{
-		
-		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			view1.frame = CGRectMake(0, 0, 320, 320 - sizeTop - sizeBottom);
-			view2.frame = CGRectMake(320, 0, 320, 320 - sizeTop - sizeBottom);
-		}else {
-			view1.frame = CGRectMake(0, 0, 320, 480 - sizeTop - sizeBottom);
-			view2.frame = CGRectMake(320, 0, 320, 480 - sizeTop - sizeBottom);
-		}
-	}
-	
 	
 	ImageGalleryItem *item1 = [imageSet objectAtIndex:0];
-
+	
 	[view1 setImage:[item1.image imageContent] forState:UIControlStateNormal];
 	view1.nextLevel = item1.nextLevel;
- 
+	
+	[imageSize setImage:[item1.image imageContent]];
+	
 	if ([imageSet count] > 1) {
 		ImageGalleryItem *item2 = [imageSet objectAtIndex:1];
- 
+		
 		[view2 setImage:[item2.image imageContent] forState:UIControlStateNormal];
-		view2.nextLevel = item2.nextLevel;
+		view2.nextLevel = item2.nextLevel;		
 	}
+	
+	int width = imageSize.image.size.width;
+	int height = imageSize.image.size.width;
+	
+ 
+	if([eMobcViewController isIPad]){
+		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+			if(width < 1024 || height < (768 - sizeTop - sizeBottom)){
+				view1.frame = CGRectMake((1024 - width)/2, (768 - sizeTop - sizeBottom - height)/2, width, height);
+				view2.frame = CGRectMake(1024 + (1024 - width)/2, (768 - sizeTop - sizeBottom - height)/2, width, height);
+			}else{
+				view1.frame = CGRectMake(0, 0, 1024, 768 - sizeTop - sizeBottom);
+				view2.frame = CGRectMake(1024, 0, 1024, 768 - sizeTop - sizeBottom);
+			}
+		}else {
+			if(width < 768 || height < (1024 - sizeTop - sizeBottom)){
+				view1.frame = CGRectMake((768 - width)/2, (1024 - sizeTop - sizeBottom - height)/2, width, height);
+				view2.frame = CGRectMake(768 + (768 - width)/2, (1024 - sizeTop - sizeBottom - height)/2, width, height);
+			}else{
+				view1.frame = CGRectMake(0, 0, 768, 1024 - sizeTop - sizeBottom);
+				view2.frame = CGRectMake(768, 0, 768, 1024 - sizeTop - sizeBottom);
+			}
+		}
+	}else{
+		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+			if(width < 480 || height < (320 - sizeTop - sizeBottom)){
+				view1.frame = CGRectMake((480 - width)/2, (320 - sizeTop - sizeBottom - height)/2, width, height);
+				view2.frame = CGRectMake(480 + (480 - width)/2, (320 - sizeTop - sizeBottom - height)/2, width, height);
+			}else{
+				view1.frame = CGRectMake(0, 0, 480, 320 - sizeTop - sizeBottom);
+				view2.frame = CGRectMake(480, 0, 480, 320 - sizeTop - sizeBottom);
+			}
+		}else {
+			if(width < 320 || height < (480 - sizeTop - sizeBottom)){
+				view1.frame = CGRectMake((320 - width)/2, (480 - sizeTop - sizeBottom - height)/2, width, height);
+				view2.frame = CGRectMake(320 + (320 - width)/2, (480 - sizeTop - sizeBottom - height)/2, width, height);
+			}else{
+				view1.frame = CGRectMake(0, 0, 320, 480 - sizeTop - sizeBottom);
+				view2.frame = CGRectMake(320, 0, 320, 480 - sizeTop - sizeBottom);
+			}
+		}
+	}
+	
+	view1.imageView.contentMode = UIViewContentModeScaleAspectFit;
+	view2.imageView.contentMode = UIViewContentModeScaleAspectFit;
+	
+	view1.adjustsImageWhenHighlighted = NO;
+	view2.adjustsImageWhenHighlighted = NO;
 	
 	if([eMobcViewController isIPad]){
 		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			scroll.contentSize = CGSizeMake([imageSet count]*900, 768 - sizeTop - sizeBottom);
+			scroll.contentSize = CGSizeMake([imageSet count]*1024, 768 - sizeTop - sizeBottom);
 			
 		}else {
 			scroll.contentSize = CGSizeMake([imageSet count]*768, 1024 - sizeTop - sizeBottom);
 		}
 	}else{
 		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			scroll.contentSize = CGSizeMake([imageSet count]*320, 320 - sizeTop - sizeBottom);
+			scroll.contentSize = CGSizeMake([imageSet count]*480, 320 - sizeTop - sizeBottom);
 			
 		}else {
 			scroll.contentSize = CGSizeMake([imageSet count]*320, 480 - sizeTop - sizeBottom);
@@ -125,13 +157,13 @@
 	
 	if([eMobcViewController isIPad]){
 		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			pageWidth = 900;
+			pageWidth = 1024;
 		}else{
 			pageWidth = 768;
 		}
 	}else{
 		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			pageWidth = 320;
+			pageWidth = 480;
 		}else{
 			pageWidth = 320;
 		}
@@ -154,28 +186,54 @@
 	if(nextpage >= 0 && nextpage < [imageSet count]){
 		if((view1Active && nextpage == view1Index) || (!view1Active && nextpage == view2Index)) return;
 
-		if([eMobcViewController isIPad]){
-			if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-				nextView.frame = CGRectMake(nextpage*900, 0, 900, 768 - sizeTop - sizeBottom);
-			}else{
-				nextView.frame = CGRectMake(nextpage*768, 0, 768, 1024 - sizeTop - sizeBottom);
-			}
-		}else{
-			if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-				nextView.frame = CGRectMake(nextpage*320, 0, 320, 320 - sizeTop - sizeBottom);
-			}else{
-				nextView.frame = CGRectMake(nextpage*320, 0, 320, 480 - sizeTop - sizeBottom);
-			}
-		}
-		
 		ImageGalleryItem *item = [imageSet objectAtIndex:nextpage];
 		
 		[nextView setImage:[item.image imageContent] forState:UIControlStateNormal];
 		nextView.nextLevel = item.nextLevel;
- 
+		
+		[imageSize setImage:[item.image imageContent]];
+		
+		int width = imageSize.image.size.width;
+		int height = imageSize.image.size.width;
+		
+		if([eMobcViewController isIPad]){
+			if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+				if(width < 1024 || height < (768 - sizeTop - sizeBottom)){
+					nextView.frame = CGRectMake(nextpage*1024 + (1024 - width)/2, (768 - sizeTop - sizeBottom - height) /2, width, height);
+				}else{
+					nextView.frame = CGRectMake(nextpage*1024, 0, 1024, 768 - sizeTop - sizeBottom);
+				}
+			}else{
+				if(width < 768 || height < (1024 - sizeTop - sizeBottom)){
+					nextView.frame = CGRectMake(nextpage*768 + (768 - width)/2, (1024 - sizeTop - sizeBottom - height) /2, width, height);
+				}else{
+					nextView.frame = CGRectMake(nextpage*768, 0, 768, 1024 - sizeTop - sizeBottom);
+				}
+			}
+		}else{
+			if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+				if(width < 480 || height < (320 - sizeTop - sizeBottom)){
+					nextView.frame = CGRectMake(nextpage*480 + (480 - width)/2, (320 - sizeTop - sizeBottom - height) /2, width, height);
+				}else{
+					nextView.frame = CGRectMake(nextpage*480, 0, 480, 320 - sizeTop - sizeBottom);
+				}
+			}else{
+				if(width < 320 || height < (480 - sizeTop - sizeBottom)){
+					nextView.frame = CGRectMake(nextpage*320 + (320 - width)/2, (480 - sizeTop - sizeBottom - height) /2, width, height);
+				}else{
+					nextView.frame = CGRectMake(nextpage*320, 0, 320, 480 - sizeTop - sizeBottom);
+				}
+			}
+		}
+		nextView.imageView.contentMode = UIViewContentModeScaleAspectFit;
+		[nextView setContentMode: UIViewContentModeScaleAspectFit];
+		
+	 
 		//listen for clicks
 		[nextView addTarget:self action:@selector(imagenPressed:) forControlEvents:UIControlEventTouchUpInside];
- 
+		
+		nextView.adjustsImageWhenHighlighted = NO;
+			
 		NSString* messageCountImages = [NSString stringWithFormat: @"Imagen %d/%d", (nextpage+1), [data.items count]];
 		labelImageCount.text = messageCountImages;
  
@@ -223,13 +281,13 @@
 	//check if device is an iPad
 	if([eMobcViewController isIPad]){
 		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			scroll.frame = CGRectMake(62, sizeTop, 900, 768 - sizeTop - sizeBottom);
+			scroll.frame = CGRectMake(0, sizeTop, 1024, 768 - sizeTop - sizeBottom);
 		}else {
 			scroll.frame = CGRectMake(0, sizeTop, 768, 1024 - sizeTop - sizeBottom);
 		}
 	}else{
 		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			scroll.frame = CGRectMake(80, sizeTop, 320, 320 - sizeTop - sizeBottom);
+			scroll.frame = CGRectMake(0, sizeTop, 480, 320 - sizeTop - sizeBottom);
 		}else {
 			scroll.frame = CGRectMake(0, sizeTop, 320, 480 - sizeTop - sizeBottom);
 		}
@@ -245,6 +303,8 @@
  * @see CachedImage
  */
 -(void) loadsView {
+	imageSize = [[UIImageView alloc] init];
+	contentImage = [[UIImageView alloc] init];
 	
 	sizeTop = 0;
 	sizeBottom = 0;
@@ -302,7 +362,6 @@
  * Load theme form xml into components
  */
 -(void)loadThemesComponents {
-	
 	for(int x = 0; x < varStyles.listComponents.count; x++){
 		NSString *var = [varStyles.listComponents objectAtIndex:x];
 		
@@ -335,7 +394,7 @@
 			
 			//Hay que convertirlo a hexadecimal.
 			//	varFormats.textColor
-			myLabel.textColor = [UIColor whiteColor];
+			myLabel.textColor = [UIColor blackColor];
 			myLabel.textAlignment = UITextAlignmentCenter;
 			
 			[self.view addSubview:myLabel];
@@ -514,6 +573,8 @@
 	[varStyles release];
 	[varFormats release];
 	[labelImageCount release];
+	[imageSize release];
+	[contentImage release];
 	
 	if(imageSet) 
 		[imageSet release];

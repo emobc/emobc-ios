@@ -28,12 +28,18 @@
 
 @synthesize fields;
 @synthesize actionUrl;
+@synthesize submitImage;
+@synthesize cameraImage;
+@synthesize libraryImage;
 @synthesize nextLevel;
 @synthesize parentNextLevel;
 
 - (void)dealloc {
     [fields release];
 	[actionUrl release];
+	[submitImage release];
+	[cameraImage release];
+	[libraryImage release];
 	[nextLevel release];
 	[parentNextLevel release];
 	

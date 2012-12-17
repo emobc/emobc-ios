@@ -60,10 +60,77 @@
 		
 		loadContent = FALSE;
 		
-		[self loadButtons];
-		[self callTopMenu];
+		
+		if(![mainController.appData.topMenu isEqualToString:@""]){
+			[self callTopMenu];
+		}
+		
+		if(![mainController.appData.bottomMenu isEqualToString:@""]){
+			[self callBottomMenu];
+		}
+		
+		//[self loadButtons];
+		[self createButtons];
 	}
 }
+
+
+
+/**
+ * Create button in a dinamic way changing the possition for each one
+ */
+-(void) createButtons{
+	loadContent = FALSE;
+	
+	int x = 0;
+	int y = 100;
+	int a = 120;
+	int b = 100;
+	
+	
+	int count = [data.buttons count];
+	NwButton *button;
+	for (int i = 0; i < count; i++) {
+		
+		NSString *k = [eMobcViewController whatDevice:k];
+
+		AppButton* theButton = [data.buttons objectAtIndex:i];
+		
+		NSString *imagePath = [[NSBundle mainBundle] pathForResource:theButton.fileName ofType:nil inDirectory:k];
+		
+		UIImage* buttonImage = [UIImage imageWithContentsOfFile:imagePath];
+		
+		
+		//create the button
+		button = [NwButton buttonWithType:UIButtonTypeCustom];
+		button.nextLevel = theButton.nextLevel;
+		
+		int modulo = i%2;
+		
+		if(modulo == 0){
+			button.frame = CGRectMake(x, y, buttonImage.size.width, buttonImage.size.height);
+			y += buttonImage.size.height;
+		}else{
+			button.frame = CGRectMake(a, b, buttonImage.size.width, buttonImage.size.height);
+			b +=  buttonImage.size.height;
+		}
+		
+		//set the button's title
+		if([theButton.fileName isEqualToString:@""]){
+			[button setTitle:theButton.title forState:UIControlStateNormal];
+		}
+		
+		//listen for clicks
+		[button addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
+		
+		[button setImage:buttonImage forState:UIControlStateNormal];
+		//button.adjustsImageWhenHighlighted = NO;
+		button.imageView.contentMode = UIViewContentModeScaleAspectFit;
+		
+		[self.view addSubview:button];
+	}
+}
+
 
 
 /**
@@ -171,7 +238,8 @@
 			[self createYocBanner];
 		}
 	
-		[self loadButtons];
+		//[self loadButtons];
+		[self createButtons];
 	}
 }
 

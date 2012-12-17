@@ -30,7 +30,9 @@
 @synthesize backgroundFileName;
 @synthesize titleFileName;
 @synthesize facebook;
+@synthesize facebookImage;
 @synthesize twitter;
+@synthesize twitterImage;
 @synthesize www;
 @synthesize buttons;
 
@@ -39,7 +41,9 @@
     [backgroundFileName release];
     [titleFileName release];
     [facebook release];
+	[facebookImage release];
     [twitter release];
+	[twitterImage release];
     [www release];
     [buttons release];
 	

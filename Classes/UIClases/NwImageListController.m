@@ -33,6 +33,7 @@
 
 @synthesize imgListTableView;
 @synthesize imgListImageView;
+@synthesize contentImageView;
 @synthesize data;
 
 @synthesize varStyles;
@@ -42,6 +43,7 @@
 @synthesize sizeTop;
 @synthesize sizeBottom;
 @synthesize sizeHeaderText;
+@synthesize swSize;
 
 /**
  * Called after the controller’s view is loaded into memory.
@@ -60,6 +62,7 @@
 -(void) loadImageList{
 	contentArray = [[NSMutableArray alloc] init];
 	
+	swSize = 0;
 	sizeTop = 0;
 	sizeBottom = 0;
 	sizeHeaderText = 20;
@@ -74,29 +77,84 @@
 			[self loadThemes];
 		}
 		
+		imgListImageView = [[UIImageView alloc] init];
+		imgListImageView.image = [data.image imageContent];
+		[contentArray addObjectsFromArray:data.items];
+		
+		int width, height;
+		
+		width = imgListImageView.image.size.width;
+		height = imgListImageView.image.size.height;
+		
 		if([eMobcViewController isIPad]){
 			if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-				imgListImageView = [[UIImageView alloc] initWithFrame:CGRectMake(128, sizeTop + sizeHeaderText, 768, 290)];
-				sizeTop += 290 + sizeHeaderText;
+				if(width < 512 && height < (768 - sizeTop - sizeBottom - sizeHeaderText)){
+					swSize = 1;
+					int posY = ((768 - sizeTop - sizeBottom - sizeHeaderText) - height)/2;
+					contentImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, sizeTop + sizeHeaderText + posY , width, height)];
+				}else{
+					contentImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, sizeTop + sizeHeaderText, 512, 768 - sizeTop - sizeBottom - sizeHeaderText)];
+				}
+				
+				if(swSize == 1){
+					imgListImageView.frame = CGRectMake(0, 0, width, height);
+				}else{
+					imgListImageView.frame = CGRectMake(0, 0, 512, 768 - sizeTop - sizeBottom - sizeHeaderText);
+				}
 			}else{
-				imgListImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, sizeTop + sizeHeaderText , 768, 290)];
-				sizeTop += 290 + sizeHeaderText;
+				if(width < 768 && height < 400){
+					swSize = 1;
+					contentImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, sizeTop + sizeHeaderText + 5, width, height)];
+					sizeTop += imgListImageView.image.size.height + sizeHeaderText + 10;
+				}else{
+					contentImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, sizeTop + sizeHeaderText, 768, 400)];
+					sizeTop += 405 + sizeHeaderText;
+				}
+				
+				if(swSize == 1){
+					imgListImageView.frame = CGRectMake((768 - width)/2, 0, width, height);
+				}else{
+					imgListImageView.frame = CGRectMake(0, 0, 768, 400);
+				}
 			}				
 		}else {
 			if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-				imgListImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, sizeTop + sizeHeaderText, 275, 174)];
-				sizeTop += sizeHeaderText;
+				
+				if(width < 240 && height < (320 - sizeTop - sizeBottom - sizeHeaderText)){
+					swSize = 1;
+					int posY = ((320 - sizeTop - sizeBottom - sizeHeaderText) - height)/2;
+					contentImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, sizeTop + sizeHeaderText + posY , width, height)];
+				}else{
+					contentImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, sizeTop + sizeHeaderText, 240, 320 - sizeTop - sizeBottom - sizeHeaderText)];
+				}
+				
+				if(swSize == 1){
+					imgListImageView.frame = CGRectMake(0, 0, width, height);
+				}else{
+					imgListImageView.frame = CGRectMake(0, 0, 240, 320 - sizeTop - sizeBottom - sizeHeaderText);
+				}
 			}else{
-				imgListImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, sizeTop + sizeHeaderText, 320, 165)];
-				sizeTop += 165 + sizeHeaderText;
+				if(width < 320 && height < 160){
+					swSize = 1;
+					contentImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, sizeTop + sizeHeaderText + 5, width, height)];
+					sizeTop += height + sizeHeaderText + 10;
+				}else{
+					contentImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, sizeTop + sizeHeaderText, 320, 160)];
+					sizeTop += 165 + sizeHeaderText;
+				}
+				
+				if(swSize == 1){
+					imgListImageView.frame = CGRectMake((320 - width)/2, 0, width, height);
+				}else{
+					imgListImageView.frame = CGRectMake(0, 0, 320, 160);
+				}
 			}				
 		}
 		
-		imgListImageView.image = [data.image imageContent];
-	
-		[contentArray addObjectsFromArray:data.items];
+		imgListImageView.contentMode = UIViewContentModeScaleAspectFit;
 		
-		[self.view addSubview:imgListImageView];
+		[self.view addSubview:contentImageView];
+		[contentImageView addSubview:imgListImageView];
 		
 		[self createTableView];
 
@@ -111,13 +169,23 @@
 -(void) createTableView{
 	if([eMobcViewController isIPad]){
 		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			imgListTableView = [[[UITableView alloc] initWithFrame:CGRectMake(0, sizeTop, 1024, 768 - sizeTop - sizeBottom) style:UITableViewStylePlain] autorelease];
+			if(swSize == 1){
+				imgListTableView = [[[UITableView alloc] initWithFrame:CGRectMake(imgListImageView.image.size.width + 5, sizeTop + sizeHeaderText, 1024 - imgListImageView.image.size.width, 768 - sizeTop - sizeBottom - sizeHeaderText) style:UITableViewStylePlain] autorelease];
+			}else{
+				imgListTableView = [[[UITableView alloc] initWithFrame:CGRectMake(512, sizeTop + sizeHeaderText, 512, 768 - sizeTop - sizeBottom - sizeHeaderText) style:UITableViewStylePlain] autorelease];
+			}
+			
 		}else{
 			imgListTableView = [[[UITableView alloc] initWithFrame:CGRectMake(0, sizeTop, 768, 1024 - sizeTop - sizeBottom) style:UITableViewStylePlain] autorelease];
 		}				
 	}else {
 		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			imgListTableView = [[[UITableView alloc] initWithFrame:CGRectMake(273, sizeTop, 207, 320 - sizeTop - sizeBottom) style:UITableViewStylePlain] autorelease];
+			if(swSize == 1){
+				imgListTableView = [[[UITableView alloc] initWithFrame:CGRectMake(imgListImageView.image.size.width + 5, sizeTop + sizeHeaderText, 480 - imgListImageView.image.size.width, 320 - sizeTop - sizeBottom - sizeHeaderText) style:UITableViewStylePlain] autorelease];
+			}else{
+				imgListTableView = [[[UITableView alloc] initWithFrame:CGRectMake(240, sizeTop + sizeHeaderText, 240, 320 - sizeTop - sizeBottom - sizeHeaderText) style:UITableViewStylePlain] autorelease];
+			}
+			
 		}else{
 			imgListTableView = [[[UITableView alloc] initWithFrame:CGRectMake(0, sizeTop, 320, 480 - sizeTop - sizeBottom) style:UITableViewStylePlain] autorelease];
 		}				
@@ -163,7 +231,7 @@
 			
 			//Hay que convertirlo a hexadecimal.
 			//	varFormats.textColor
-			myLabel.textColor = [UIColor whiteColor];
+			myLabel.textColor = [UIColor blackColor];
 			myLabel.textAlignment = UITextAlignmentCenter;
 			
 		}

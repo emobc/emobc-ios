@@ -35,12 +35,18 @@
 @interface FormLevelData : DataItem {
 	NSMutableArray *fields;
 	NSString *actionUrl;
+	NSString *submitImage;
+	NSString *cameraImage;
+	NSString *libraryImage;
 	NextLevel* nextLevel;
 	NextLevel* parentNextLevel;
 }
 
 @property (nonatomic, retain) NSMutableArray *fields;
 @property (nonatomic, copy) NSString *actionUrl;
+@property (nonatomic, copy) NSString *submitImage;
+@property (nonatomic, copy) NSString *cameraImage;
+@property (nonatomic, copy) NSString *libraryImage;
 @property (nonatomic, retain) NextLevel* nextLevel;
 @property (nonatomic, retain) NextLevel* parentNextLevel;
 

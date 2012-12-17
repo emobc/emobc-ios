@@ -39,6 +39,7 @@
 @synthesize sizeTop;
 @synthesize sizeBottom;
 @synthesize sizeHeaderText;
+@synthesize imageSize;
 
 static CGFloat const kScreenWidth = 320.0;
 static CGFloat const kScreenHeight = 480.0;
@@ -108,7 +109,7 @@ static CGFloat const kFormCheckWidthiPad = 120.0;
 static CGFloat const kFormCheckHeightiPad = 60.0;
 
 static CGFloat const kFormSubmitButtonWidthiPad = 160;
-static CGFloat const kFormSubmitButtonHeightiPad = 50;
+static CGFloat const kFormSubmitButtonHeightiPad = 44.8;
 
 static float   const kKeyboardAnimationDurationiPad = 0.3;
 static CGFloat const kTabBarHeightiPad = 58.0;
@@ -165,7 +166,7 @@ static CGFloat const kTabBarHeightiPad = 58.0;
 			
 			//Hay que convertirlo a hexadecimal.
 			//	varFormats.textColor
-			myLabel.textColor = [UIColor whiteColor];
+			myLabel.textColor = [UIColor blackColor];
 			myLabel.textAlignment = UITextAlignmentCenter;
 			
 			[self.view addSubview:myLabel];
@@ -173,7 +174,6 @@ static CGFloat const kTabBarHeightiPad = 58.0;
 		}
 	}
 }
-
 
 /**
  Carga los temas
@@ -202,10 +202,9 @@ static CGFloat const kTabBarHeightiPad = 58.0;
 		background.image = [UIImage imageWithContentsOfFile:imagePath];
 
 		[self.view addSubview:background];
-		//[self.view sendSubviewToBack:background];
 		[background release];
 	}else{
-		self.view.backgroundColor = [UIColor blackColor];
+		self.view.backgroundColor = [UIColor whiteColor];
 	}
 	
 	if(![varStyles.components isEqualToString:@""]) {
@@ -236,6 +235,9 @@ static CGFloat const kTabBarHeightiPad = 58.0;
  * Load and prepare the form
  */
 -(void) loadForm{
+	
+	imageSize = [[UIImageView alloc] init];
+	
 	sizeTop = 0;
 	sizeBottom = 0;
 	sizeHeaderText = 25;
@@ -266,7 +268,7 @@ static CGFloat const kTabBarHeightiPad = 58.0;
 			
 			NSString *k = [eMobcViewController whatDevice:k];
 			
-			NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"images/cover/backgroundCover.png" ofType:nil inDirectory:k];
+			NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"images/cover/backgroundCover.pn" ofType:nil inDirectory:k];
 			
 			background.image = [UIImage imageWithContentsOfFile:imagePath];
 			
@@ -442,6 +444,7 @@ static CGFloat const kTabBarHeightiPad = 58.0;
 	[varStyles release];
 	[varFormats release];
 	[scrollView release];
+	[imageSize release];
 	
     [super dealloc];
 }
@@ -607,7 +610,7 @@ static CGFloat const kTabBarHeightiPad = 58.0;
   
 	label.text = field.labelText;
     label.backgroundColor = [UIColor clearColor];
-    label.textColor = [UIColor whiteColor];
+    label.textColor = [UIColor blackColor];
 	label.highlightedTextColor = [UIColor clearColor];
 	label.textAlignment = UITextAlignmentLeft;
 	
@@ -742,47 +745,124 @@ static CGFloat const kTabBarHeightiPad = 58.0;
     }
 	
 	UIButton *buttonCamara = [[UIButton buttonWithType:UIButtonTypeCustom] retain];	
-	if([eMobcViewController isIPad]){
-		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			buttonCamara.frame = CGRectMake(kFormLeftMarginiPadLandscape + 203, textFieldYPos + 30, 150, 40);
-		}else{
-			buttonCamara.frame = CGRectMake(kFormLeftMarginiPad + 203, textFieldYPos + 30, 150, 40);
-		}	
-	}else{
-		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			buttonCamara.frame = CGRectMake(kFormLeftMarginLandscape, textFieldYPos, 150, 40);
-		}else{
-			buttonCamara.frame = CGRectMake(kFormLeftMargin, textFieldYPos, 150, 40);
-		}
-	}
-		
+	
 	NSString *k = [eMobcViewController whatDevice:k];
 	
-	NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"images/form/takePicture.png" ofType:nil inDirectory:k];
+	NSString *imagePath = [[NSBundle mainBundle] pathForResource:data.cameraImage ofType:nil inDirectory:k];
 	
 	[buttonCamara setImage:[UIImage imageWithContentsOfFile:imagePath] forState:UIControlStateNormal];
 	
+	imageSize.image = [UIImage imageWithContentsOfFile:imagePath];
 	
-	UIButton *buttonGalery = [[UIButton buttonWithType:UIButtonTypeCustom] retain];	
-	if([eMobcViewController isIPad]){
-		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			buttonGalery.frame = CGRectMake(kFormLeftMarginiPadLandscape + 353, textFieldYPos + 30, 150, 40);
-		}else{
-			buttonGalery.frame = CGRectMake(kFormLeftMarginiPad + 353, textFieldYPos + 30, 150, 40);
-		}		
+	int width, height;
+	
+	if(![data.cameraImage isEqualToString:@""] && data.cameraImage != nil){
+		width = imageSize.image.size.width;
+		height = imageSize.image.size.height;
 	}else{
-		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			buttonGalery.frame = CGRectMake(kFormLeftMarginLandscape + 150, textFieldYPos, 150, 40);
-		}else{
-			buttonGalery.frame = CGRectMake(kFormLeftMargin + 150, textFieldYPos, 150, 40);
-		}		
+		width = 150;
+		height = 40;
 	}
 	
-	NSString *imagePath1 = [[NSBundle mainBundle] pathForResource:@"images/form/galleryPicture.png" ofType:nil inDirectory:k];
+	if([eMobcViewController isIPad]){
+		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+			if(width > kFormSubmitButtonWidth || height > kFormSubmitButtonHeight){
+				buttonCamara.frame = CGRectMake(kFormLeftMarginiPadLandscape + 200, textFieldYPos + 30, 150, 40);
+			}else{
+				buttonCamara.frame = CGRectMake(kFormLeftMarginiPadLandscape + 200 + ((150 - width)/2), textFieldYPos + 30 + ((40 - height)/2), width, height);
+			}
+		}else{
+			if(width > kFormSubmitButtonWidth || height > kFormSubmitButtonHeight){
+				buttonCamara.frame = CGRectMake(kFormLeftMarginiPad + 200, textFieldYPos + 30, 150, 40);
+			}else{
+				buttonCamara.frame = CGRectMake(kFormLeftMarginiPad + 200 + ((150 - width)/2), textFieldYPos + 30 + ((40 - height)/2), width, height);
+			}
+		}	
+	}else{
+		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+			if(width > kFormSubmitButtonWidth || height > kFormSubmitButtonHeight){
+				buttonCamara.frame = CGRectMake(kFormLeftMarginLandscape, textFieldYPos, 150, 40);
+			}else{
+				buttonCamara.frame = CGRectMake(kFormLeftMarginLandscape + ((150 - width)/2), textFieldYPos + ((40 - height)/2), width, height);
+			}
+		}else{
+			if(width > kFormSubmitButtonWidth || height > kFormSubmitButtonHeight){
+				buttonCamara.frame = CGRectMake(kFormLeftMargin, textFieldYPos, 150, 40);
+			}else{
+				buttonCamara.frame = CGRectMake(kFormLeftMargin + ((150 - width)/2), textFieldYPos + ((40 - height)/2), width, height);
+			}
+		}
+	}
+	
+	if([data.cameraImage isEqualToString:@""] || data.cameraImage == nil){
+		//set the button's title
+		[buttonCamara setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+		[buttonCamara setTitle:@"Camera" forState:UIControlStateNormal];		
+	}
+	
+	buttonCamara.imageView.contentMode = UIViewContentModeScaleAspectFit;
+	buttonCamara.adjustsImageWhenHighlighted = NO;
+	
+	[buttonCamara addTarget:self action:@selector(takePicturePressed:) forControlEvents:UIControlEventTouchUpInside];
+			
+	
+	
+	
+	UIButton *buttonGalery = [[UIButton buttonWithType:UIButtonTypeCustom] retain];	
+	
+	NSString *imagePath1 = [[NSBundle mainBundle] pathForResource:data.libraryImage ofType:nil inDirectory:k];
 	
 	[buttonGalery setImage:[UIImage imageWithContentsOfFile:imagePath1] forState:UIControlStateNormal];
 	
-	[buttonCamara addTarget:self action:@selector(takePicturePressed:) forControlEvents:UIControlEventTouchUpInside];
+	imageSize.image = [UIImage imageWithContentsOfFile:imagePath1];
+	
+	if(![data.libraryImage isEqualToString:@""] && data.libraryImage != nil){
+		width = imageSize.image.size.width;
+		height = imageSize.image.size.height;
+	}else{
+		width = 150;
+		height = 40;
+	}
+	
+	if([eMobcViewController isIPad]){
+		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+			if(width > kFormSubmitButtonWidth || height > kFormSubmitButtonHeight){
+				buttonGalery.frame = CGRectMake(kFormLeftMarginiPadLandscape + 356, textFieldYPos + 30, 150, 40);
+			}else{
+				buttonGalery.frame = CGRectMake(kFormLeftMarginiPadLandscape + 356 + ((150 - width)/2), textFieldYPos + 30 + ((40 - height)/2), width, height);
+			}
+		}else{
+			if(width > kFormSubmitButtonWidth || height > kFormSubmitButtonHeight){
+				buttonGalery.frame = CGRectMake(kFormLeftMarginiPad + 356, textFieldYPos + 30, 150, 40);
+			}else{
+				buttonGalery.frame = CGRectMake(kFormLeftMarginiPad + 356 + ((150 - width)/2), textFieldYPos + 30 + ((40 - height)/2), width, height);
+			}
+		}		
+	}else{
+		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+			if(width > kFormSubmitButtonWidth || height > kFormSubmitButtonHeight){
+				buttonGalery.frame = CGRectMake(kFormLeftMarginLandscape + 150, textFieldYPos, 150, 40);
+			}else{
+				buttonGalery.frame = CGRectMake(kFormLeftMarginLandscape + 150 + ((150 - width)/2), textFieldYPos + ((40 - height)/2), width, height);
+			}
+		}else{
+			if(width > kFormSubmitButtonWidth || height > kFormSubmitButtonHeight){
+				buttonGalery.frame = CGRectMake(kFormLeftMargin + 150, textFieldYPos, 150, 40);
+			}else{
+				buttonGalery.frame = CGRectMake(kFormLeftMargin + 150 + ((150 - width)/2), textFieldYPos + ((40 - height)/2), width, height);
+			}
+		}		
+	}
+	
+	if([data.libraryImage isEqualToString:@""] || data.libraryImage == nil){
+		//set the button's title
+		[buttonGalery setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+		[buttonGalery setTitle:@"Library" forState:UIControlStateNormal];		
+	}
+		
+	buttonGalery.imageView.contentMode = UIViewContentModeScaleAspectFit;
+	buttonGalery.adjustsImageWhenHighlighted = NO;
+		
 	[buttonGalery addTarget:self action:@selector(selectPicturePressed:) forControlEvents:UIControlEventTouchUpInside];
 
 	
@@ -1252,17 +1332,46 @@ static CGFloat const kTabBarHeightiPad = 58.0;
 	UIButton *button = [[UIButton buttonWithType:UIButtonTypeCustom] retain];	
 	
 	NSString *k = [eMobcViewController whatDevice:k];
-    
-    if ([eMobcViewController isIPad]) {
-        button.frame = CGRectMake(kFormLeftMarginiPad, ypos, kFormSubmitButtonWidthiPad, kFormSubmitButtonHeightiPad);
-        
-    } else { 
-        button.frame = CGRectMake(kFormLeftMargin, ypos, kFormSubmitButtonWidth, kFormSubmitButtonHeight);
+	
+	NSString *imagePath = [[NSBundle mainBundle] pathForResource:data.submitImage ofType:nil inDirectory:k];
+	
+	[button setImage:[UIImage imageWithContentsOfFile:imagePath] forState:UIControlStateNormal];
+	
+	imageSize.image = [UIImage imageWithContentsOfFile:imagePath];
+	
+	int width, height;
+	
+	if(![data.submitImage isEqualToString:@""] && data.submitImage != nil){
+		width = imageSize.image.size.width;
+		height = imageSize.image.size.height;
+	}else{
+		width = 150;
+		height = 40;
 	}
 	
-	NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"images/form/enviar.png" ofType:nil inDirectory:k];
-
-	[button setImage:[UIImage imageWithContentsOfFile:imagePath] forState:UIControlStateNormal];
+	if ([eMobcViewController isIPad]) {
+        if(width > 150 || height > 40){
+			button.frame = CGRectMake(kFormLeftMarginiPad, ypos, 150, 40);
+		}else{
+			button.frame = CGRectMake(kFormLeftMarginiPad + ((150 - width)/2), ypos + ((40 - height)/2), width, height);
+		}
+    } else { 
+		if(width > 150 || height > 40){
+			button.frame = CGRectMake(kFormLeftMargin, ypos, 150, 40);
+		}else{
+			button.frame = CGRectMake(kFormLeftMargin + ((150 - width)/2), ypos + ((40 - height)/2), width, height);
+		}
+	}
+	
+	if([data.submitImage isEqualToString:@""] || data.submitImage == nil){
+		//set the button's title
+		[button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+		[button setTitle:@"Enviar" forState:UIControlStateNormal];
+		
+	}
+	
+	button.imageView.contentMode = UIViewContentModeScaleAspectFit;
+	button.adjustsImageWhenHighlighted = NO;
 	
 	[button addTarget:self action:@selector(submitPressed:) forControlEvents:UIControlEventTouchUpInside];
 	
@@ -1631,8 +1740,6 @@ static CGFloat const kTabBarHeightiPad = 58.0;
 			[self startSpinner];
 			
 			data.nextLevel.dataId = [formDataId lowercaseString];
-			NSLog(@"Mensaje %@", formDataId);
-			NSLog(@"Mensaje Level %@", data.nextLevel.levelId);
 			[mainController loadNextLevel:data.nextLevel];	
 		}else {
 			[self missingFieldsAlert];

@@ -37,6 +37,7 @@
 //Outlets
 	UITableView* imgListTableView;
 	UIImageView* imgListImageView;
+	UIImageView* contentImageView;
 
 	AppStyles* varStyles;
 	AppFormatsStyles* varFormats;
@@ -49,12 +50,14 @@
 	NSInteger sizeTop;
 	NSInteger sizeBottom;
 	NSInteger sizeHeaderText;
+	NSInteger swSize;
 }
 
 @property(nonatomic, retain) ImageListLevelData* data;
 
-@property (nonatomic, retain) IBOutlet UITableView* imgListTableView;
+@property (nonatomic, retain) UITableView* imgListTableView;
 @property (nonatomic, retain) UIImageView* imgListImageView;
+@property (nonatomic, retain) UIImageView* contentImageView;
 
 @property (nonatomic, retain) AppStyles* varStyles;
 @property (nonatomic, retain) AppFormatsStyles* varFormats;
@@ -63,6 +66,7 @@
 @property (nonatomic) NSInteger sizeTop;
 @property (nonatomic) NSInteger sizeBottom;
 @property (nonatomic) NSInteger sizeHeaderText;
+@property (nonatomic) NSInteger swSize;
 
 //Methods
 	-(void) loadImageList;

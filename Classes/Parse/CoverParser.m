@@ -31,7 +31,9 @@ static NSString * const kTitleElementName = @"title";
 static NSString * const kBackgoundImageElementName = @"backgroundFileName";
 static NSString * const kTitleFileNameElementName = @"titleFileName";
 static NSString * const kFacebookElementName = @"facebook";
+static NSString * const kFacebookImageElementName = @"facebookImage";
 static NSString * const kTwitterElementName = @"twitter";
+static NSString * const kTwitterImageElementName = @"twitterImage";
 static NSString * const kWwwElementName = @"www";
 
 static NSString * const kButtonsElementName = @"buttons";
@@ -92,7 +94,9 @@ static NSString * const kNLDataIdElementName = @"nextLevelDataId";
                [elementName isEqualToString:kBackgoundImageElementName] ||
                [elementName isEqualToString:kTitleFileNameElementName]||
                [elementName isEqualToString:kFacebookElementName] ||
+			   [elementName isEqualToString:kFacebookImageElementName] ||
                [elementName isEqualToString:kTwitterElementName]||
+			   [elementName isEqualToString:kTwitterImageElementName] ||
                [elementName isEqualToString:kWwwElementName] ||
                [elementName isEqualToString:kButtonTitleElementName] ||
                [elementName isEqualToString:kButtonFileElementName] ||
@@ -106,7 +110,6 @@ static NSString * const kNLDataIdElementName = @"nextLevelDataId";
         // The mutable string needs to be reset to empty.
         [currentParsedCharacterData setString:@""];
     }
-	
 }
 
 /**
@@ -127,8 +130,12 @@ static NSString * const kNLDataIdElementName = @"nextLevelDataId";
 		self.cover.titleFileName = self.currentParsedCharacterData;
 	} else if ([elementName isEqualToString:kFacebookElementName]) {
 		self.cover.facebook = self.currentParsedCharacterData;
+	} else if ([elementName isEqualToString:kFacebookImageElementName]) {
+		self.cover.facebookImage = self.currentParsedCharacterData;
 	} else if ([elementName isEqualToString:kTwitterElementName]) {
 		self.cover.twitter = self.currentParsedCharacterData;
+	} else if ([elementName isEqualToString:kTwitterImageElementName]) {
+		self.cover.twitterImage = self.currentParsedCharacterData;
 	} else if ([elementName isEqualToString:kWwwElementName]) {
 		self.cover.www = self.currentParsedCharacterData;
 	} else if ([elementName isEqualToString:kButtonElementName]) {

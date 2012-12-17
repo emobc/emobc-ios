@@ -54,7 +54,6 @@
 	UILabel *myHeaderText;
 	UIImageView *imgView;
 	UIImageView *imgViewQuestion;
-	UIImageView *imgViewFinish;
 	UIImageView *background;
 	UITextView *myDescription;
 	UILabel *myText;
@@ -79,6 +78,8 @@
 	NSInteger sizeTop;
 	NSInteger sizeBottom;
 	NSInteger sizeHeaderText;	
+	
+	UIImageView *imgSize;
 }
 
 @property (nonatomic, retain) QuizLevelData* data;
@@ -88,7 +89,6 @@
 @property (nonatomic, retain) UILabel *myHeaderText;
 @property (nonatomic, retain) UIImageView *imgView;
 @property (nonatomic, retain) UIImageView *imgViewQuestion;
-@property (nonatomic, retain) UIImageView *imgViewFinish;
 @property (nonatomic, retain) UIImageView *background;
 @property (nonatomic, retain) UITextView *myDescription;
 @property (nonatomic, retain) UILabel *myText;
@@ -110,6 +110,8 @@
 @property (nonatomic) NSInteger sizeTop;
 @property (nonatomic) NSInteger sizeBottom;
 @property (nonatomic) NSInteger sizeHeaderText;
+
+@property (nonatomic, retain) UIImageView *imgSize;
 
 -(void) startButton;
 -(void) buttonPressed;

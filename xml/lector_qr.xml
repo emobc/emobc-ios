@@ -3,6 +3,7 @@
 	<data>
 		<dataId>Lector QR</dataId>
 		<headerText>Lector Qr</headerText>
+		<scanImage></scanImage>
 		<qrs>
 			<qr>
 				<idQr>qr1</idQr>

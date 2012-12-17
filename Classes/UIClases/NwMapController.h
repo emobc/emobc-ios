@@ -68,6 +68,7 @@
 	NSInteger sizeHeaderText;
 	
 	UIButton *nearPosButton;
+	UIImageView *imageSize;
 } 
 
 @property(nonatomic, retain) MKMapView *mapView;
@@ -84,6 +85,7 @@
 @property (nonatomic) NSInteger sizeHeaderText;
 
 @property(nonatomic, retain) UIButton *nearPosButton;
+@property (nonatomic, retain) UIImageView *imageSize;
 
 //Acciones
 	-(IBAction) back:(id)sender;

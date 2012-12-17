@@ -33,10 +33,13 @@
 
 @interface QRLevelData : DataItem {
 @private
+	NSString *scanImage;
+	
 	NSMutableArray* qrs;
 
 }
 
+@property (nonatomic, copy) NSString *scanImage;
 @property (nonatomic, retain) NSMutableArray* qrs;
 
 -(void) addQrs:(AppQrs*) newQrs;

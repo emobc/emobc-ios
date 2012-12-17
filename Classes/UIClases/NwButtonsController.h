@@ -72,5 +72,6 @@
 	-(void) loadButtons;
 	-(void) loadThemesComponents;
 	-(void) loadThemes;
+	-(void) createButtons;
 
 @end

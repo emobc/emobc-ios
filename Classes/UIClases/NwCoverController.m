@@ -33,6 +33,7 @@
 @synthesize mainController;
 @synthesize coverBgImage;
 @synthesize coverTitleImage;
+@synthesize contentCoverTitleImage;
 @synthesize buttonFacebook;
 @synthesize buttonTwitter;
 @synthesize landscapeView;
@@ -46,7 +47,8 @@
 -(void)viewDidLoad {
     [super viewDidLoad];
 	
-	
+	theCover = [[NwUtil instance] readCover];
+		
 	[[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
 	[[NSNotificationCenter defaultCenter] addObserver:self 
 											 selector:@selector(orientationChanged:) 
@@ -58,261 +60,304 @@
 	}else {
 		self.view = self.portraitView;
 	}
-
-	theCover = [[NwUtil instance] readCover];
 	
-	[self crearBotones];
-
+	if(![theCover.titleFileName isEqualToString:@""] && theCover.titleFileName !=nil){
+		[self createCoverTitleImage];
+	}
+	
+	[self createButtons];
+	
+	[self buttonsTwitterFacebook];
 }
 
 
 /**
  * Create button in a dinamic way changing the possition for each one
  */
--(void) crearBotones{
+-(void) createButtons{
 	loadContent = FALSE;
 	
-	facebookUrl = theCover.facebook;
-	twitterUrl = theCover.twitter;
-	wwwUrl = theCover.www;
-
-	
-	if([eMobcViewController isIPad]){
-		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			coverBgImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 1024, 768)];
-			coverTitleImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 26, 1024, 450)];
-		}else{
-			coverBgImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 768, 1024)];
-			coverTitleImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 38, 768, 350)];
-		}				
-	}else {
-		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			coverBgImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 480, 320)];
-			coverTitleImage = [[UIImageView alloc] initWithFrame:CGRectMake(80, 26, 320, 140)];
-		}else{
-			coverBgImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
-			coverTitleImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 38, 320, 140)];
-		}				
-	}
-	
-
-	NSString *k = [eMobcViewController whatDevice:k];
-	
-	NSString *bgPath = [[NSBundle mainBundle] pathForResource:theCover.backgroundFileName ofType:nil inDirectory:k];
-	coverBgImage.image = [UIImage imageWithContentsOfFile:bgPath];
-	[self.view addSubview:coverBgImage];
-	
-	NSString *titleImagePath = [[NSBundle mainBundle] pathForResource:theCover.titleFileName ofType:nil inDirectory:k];		
-	coverTitleImage.image = [UIImage imageWithContentsOfFile:titleImagePath];
-	[self.view addSubview:coverTitleImage];
-
-	
-	//Posicionado en 2 columnas
-	//Tamaño 1 columna
-	int	x = 0;
+	int x = 0;
 	int y = 0;
-	
-	//Tamaño 2 columna
 	int a = 0;
 	int b = 0;
-	
-	//Tamaño boton para pulsar.
-	int width = 0;
-	int height = 0;
-	
-	
-	if([eMobcViewController isIPad]){
-		width = 300;
-		height = 76;
 		
+	if([eMobcViewController isIPad]){
 		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			x = 207;
-			y = 505;
-			
-			a = 517;
-			b = 425;
+			x = 362;
+			y = 400;
+			a = 522;
+			b = 400;
 		}else{
-			x = 88;
-			y = 550;
-			
-			a = 398;
-			b = 469;
+			x = 234;
+			y = 500;
+			a = 394;
+			b = 500;
 		}				
 	}else {
-		width = 150;
-		height = 38;
-		
 		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			x = 85;
+			x = 80;
 			y = 170;
-			
-			a = 245;
-			b = 125;
+			a = 240;
+			b = 170;
 		}else{
-			x = 7;
-			y = 255;
-			
-			a = 164;
-			b = 210;
+			x = 0;
+			y = 200;
+			a = 160;
+			b = 200;
 		}				
-	}
-	
+	}	
 	
 	int count = [theCover.buttons count];
 	NwButton *button;
-	for(int i=0; i < count;i++){
-		if(i >= 1){
-			
-			if([eMobcViewController isIPad]){
-				y += 83;
-			}else{
-				y += 45;
-			}
-		}
-		
-		//Segunda columna
-		if(i > 2){
-			
-			if([eMobcViewController isIPad]){
-				b += 83;
-			}else{
-				b += 45;
-			}
-		}
-		
-		AppButton* theButton = [theCover.buttons objectAtIndex:i];
-		
-		//create the button
-		button = [NwButton buttonWithType:UIButtonTypeCustom];
-		button.nextLevel = theButton.nextLevel;
-		
-		
-		//set the position of the button
-		//Al cargar la segunda columna se cargan los botones con coordenadas distinctas
-		if (i>2){
-			button.frame = CGRectMake(a, b, width, height);
-		}else{
-			button.frame = CGRectMake(x, y, width, height);
-		}
-		
-		//set the button's title
-		[button setTitle:theButton.title forState:UIControlStateNormal];
-		
-		
-		//listen for clicks
-		[button addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
+	for (int i = 0; i < count; i++) {
 		
 		NSString *k = [eMobcViewController whatDevice:k];
+		
+		AppButton* theButton = [theCover.buttons objectAtIndex:i];
 		
 		NSString *imagePath = [[NSBundle mainBundle] pathForResource:theButton.fileName ofType:nil inDirectory:k];
 		
 		UIImage* buttonImage = [UIImage imageWithContentsOfFile:imagePath];
 		
-		[button setImage:buttonImage forState:UIControlStateNormal];
+		int width, height;
+		
+		if(![theButton.fileName isEqualToString:@""] && theButton.fileName != nil){
+			width = buttonImage.size.width;
+			height = buttonImage.size.height;
+		}else{
+			width = 150;
+			height = 40;
+		}
+		
+		//create the button
+		button = [NwButton buttonWithType:UIButtonTypeCustom];
+		button.nextLevel = theButton.nextLevel;
+		
+		int modulo = i%2;
+		
+		if(modulo == 0){
+			button.frame = CGRectMake(x, y, width, height);
+			y += height;
+		}else{
+			button.frame = CGRectMake(a, b, width, height);
+			b += height;
+		}
+		
+		if(![theButton.fileName isEqualToString:@""] && theButton.fileName != nil){
+			[button setImage:buttonImage forState:UIControlStateNormal];
+			//button.adjustsImageWhenHighlighted = NO;
+		}else{
+			//set the button's title
+			[button setTitle:theButton.title forState:UIControlStateNormal];
+			[button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+		}
+		
+		//listen for clicks
+		[button addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
+		
 		button.imageView.contentMode = UIViewContentModeScaleAspectFit;
 		
-		//add the button to the view
 		[self.view addSubview:button];
 	}
+}
 
-	[self buttonsTwitterFacebook];
+-(void) createCoverTitleImage{
+	NSString *k = [eMobcViewController whatDevice:k];
 	
-    [self createAnimationCover];
-	[self createIndicator];
-    
-	//[self startAnimation];
-	//[NSThread sleepForTimeInterval:5.0];
-    //[self stopAnimation];
+	NSString *titleImagePath = [[NSBundle mainBundle] pathForResource:theCover.titleFileName ofType:nil inDirectory:k];
+	
+	coverTitleImage = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:titleImagePath]];
+	
+	if([eMobcViewController isIPad]){
+		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+			contentCoverTitleImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 1024, 350)];
+			
+			if(coverTitleImage.image.size.width > 1024 || coverTitleImage.image.size.height > 350){
+				coverTitleImage.frame = CGRectMake(0, 0, 1024, 350);
+			}else{
+				coverTitleImage.frame = CGRectMake((1024 - coverTitleImage.image.size.width)/2, (350 - coverTitleImage.image.size.height)/2, coverTitleImage.image.size.width, coverTitleImage.image.size.height);
+			}
+		}else{
+			contentCoverTitleImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 768, 350)];
+			
+			if(coverTitleImage.image.size.width > 768 || coverTitleImage.image.size.height > 350){
+				coverTitleImage.frame = CGRectMake(0, 0, 768, 350);
+			}else{
+				coverTitleImage.frame = CGRectMake((768 - coverTitleImage.image.size.width)/2, (350 - coverTitleImage.image.size.height)/2, coverTitleImage.image.size.width, coverTitleImage.image.size.height);
+			}
+		}
+	}else{
+		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+			contentCoverTitleImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 480, 140)];
+			
+			if(coverTitleImage.image.size.width > 480 || coverTitleImage.image.size.height > 140){
+				coverTitleImage.frame = CGRectMake(0, 0, 480, 140);
+			}else{
+				coverTitleImage.frame = CGRectMake((480 - coverTitleImage.image.size.width)/2, (140 - coverTitleImage.image.size.height)/2, coverTitleImage.image.size.width, coverTitleImage.image.size.height);
+			}
+		}else{
+			contentCoverTitleImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 140)];
+			
+			if(coverTitleImage.image.size.width > 320 || coverTitleImage.image.size.height > 140){
+				coverTitleImage.frame = CGRectMake(0, 0, 320, 140);
+			}else{
+				coverTitleImage.frame = CGRectMake((320 - coverTitleImage.image.size.width)/2, (140 - coverTitleImage.image.size.height)/2, coverTitleImage.image.size.width, coverTitleImage.image.size.height);
+			}
+		}
+	}
+		
+	coverTitleImage.contentMode = UIViewContentModeScaleAspectFit;
+		
+	[self.view addSubview:contentCoverTitleImage];
+	[contentCoverTitleImage addSubview:coverTitleImage];
 }
 
 -(void) buttonFacebookPress:(id)sender {
 	[self startSpinner];
-	[mainController mostrarWevActivityUrl:facebookUrl];
+	[mainController mostrarWevActivityUrl:theCover.facebook];
 }
 
 -(void) buttonTwitterPress:(id)sender {
 	[self startSpinner];
-	[mainController mostrarWevActivityUrl:twitterUrl];
+	[mainController mostrarWevActivityUrl:theCover.twitter];
 }
 
 -(void) buttonsTwitterFacebook{
-	if(![facebookUrl isEqualToString:@""]){
+
+	if(![theCover.facebook isEqualToString:@""] && theCover.facebook != nil){
+		NSString *k = [eMobcViewController whatDevice:k];
+		
+		NSString *imagePathF = [[NSBundle mainBundle] pathForResource:theCover.facebookImage ofType:nil inDirectory:k];
+		
+		UIImage* buttonImageF = [UIImage imageWithContentsOfFile:imagePathF];
+		
+		int widthF, heightF;
+		
+		if(![theCover.facebookImage isEqualToString:@""] && theCover.facebookImage != nil){
+			widthF = buttonImageF.size.width;
+			heightF = buttonImageF.size.height;
+		}else{
+			widthF = 50;
+			heightF = 50;
+		}
+		
 		//create the button
 		buttonFacebook = [UIButton buttonWithType:UIButtonTypeCustom];
 		
 		//set the position of the button
 		if([eMobcViewController isIPad]){
 			if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-				buttonFacebook.frame = CGRectMake(884, 698, 60, 60);
+				if(widthF > 50 || heightF > 50){
+					buttonFacebook.frame = CGRectMake(914, 713, 50, 50);
+				}else{
+					buttonFacebook.frame = CGRectMake(914 + (50 - widthF)/2, 713 + (50 - heightF)/2, widthF, heightF);
+				}
 			}else{
-				buttonFacebook.frame = CGRectMake(628, 954, 60, 60);
+				
+				if(widthF > 50 || heightF > 50){
+					buttonFacebook.frame = CGRectMake(658, 969, 50, 50);
+				}else{
+					buttonFacebook.frame = CGRectMake(658 + (50 - widthF)/2, 969 + (50 - heightF)/2, widthF, heightF);
+				}
 			}				
 		}else {
 			if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-				buttonFacebook.frame = CGRectMake(450, 240, 30, 30);
-			}else{
-				buttonFacebook.frame = CGRectMake(240, 450, 30, 30);
+				if(widthF > 50 || heightF > 50){
+					buttonFacebook.frame = CGRectMake(425, 190, 50, 50);
+				}else{
+					buttonFacebook.frame = CGRectMake(425 + (50 - widthF)/2, 190 + (50 - heightF)/2, widthF, heightF);
+				}
 				
+			}else{
+				if(widthF > 50 || heightF > 50){
+					buttonFacebook.frame = CGRectMake(210, 430, 50, 50);
+				}else{
+					buttonFacebook.frame = CGRectMake(210 + (50 - widthF)/2, 430 + (50 - heightF)/2, widthF, heightF);
+				}
 			}				
 		}	
-		
-		//set the button's title
-		//[button setTitle:@"facebook" forState:UIControlStateNormal];
-		
+				
 		//listen for clicks
 		[buttonFacebook addTarget:self action:@selector(buttonFacebookPress:) forControlEvents:UIControlEventTouchUpInside];
 		
-		NSString *k = [eMobcViewController whatDevice:k];
-		
-		NSString *imagePathF = [[NSBundle mainBundle] pathForResource:@"images/cover/facebook.png" ofType:nil inDirectory:k];
-		
-		UIImage* buttonImageF = [UIImage imageWithContentsOfFile:imagePathF];
-		
-		[buttonFacebook setImage:buttonImageF forState:UIControlStateNormal];
-		buttonFacebook.imageView.contentMode = UIViewContentModeScaleAspectFit;
-		
-		//add the button to the view
+		if(![theCover.facebookImage isEqualToString:@""] && theCover.facebookImage != nil){
+			[buttonFacebook setImage:buttonImageF forState:UIControlStateNormal];
+			buttonFacebook.adjustsImageWhenHighlighted = NO;
+			buttonFacebook.imageView.contentMode = UIViewContentModeScaleAspectFit;
+		}else{
+			//set the button's title
+			[buttonFacebook setTitle:@"fb" forState:UIControlStateNormal];
+		}
+				
 		[self.view addSubview:buttonFacebook];
 	}
 	
-	
-	
-	if(![twitterUrl isEqualToString:@""]){
+
+	if(![theCover.twitter isEqualToString:@""] && theCover.twitter != nil){
+		NSString *k = [eMobcViewController whatDevice:k];
+		
+		NSString *imagePathT = [[NSBundle mainBundle] pathForResource:theCover.twitterImage ofType:nil inDirectory:k];
+		
+		UIImage* buttonImageT = [UIImage imageWithContentsOfFile:imagePathT];
+		
+		int widthT, heightT;
+		
+		if(![theCover.twitterImage isEqualToString:@""] && theCover.twitterImage != nil){
+			widthT = buttonImageT.size.width;
+			heightT = buttonImageT.size.height;
+		}else{
+			widthT = 50;
+			heightT = 50;
+		}				
+		
 		//create the button
 		buttonTwitter = [UIButton buttonWithType:UIButtonTypeCustom];
 		
 		//set the position of the button
 		if([eMobcViewController isIPad]){
 			if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-				buttonTwitter.frame = CGRectMake(954, 698, 60, 60);
+				if(widthT > 50 || heightT > 50){
+					buttonTwitter.frame = CGRectMake(969, 713, 50, 50);
+				}else{
+					buttonTwitter.frame = CGRectMake(969 + (50 - widthT)/2, 713 + (50 - heightT)/2, widthT, heightT);
+				}
 			}else{
-				buttonTwitter.frame = CGRectMake(698, 954, 60, 60);
+				if(widthT > 50 || heightT > 50){
+					buttonTwitter.frame = CGRectMake(713, 969, 50, 50);
+				}else{
+					buttonTwitter.frame = CGRectMake(713 + (50 - widthT)/2, 969 + (50 - heightT)/2, widthT, heightT);
+				}
 			}				
 		}else {
 			if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-				buttonTwitter.frame = CGRectMake(450, 280, 30, 30);
-			}else{
-				buttonTwitter.frame = CGRectMake(280, 450, 30, 30);
+				if(widthT > 50 || heightT > 50){
+					buttonTwitter.frame = CGRectMake(425, 245, 50, 50);
+				}else{
+					buttonTwitter.frame = CGRectMake(425 + (50 - widthT)/2, 245 + (50 - heightT)/2, widthT, heightT);
+				}
 				
+			}else{
+				if(widthT > 50 || heightT > 50){
+					buttonTwitter.frame = CGRectMake(265, 430, 50, 50);
+				}else{
+					buttonTwitter.frame = CGRectMake(265 + (50 - widthT)/2, 430 + (50 - heightT)/2, widthT, heightT);
+				}
 			}				
 		}	
-		
-		//set the button's title
-		//[button setTitle:@"twitter" forState:UIControlStateNormal];
-		
+				
 		//listen for clicks
 		[buttonTwitter addTarget:self action:@selector(buttonTwitterPress:) forControlEvents:UIControlEventTouchUpInside];
 		
-		NSString *k = [eMobcViewController whatDevice:k];
-		
-		NSString *imagePathT = [[NSBundle mainBundle] pathForResource:@"images/cover/twitter.png" ofType:nil inDirectory:k];
-		
-		UIImage* buttonImageT = [UIImage imageWithContentsOfFile:imagePathT];
-		
-		[buttonTwitter setImage:buttonImageT forState:UIControlStateNormal];
-		buttonTwitter.imageView.contentMode = UIViewContentModeScaleAspectFit;
-		
-		//add the button to the view
+		if(![theCover.twitterImage isEqualToString:@""] && theCover.twitterImage != nil){
+			[buttonTwitter setImage:buttonImageT forState:UIControlStateNormal];
+			buttonTwitter.adjustsImageWhenHighlighted = NO;
+			buttonTwitter.imageView.contentMode = UIViewContentModeScaleAspectFit;
+		}else{
+			//set the button's title
+			[buttonTwitter setTitle:@"twitter" forState:UIControlStateNormal];
+		}
+
 		[self.view addSubview:buttonTwitter];
 	}
 }
@@ -392,8 +437,6 @@
 	myAnimatedView = nil;
 }
 
-
-
 -(void) orientationChanged:(NSNotification *)object{
 	UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
 	
@@ -409,7 +452,6 @@
 }
 
 -(void) orientationChangedMethod{
-	
 	if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
 		self.view = self.landscapeView;
 	}else{
@@ -418,7 +460,14 @@
 	
 	if(loadContent == FALSE){
 		loadContent = TRUE;
-		[self crearBotones];
+				
+		if(![theCover.titleFileName isEqualToString:@""] && theCover.titleFileName != nil){
+			[self createCoverTitleImage];
+		}
+		
+		[self createButtons];
+		
+		[self buttonsTwitterFacebook];
 	}
 }
 
@@ -467,7 +516,6 @@
 	NextLevel* nextLevel = [sender nextLevel];
 	
 	[mainController loadNextLevel:nextLevel];
-
 }
 
 

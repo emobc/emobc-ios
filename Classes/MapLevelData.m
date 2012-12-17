@@ -30,6 +30,7 @@
 @synthesize showAllPositions;
 @synthesize localizeMe;
 @synthesize currentPositionIconFileName;
+@synthesize nearPosImage;
 
 -(id) init {
 	if (self = [super init]) {    
@@ -37,6 +38,7 @@
 		localizeMe = FALSE;
 		showAllPositions = FALSE;
 		currentPositionIconFileName = nil;
+		nearPosImage = nil;
 	}	
 	return self;
 }
@@ -44,6 +46,7 @@
 -(void) dealloc{
 	[items release];
 	[currentPositionIconFileName release];
+	[nearPosImage release];
 	[super dealloc];
 }
 
@@ -56,6 +59,5 @@
 - (void) addPosition:(MapItem*) newItem{
 	[items addObject:newItem];	
 }	
-
 
 @end

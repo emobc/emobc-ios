@@ -44,6 +44,7 @@
 	
 //Outlets
 	UIImageView *imageDescription;
+	UIImageView *contentImageDescription;
 	UITextView *textDesccription;
 	UIButton *nextButton;
 	UIButton *prevButton;
@@ -62,10 +63,12 @@
 	NSInteger sizeTop;
 	NSInteger sizeBottom;
 	NSInteger sizeHeaderText;
+	NSInteger swSize;
 }
 
 @property(nonatomic, retain) ImageTextDescriptionLevelData* data;
 @property(nonatomic, retain) UIImageView *imageDescription;
+@property(nonatomic, retain) UIImageView *contentImageDescription;
 @property(nonatomic, retain) UITextView *textDesccription;
 @property(nonatomic, retain) UIButton* nextButton;
 @property(nonatomic, retain) UIButton* prevButton;
@@ -76,7 +79,7 @@
 @property (nonatomic) NSInteger sizeTop;
 @property (nonatomic) NSInteger sizeBottom;
 @property (nonatomic) NSInteger sizeHeaderText;
-
+@property (nonatomic) NSInteger swSize;
 //Acciones
 	-(void) buttonNextPress:(id)sender;
 	-(void) buttonPrevPress:(id)sender;

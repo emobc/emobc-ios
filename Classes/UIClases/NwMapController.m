@@ -50,6 +50,7 @@
 @synthesize sizeHeaderText;
 
 @synthesize nearPosButton;
+@synthesize imageSize;
  
 /**
  * Returns a newly initialized view controller with the nib file in the specified bundle.
@@ -220,32 +221,67 @@
 }
 
 -(void) createButtonNear{
+	imageSize = [[UIImageView alloc] init];
 	//create the button
 	nearPosButton = [UIButton buttonWithType:UIButtonTypeCustom];
+	
+	NSString *k = [eMobcViewController whatDevice:k];
+	
+	NSString *imagePath = [[NSBundle mainBundle] pathForResource:data.nearPosImage ofType:nil inDirectory:k];
+	
+	[nearPosButton setImage:[UIImage imageWithContentsOfFile:imagePath] forState:UIControlStateNormal];
+	
+	imageSize.image = [UIImage imageWithContentsOfFile:imagePath];
+	
+	int width,height;
+	
+	if(![data.nearPosImage isEqualToString:@""] && data.nearPosImage != nil){
+		width = imageSize.image.size.width;
+		height = imageSize.image.size.height;
+	}else{
+		width = 40;
+		height = 40;
+	}
 	
 	//set the position of the button
 	if([eMobcViewController isIPad]){
 		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			nearPosButton.frame = CGRectMake(966, sizeTop + 33, 50, 50);	
+			if(width > 40 || height > 40){
+				nearPosButton.frame = CGRectMake(966, sizeTop + 30, 40, 40);
+			}else{
+				nearPosButton.frame = CGRectMake(966 + ((40 - width)/2), sizeTop + 30 + ((40 - height)/2), width, height);
+			}
 		}else{
-			nearPosButton.frame = CGRectMake(710, sizeTop + 33, 50, 50);
-		}				
+			if(width > 40 || height > 40){
+				nearPosButton.frame = CGRectMake(710, sizeTop + 30, 40, 40);
+			}else{
+				nearPosButton.frame = CGRectMake(710 + ((40 - width)/2), sizeTop + 30 + ((40 - height)/2), width, height);
+			}
+		}
 	}else {
 		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			nearPosButton.frame = CGRectMake(435, sizeTop + 30, 40, 40);	
+			if(width > 40 || height > 40){
+				nearPosButton.frame = CGRectMake(435, sizeTop + 30, 40, 40);
+			}else{
+				nearPosButton.frame = CGRectMake(435 + (40 - width)/2, sizeTop + 30 + ((40 - height)/2), width, height);
+			}
 		}else{
-			nearPosButton.frame = CGRectMake(275, sizeTop + 30, 40, 40);
+			if(width > 40 || height > 40){
+				nearPosButton.frame = CGRectMake(275, sizeTop + 30, 40, 40);
+			}else{
+				nearPosButton.frame = CGRectMake(275 + ((40 - width)/2), sizeTop + 30 + ((40 - height)/2), width, height);
+			}
 		}				
 	}
 	
-	//set the button's title
-	//[nearPosButton setTitle:@"Near position" forState:UIControlStateNormal];
+	if([data.nearPosImage isEqualToString:@""] || data.nearPosImage == nil){
+		//set the button's title
+		[nearPosButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+		[nearPosButton setTitle:@"Near" forState:UIControlStateNormal];
+	}
 	
-	NSString *k = [eMobcViewController whatDevice:k];
-	
-	NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"images/icons/nearMap.png" ofType:nil inDirectory:k];
-	
-	[nearPosButton setImage:[UIImage imageWithContentsOfFile:imagePath] forState:UIControlStateNormal];
+	nearPosButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
+	nearPosButton.adjustsImageWhenHighlighted = NO;
 	
 	//listen for clicks
 	[nearPosButton addTarget:self action:@selector(nearPositions:) forControlEvents:UIControlEventTouchUpInside];

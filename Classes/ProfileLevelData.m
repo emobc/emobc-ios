@@ -28,12 +28,20 @@
 
 
 @synthesize fieldsProfile;
+@synthesize saveImage;
+@synthesize editImage;
+@synthesize cameraImage;
+@synthesize libraryImage;
 @synthesize nextLevel;
 @synthesize parentNextLevel;
 
 
 -(void)dealloc {
     [fieldsProfile release];
+	[saveImage release];
+	[editImage release];
+	[cameraImage release];
+	[libraryImage release];
 	[nextLevel release];
 	[parentNextLevel release];
 	

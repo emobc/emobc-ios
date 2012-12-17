@@ -52,6 +52,8 @@
 	NSInteger sizeHeaderText;
 	
 	UIButton *scanButton;
+	
+	UIImageView *imageSize;
 }
 
 @property (nonatomic, retain) QRLevelData* data;
@@ -63,6 +65,7 @@
 @property (nonatomic) NSInteger sizeTop;
 @property (nonatomic) NSInteger sizeBottom;
 @property (nonatomic) NSInteger sizeHeaderText;
+@property (nonatomic, retain) UIImageView *imageSize;
 
 	-(void) scanButtonTapped;
 	-(void) createImageView;

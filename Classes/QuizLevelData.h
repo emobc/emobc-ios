@@ -36,6 +36,10 @@
 	NSString *time;
 	NSString *first;
 	
+	NSString *startImage;
+	NSString *nextImage;
+	NSString *finishImage;
+	
 	NSMutableArray *question;
 	NSMutableDictionary *questionsMap;
 }
@@ -43,6 +47,11 @@
 @property (nonatomic, copy) NSString *description;
 @property (nonatomic, copy) NSString *time;
 @property (nonatomic, copy) NSString *first;
+
+@property (nonatomic, copy) NSString *startImage;
+@property (nonatomic, copy) NSString *nextImage;
+@property (nonatomic, copy) NSString *finishImage;
+
 @property (nonatomic, retain) NSMutableArray *question;
 @property (nonatomic, retain) NSMutableDictionary *questionsMap;
 

@@ -32,6 +32,11 @@
 @synthesize topMenu;
 @synthesize bottomMenu;
 @synthesize backgroundMenu;
+
+@synthesize server;
+@synthesize sender;
+@synthesize appName;
+
 @synthesize banner;
 @synthesize bannerPos;
 @synthesize bannerId;
@@ -58,6 +63,10 @@
 	[topMenu release];
 	[bottomMenu release];
 	[backgroundMenu release];
+	
+	[server release];
+	[sender release];
+	[appName release];
 	
 	[banner release];
 	[bannerPos release];

@@ -32,6 +32,9 @@ static NSString * const kHeaderImageFileElementName = @"headerImageFile";
 static NSString * const kHeaderTextElementName = @"headerText";
 static NSString * const kImageFileElementName = @"imageFile";
 static NSString * const kGeoRefElementName = @"geoRef";
+static NSString * const kSubmitImageElementName = @"submitImage";
+static NSString * const kCameraImageElementName = @"cameraImage";
+static NSString * const kLibraryImageElementName = @"libraryImage";
 
 static NSString * const kActionUrlElementName = @"actionUrl";
 static NSString * const kFieldElementName = @"field";
@@ -132,6 +135,12 @@ static NSString * const kFieldTypeInputImage = @"INPUT_IMAGE";
 		self.parsedItem.headerText = self.currentParsedCharacterData;
 	}else if ([elementName isEqualToString:kGeoRefElementName]) {
 		self.parsedItem.geoReferencia = self.currentParsedCharacterData;
+	}else if ([elementName isEqualToString:kSubmitImageElementName]) {
+		((FormLevelData*)self.parsedItem).submitImage = self.currentParsedCharacterData;
+	}else if ([elementName isEqualToString:kCameraImageElementName]) {
+		((FormLevelData*)self.parsedItem).cameraImage = self.currentParsedCharacterData;
+	}else if ([elementName isEqualToString:kLibraryImageElementName]) {
+		((FormLevelData*)self.parsedItem).libraryImage = self.currentParsedCharacterData;
 	}else if ([elementName isEqualToString:kActionUrlElementName]) {
 		((FormLevelData*)self.parsedItem).actionUrl = self.currentParsedCharacterData;
 	} else if ([elementName isEqualToString:kFieldElementName]) {
@@ -187,6 +196,5 @@ static NSString * const kFieldTypeInputImage = @"INPUT_IMAGE";
         [self.currentParsedCharacterData appendString:string];
     }	
 }
-
 
 @end

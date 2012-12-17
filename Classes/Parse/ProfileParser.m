@@ -33,6 +33,11 @@ static NSString * const kFieldLabelElementName = @"fieldLabel";
 static NSString * const kFieldNameElementName = @"fieldName";
 static NSString * const kFieldParamElementName = @"fieldParam";
 
+static NSString * const kSaveImageElementName = @"saveImage";
+static NSString * const kEditImageElementName = @"editImage";
+static NSString * const kCameraImageElementName = @"cameraImage";
+static NSString * const kLibraryImageElementName = @"libraryImage";
+
 static NSString * const kNextLevelElementName = @"nextLevel";
 static NSString * const kNLLeveNumberElementName = @"nextLevelLevel";
 static NSString * const kNLLeveIdElementName = @"nextLevelLevelId";
@@ -135,23 +140,31 @@ static NSString * const kFieldTypeInputImage = @"INPUT_IMAGE";
 		}else if ([self.currentParsedCharacterData isEqualToString:kFieldTypeInputImage]) {
 			self.currField.type = INPUT_IMAGE;
 		}
-	} else if ([elementName isEqualToString:kFieldRequiredElementName]) {
-		self.currField.required = TRUE;
-	} else if ([elementName isEqualToString:kFieldParamElementName]) {
+	}else if ([elementName isEqualToString:kFieldRequiredElementName]) {
+		self.currField.required = TRUE;			
+	}else if ([elementName isEqualToString:kFieldParamElementName]) {
 		[self.currField addParameter:self.currentParsedCharacterData];
-	} else if ([elementName isEqualToString:kFieldLabelElementName]) {
+	}else if ([elementName isEqualToString:kFieldLabelElementName]) {
 		self.currField.labelText = self.currentParsedCharacterData; 
 	}else if ([elementName isEqualToString:kFieldNameElementName]) {
 		self.currField.fieldName = self.currentParsedCharacterData;
-	} else if ([elementName isEqualToString:kNLLeveNumberElementName]) {
+	}else if ([elementName isEqualToString:kSaveImageElementName]) {
+		self.profile.saveImage = self.currentParsedCharacterData;
+	}else if ([elementName isEqualToString:kEditImageElementName]) {
+		self.profile.editImage = self.currentParsedCharacterData;
+	}else if ([elementName isEqualToString:kCameraImageElementName]) {
+		self.profile.cameraImage = self.currentParsedCharacterData;
+	}else if ([elementName isEqualToString:kLibraryImageElementName]) {
+		self.profile.libraryImage = self.currentParsedCharacterData;
+	}else if ([elementName isEqualToString:kNLLeveNumberElementName]) {
 		self.currentNextLevel.levelNumber = [self.currentParsedCharacterData intValue];
-	} else if ([elementName isEqualToString:kNLLeveIdElementName]) {
+	}else if ([elementName isEqualToString:kNLLeveIdElementName]) {
 		self.currentNextLevel.levelId = self.currentParsedCharacterData;
-	} else if ([elementName isEqualToString:kNLDataNumberElementName]) {
+	}else if ([elementName isEqualToString:kNLDataNumberElementName]) {
 		self.currentNextLevel.dataNumber = [self.currentParsedCharacterData intValue];
-	} else if ([elementName isEqualToString:kNLDataIdElementName]) {
+	}else if ([elementName isEqualToString:kNLDataIdElementName]) {
 		self.currentNextLevel.dataId = self.currentParsedCharacterData;
-	} else if ([elementName isEqualToString:kNextLevelElementName]) {
+	}else if ([elementName isEqualToString:kNextLevelElementName]) {
 		self.profile.nextLevel = currentNextLevel;
 	}
 	// Stop accumulating parsed character data. We won't start again until specific elements begin.

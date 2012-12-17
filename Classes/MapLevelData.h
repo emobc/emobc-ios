@@ -36,13 +36,15 @@
 	BOOL showAllPositions;
 	NSMutableArray* items;
 	NSString* currentPositionIconFileName;
-
+	
+	NSString * nearPosImage;
 }
 
 @property (nonatomic, copy) NSMutableArray* items;
 @property (nonatomic, assign) BOOL localizeMe;
 @property (nonatomic, assign) BOOL showAllPositions;
 @property (nonatomic, copy) NSString* currentPositionIconFileName;
+@property (nonatomic, copy) NSString* nearPosImage;
 
 
 - (void) addPosition:(MapItem*) newItem;

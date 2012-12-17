@@ -33,6 +33,8 @@
 @synthesize listNextImageView;
 @synthesize listLabel;
 @synthesize descrLabel;
+@synthesize contentListImageView;
+@synthesize contentListNextImage;
 @synthesize varStyles;
 @synthesize varFormats;
 @synthesize theStyle;
@@ -54,15 +56,14 @@
 		
 		NSString *k = [eMobcViewController whatDevice:k];
 		
-		NSString *listNextImagePath = [[NSBundle mainBundle] pathForResource:@"images/icons/redarrow.png" ofType:nil inDirectory:k];
+		NSString *listNextImagePath = [[NSBundle mainBundle] pathForResource:@"images/" ofType:nil inDirectory:k];
 		
 		listNextImageView.image = [UIImage imageWithContentsOfFile:listNextImagePath];
+	
 				
 		UIView* bgColorView = [[UIView alloc] init];
-       // UIColor* color = [UIColor colorWithRed:167.0/255 green:184.0/255 blue:216.0/255 alpha:1];
 		[bgColorView setBackgroundColor:[UIColor grayColor]];
 		self.selectedBackgroundView = bgColorView;
-		//[bgColorView release];	
 		
 		[self.contentView addSubview:listImageView];
 		[self.contentView addSubview:listLabel];
@@ -96,55 +97,114 @@
 		UIFont* font = [UIFont fontWithName:varFormats.typeFace size:varSize + 12];
 		
 		
-		frame = CGRectMake(boundsX+10, 0, 100, 103);
+		contentListImageView = [[UIImageView alloc] initWithFrame:CGRectMake(boundsX+10, 0, 140, 108)];
+		
+		if(listImageView.image.size.width > 140 || listImageView.image.size.height > 108){
+			frame = CGRectMake(0, 0, 140, 108);
+		}else{
+			frame = CGRectMake((140 - listImageView.image.size.width)/2, (108 - listImageView.image.size.height)/2, listImageView.image.size.width, listImageView.image.size.height);
+		}
 		listImageView.frame = frame;
+		
+		listImageView.contentMode = UIViewContentModeScaleAspectFit;
+		
+		[self.contentView addSubview:contentListImageView];
+		[contentListImageView addSubview:listImageView];
 	
-		frame = CGRectMake(boundsX+120, 15, 420, 40);
+
+		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+			frame = CGRectMake(boundsX+160, 10, 800, 30);
+		}else{
+			frame = CGRectMake(boundsX+160, 10, 440, 30);
+		}
+
 		listLabel.frame = frame;
 		
-		//Hay que convertirlo a hexadecimal.
-		//	varFormats.textColor
-		listLabel.textColor = [UIColor blackColor];
-		[listLabel setBackgroundColor:[UIColor clearColor]];
-		
-		listLabel.font = font;
-			
+				
 		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			frame = CGRectMake(boundsX+990, 37, 16, 26);
+			contentListNextImage = [[UIImageView alloc] initWithFrame:CGRectMake(boundsX+994, 0, 40, 108)];
 		}else{
-			frame = CGRectMake(boundsX+740, 37, 16, 26);
-		}				
+			contentListNextImage = [[UIImageView alloc] initWithFrame:CGRectMake(boundsX+723, 0, 40, 108)];
+		}
 		
-		listNextImageView.frame = frame;
-	
+		if(listImageView.image.size.width > 40 || listImageView.image.size.height > 108){
+			frame = CGRectMake(0, 0, 40, 108);
+		}else{
+			frame = CGRectMake((40 - listImageView.image.size.width)/2, (108 - listImageView.image.size.height)/2, listImageView.image.size.width, listImageView.image.size.height);
+		}
+		
+       	listNextImageView.frame = frame;
+		
+		listNextImageView.contentMode = UIViewContentModeScaleAspectFit;
+		
+		[self.contentView addSubview:contentListNextImage];
+		[contentListNextImage addSubview:listNextImageView];
+		
 		if (descrLabel.text != nil) {
 			UIFont* fontDescr = [UIFont fontWithName:varFormats.typeFace size:20];
 			CGSize constraintSize = CGSizeMake(150.0f, MAXFLOAT);
 			CGSize labelSize = [descrLabel.text sizeWithFont:fontDescr 
 										   constrainedToSize:constraintSize
 											   lineBreakMode:UILineBreakModeWordWrap];
-		
-			frame = CGRectMake(boundsX+120, 52, 420, 50);
+					
+			if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+				frame = CGRectMake(boundsX+160, 20, 800, 50);
+			}else{
+				frame = CGRectMake(boundsX+160, 20, 440, 50);
+			}
+			
 			descrLabel.frame = frame;		
 		}
 	}else {
-        CGRect contentRect = self.contentView.bounds;
+		CGRect contentRect = self.contentView.bounds;
         CGFloat boundsX = contentRect.origin.x;
         CGRect frame;
-        
-		frame = CGRectMake(boundsX+5, 0, 53, 53);
-        listImageView.frame = frame;
-        
-        frame = CGRectMake(boundsX+70, 8, 210, 20);
-        listLabel.frame = frame;
 		
-		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			frame = CGRectMake(boundsX+455, 20, 9, 13);
+		contentListImageView = [[UIImageView alloc] initWithFrame:CGRectMake(boundsX+5, 0, 80, 58)];
+        		
+		if(listImageView.image.size.width > 80 || listImageView.image.size.height > 58){
+			frame = CGRectMake(0, 0, 80, 58);
 		}else{
-			frame = CGRectMake(boundsX+295, 20, 9, 13);
+			frame = CGRectMake((80 - listImageView.image.size.width)/2, (58 - listImageView.image.size.height)/2, listImageView.image.size.width, listImageView.image.size.height);
 		}
 		
-		listNextImageView.frame = frame;
+       	listImageView.frame = frame;
+				
+		listImageView.contentMode = UIViewContentModeScaleAspectFit;
+		
+		[self.contentView addSubview:contentListImageView];
+		[contentListImageView addSubview:listImageView];
+		
+	    
+		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+			frame = CGRectMake(boundsX+90, 0, 360, 20);
+		}else{
+			frame = CGRectMake(boundsX+90, 0, 210, 20);
+		}
+
+        listLabel.frame = frame;
+		
+		
+		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+			contentListNextImage = [[UIImageView alloc] initWithFrame:CGRectMake(boundsX+445, 0, 30, 58)];
+		}else{
+			contentListNextImage = [[UIImageView alloc] initWithFrame:CGRectMake(boundsX+290, 0, 25, 58)];
+		}
+		
+		if(listImageView.image.size.width > 25 || listImageView.image.size.height > 58){
+			frame = CGRectMake(0, 0, 25, 58);
+		}else{
+			frame = CGRectMake((25 - listImageView.image.size.width)/2, (58 - listImageView.image.size.height)/2, listImageView.image.size.width, listImageView.image.size.height);
+		}
+		
+       	listNextImageView.frame = frame;
+		
+		listNextImageView.contentMode = UIViewContentModeScaleAspectFit;
+		
+		[self.contentView addSubview:contentListNextImage];
+		[contentListNextImage addSubview:listNextImageView];
+		
+				
         if (descrLabel.text != nil) {
             UIFont* fontDescr = [UIFont fontWithName:@"Ubuntu-Medium" size:10];
             CGSize constraintSize = CGSizeMake(150.0f, MAXFLOAT);
@@ -152,11 +212,20 @@
                                            constrainedToSize:constraintSize
                                                lineBreakMode:UILineBreakModeWordWrap];
             
-            frame = CGRectMake(boundsX+70, 26, 210, labelSize.height);
+			
+			if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+				frame = CGRectMake(boundsX+90, 10, 360, labelSize.height + 15);
+			}else{
+				frame = CGRectMake(boundsX+90, 10, 210, labelSize.height + 15);
+			}
+            
             descrLabel.frame = frame;	
         }
     }
 }
+
+
+
 
 
 -(void)loadThemesComponents {
@@ -223,9 +292,9 @@
 
 
 -(void)dealloc {
-/*	[listImageView release];
+	[listImageView release];
 	[listLabel release];
-	[descrLabel release];*/
+	[descrLabel release];
 	
     [super dealloc];
 }

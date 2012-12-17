@@ -27,8 +27,10 @@
 @implementation QRLevelData
 
 @synthesize qrs;
+@synthesize scanImage;
 
 -(void) dealloc{
+	[scanImage release];
 	[qrs release];
 	
 	[super dealloc];
