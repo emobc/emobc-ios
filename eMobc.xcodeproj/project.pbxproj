@@ -23,6 +23,7 @@
 		0428CF9316008FC8003E7320 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0428CF9216008FC8003E7320 /* CoreMedia.framework */; };
 		04778B2B161EE1E200116C25 /* publicidad.xml in Resources */ = {isa = PBXBuildFile; fileRef = 04778B2A161EE1E200116C25 /* publicidad.xml */; };
 		04778B2F161EE30C00116C25 /* transiciones.xml in Resources */ = {isa = PBXBuildFile; fileRef = 04778B2E161EE30C00116C25 /* transiciones.xml */; };
+		04824BE6167F4D7500B069D4 /* listado_lista_prueba.xml in Resources */ = {isa = PBXBuildFile; fileRef = 04824BE5167F4D7500B069D4 /* listado_lista_prueba.xml */; };
 		04831EAD15C009A40036F31D /* NwImageGalleryController-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04831EAC15C009A40036F31D /* NwImageGalleryController-iPad.xib */; };
 		04832D8B15529E0C003090A4 /* MainWindow-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04832D7615529E0C003090A4 /* MainWindow-iPad.xib */; };
 		04832D8C15529E0C003090A4 /* MultiLineTableCell-iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04832D7715529E0C003090A4 /* MultiLineTableCell-iPad.xib */; };
@@ -393,6 +394,7 @@
 		0428CF9216008FC8003E7320 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		04778B2A161EE1E200116C25 /* publicidad.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = publicidad.xml; path = xml/publicidad.xml; sourceTree = "<group>"; };
 		04778B2E161EE30C00116C25 /* transiciones.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = transiciones.xml; path = xml/transiciones.xml; sourceTree = "<group>"; };
+		04824BE5167F4D7500B069D4 /* listado_lista_prueba.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; name = listado_lista_prueba.xml; path = xml/listado_lista_prueba.xml; sourceTree = "<group>"; };
 		04831EAC15C009A40036F31D /* NwImageGalleryController-iPad.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = "NwImageGalleryController-iPad.xib"; sourceTree = "<group>"; };
 		04832D7615529E0C003090A4 /* MainWindow-iPad.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = "MainWindow-iPad.xib"; sourceTree = "<group>"; };
 		04832D7715529E0C003090A4 /* MultiLineTableCell-iPad.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = "MultiLineTableCell-iPad.xib"; sourceTree = "<group>"; };
@@ -1948,6 +1950,7 @@
 		F4E5245A13679E6C007A7F14 /* xml */ = {
 			isa = PBXGroup;
 			children = (
+				04824BE5167F4D7500B069D4 /* listado_lista_prueba.xml */,
 				04A2A69B162C17EA000003AD /* profile.xml */,
 				04845DE1161EFFE000065AA9 /* web_Html.xml */,
 				04778B2E161EE30C00116C25 /* transiciones.xml */,
@@ -2387,6 +2390,7 @@
 				048364FE1641338300717385 /* iphone4 in Resources */,
 				048364FF1641338300717385 /* iphone5 in Resources */,
 				048365001641338300717385 /* nipad in Resources */,
+				04824BE6167F4D7500B069D4 /* listado_lista_prueba.xml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

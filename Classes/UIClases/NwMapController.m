@@ -125,7 +125,13 @@
 	
 	if(data != nil){
 		
-		varStyles = [mainController.theStyle.stylesMap objectForKey:@"MAP_ACTIVITY"];
+		varStyles = [mainController.theStyle.stylesMap objectForKey:data.levelId];
+		
+		if (varStyles == nil) {
+			varStyles = [mainController.theStyle.stylesMap objectForKey:@"MAP_ACTIVITY"];
+		}else if(varStyles == nil){
+			varStyles = [mainController.theStyle.stylesMap objectForKey:@"DEFAULT"];
+		}
 		
 		if(varStyles != nil) {
 			[self loadThemes];

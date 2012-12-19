@@ -70,7 +70,13 @@
 		
 		webView = [[UIWebView alloc] initWithFrame:webFrame];
 				
-		varStyles = [mainController.theStyle.stylesMap objectForKey:@"VIDEO_ACTIVITY"];
+		varStyles = [mainController.theStyle.stylesMap objectForKey:data.levelId];
+		
+		if (varStyles == nil) {
+			varStyles = [mainController.theStyle.stylesMap objectForKey:@"VIDEO_ACTIVITY"];
+		}else if(varStyles == nil){
+			varStyles = [mainController.theStyle.stylesMap objectForKey:@"DEFAULT"];
+		}
 		
 		// We have differents ways to show a video if it is local or not
 		if (data.local) {

@@ -26,22 +26,23 @@
 @implementation AppStyles
 
 @synthesize typeId;
+@synthesize levelId;
 @synthesize backgroundFileName;
 @synthesize components;
-@synthesize nextLevel;
 @synthesize listComponents;
 @synthesize mapFormatComponents;
 @synthesize selectionList;
 
 -(void) dealloc {
 	[typeId release];
+	[levelId release];
 	[backgroundFileName release];
 	[components release];
 	[listComponents release];
 	[mapFormatComponents release];
 	[selectionList release];
 	
-	[nextLevel release];
+	//[nextLevel release];
 
 	[super dealloc];
 }

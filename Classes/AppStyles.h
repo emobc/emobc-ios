@@ -21,7 +21,6 @@
  *
  */
 #import <Foundation/Foundation.h>
-#import "NextLevel.h"
 
 /**
  * CLASS SUMMARY
@@ -33,23 +32,21 @@
 	
 //Objetos
 	NSString *typeId;
+	NSString *levelId;
 	NSString *backgroundFileName;
 	NSString *components;
 	NSMutableArray *listComponents;
 	NSMutableDictionary *mapFormatComponents;
 	NSString *selectionList;
-	
-	NextLevel *nextLevel;
 }
 
 @property(nonatomic, copy) NSString *typeId;
+@property(nonatomic, copy) NSString *levelId;
 @property(nonatomic, copy) NSString *backgroundFileName;
 @property(nonatomic, copy) NSString *components;
 
 @property(nonatomic, retain) NSMutableArray *listComponents;
 @property(nonatomic, retain) NSMutableDictionary *mapFormatComponents;
 @property(nonatomic, copy) NSString *selectionList;
-
-@property(nonatomic, retain) NextLevel *nextLevel;
 
 @end

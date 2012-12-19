@@ -290,42 +290,46 @@ static CGFloat const kTabBarHeightiPad = 58.0;
 	
 	
 	if(profile != nil){
-		if([eMobcViewController isIPad]){
-			if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-				if (firstProfile == TRUE) {
-					background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 1024, 768)];
+		varStyles = [mainController.theStyle.stylesMap objectForKey:@"PROFILE_ACTIVITY"];
+		if(varStyles != nil) {
+			[self loadThemes];
+		}else{
+			if([eMobcViewController isIPad]){
+				if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+					if (firstProfile == TRUE) {
+						background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 1024, 768)];
+					}else{
+						background = [[UIImageView alloc] initWithFrame:CGRectMake(0, sizeTop, 1024, 768 - sizeTop - sizeBottom)];
+					}	
+					
 				}else{
-					background = [[UIImageView alloc] initWithFrame:CGRectMake(0, sizeTop, 1024, 768 - sizeTop - sizeBottom)];
-				}	
-				
-			}else{
-				if (firstProfile == TRUE) {
-					background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 768, 1024)];
+					if (firstProfile == TRUE) {
+						background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 768, 1024)];
+					}else{
+						background = [[UIImageView alloc] initWithFrame:CGRectMake(0, sizeTop, 768, 1024 - sizeTop - sizeBottom)];
+					}
+				}				
+			}else {
+				if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+					if (firstProfile == TRUE) {
+						background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 480, 320)];
+					}else{
+						background = [[UIImageView alloc] initWithFrame:CGRectMake(0, sizeTop, 480, 320 - sizeTop - sizeBottom)];
+					}	
 				}else{
-					background = [[UIImageView alloc] initWithFrame:CGRectMake(0, sizeTop, 768, 1024 - sizeTop - sizeBottom)];
-				}
-			}				
-		}else {
-			if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-				if (firstProfile == TRUE) {
-					background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 480, 320)];
-				}else{
-					background = [[UIImageView alloc] initWithFrame:CGRectMake(0, sizeTop, 480, 320 - sizeTop - sizeBottom)];
-				}	
-			}else{
-				if (firstProfile == TRUE) {
-					background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
-				}else{
-					background = [[UIImageView alloc] initWithFrame:CGRectMake(0, sizeTop, 320, 480 - sizeTop - sizeBottom)];
-				}		
-			}				
+					if (firstProfile == TRUE) {
+						background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
+					}else{
+						background = [[UIImageView alloc] initWithFrame:CGRectMake(0, sizeTop, 320, 480 - sizeTop - sizeBottom)];
+					}		
+				}				
+			}
+		
+			background.backgroundColor = [UIColor whiteColor];
+			background.opaque = NO;
+		
+			[self.view addSubview:background];
 		}
-		
-		background.backgroundColor = [UIColor whiteColor];
-		background.opaque = NO;
-		
-		[self.view addSubview:background];
-		
 		if([eMobcViewController isIPad]){
 			if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
 				scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, sizeTop + sizeHeaderText, 1024, 768 - sizeTop - sizeBottom - sizeHeaderText)];	

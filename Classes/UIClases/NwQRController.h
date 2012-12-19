@@ -25,6 +25,8 @@
 #import "QRLevelData.h"
 #import "NwController.h"
 #import "ZBarSDK.h"
+#import "AppStyles.h"
+#import "AppFormatsStyles.h"
 
 /**
  * CLASS SUMMARY
@@ -35,7 +37,6 @@
  */
 
 @interface NwQRController : NwController <ZBarReaderDelegate>{	
-
 //Objetos
 	QRLevelData* data;
 			
@@ -54,6 +55,10 @@
 	UIButton *scanButton;
 	
 	UIImageView *imageSize;
+	
+	AppStyles* varStyles;
+	AppFormatsStyles* varFormats;
+	UIImageView *background;
 }
 
 @property (nonatomic, retain) QRLevelData* data;
@@ -67,9 +72,16 @@
 @property (nonatomic) NSInteger sizeHeaderText;
 @property (nonatomic, retain) UIImageView *imageSize;
 
+@property(nonatomic, retain) AppStyles* varStyles;
+@property(nonatomic, retain) AppFormatsStyles* varFormats;
+@property(nonatomic, retain) UIImageView *background;
+
 	-(void) scanButtonTapped;
 	-(void) createImageView;
 	-(void) createTextView;	
 	-(void) createScanButton;
+
+	-(void) loadThemesComponents;
+	-(void) loadThemes;
 
 @end

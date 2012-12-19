@@ -25,6 +25,9 @@
 #import "ZBarSDK.h"
 #import "eMobcViewController.h"
 #import "NwButton.h"
+#import "AppFormatsStyles.h"
+#import "AppStyles.h"
+
 
 @implementation NwQRController
 
@@ -39,8 +42,11 @@
 @synthesize sizeHeaderText;
 
 @synthesize scanButton;
-
 @synthesize imageSize;
+
+@synthesize varStyles;
+@synthesize varFormats;
+@synthesize background;
 
 
 /**
@@ -50,22 +56,28 @@
 	[super viewDidLoad];
 
 	loadContent = FALSE;
-		
+	
+	varStyles = [mainController.theStyle.stylesMap objectForKey:data.levelId];
+	
+	if (varStyles == nil) {
+		varStyles = [mainController.theStyle.stylesMap objectForKey:@"QR_ACTIVITY"];
+	}else if(varStyles == nil){
+		varStyles = [mainController.theStyle.stylesMap objectForKey:@"DEFAULT"];
+	}
+	
+	if(varStyles != nil) {
+		[self loadThemes];
+	}	
+	
 	[self createImageView];
 	[self createScanButton];
 	[self createTextView];
+	
+
 }
 
 
 -(void) createImageView{
-	
-	sizeTop = 0;
-	sizeBottom = 0;
-	sizeHeaderText = 25;
-	
-	sizeTop = [mainController ifMenuAndAdsTop:sizeTop];
-	sizeBottom = [mainController ifMenuAndAdsBottom:sizeBottom];
-	
 	if([eMobcViewController isIPad]){
 		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
 			resultImage = [[[UIImageView alloc] initWithFrame:CGRectMake(128, sizeTop + sizeHeaderText, 768, 400)] autorelease];
@@ -165,15 +177,15 @@
 -(void) createTextView{
 	if([eMobcViewController isIPad]){
 		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			resultText = [[[UITextView alloc] initWithFrame:CGRectMake(5, sizeTop, 520, 768 - sizeTop - sizeBottom - sizeHeaderText)] autorelease];
+			resultText = [[[UITextView alloc] initWithFrame:CGRectMake(5, sizeTop + sizeHeaderText, 520, 768 - sizeTop - sizeBottom - sizeHeaderText)] autorelease];
 		}else{
-			resultText = [[[UITextView alloc] initWithFrame:CGRectMake(0, sizeTop, 768, 1024 - sizeTop - sizeBottom - sizeHeaderText)] autorelease];
+			resultText = [[[UITextView alloc] initWithFrame:CGRectMake(0, sizeTop + sizeHeaderText, 768, 1024 - sizeTop - sizeBottom - sizeHeaderText)] autorelease];
 		}				
 	}else {
 		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			resultText = [[[UITextView alloc] initWithFrame:CGRectMake(240, sizeTop, 240, 320 - sizeTop - sizeBottom - sizeHeaderText)] autorelease];
+			resultText = [[[UITextView alloc] initWithFrame:CGRectMake(240, sizeTop + sizeHeaderText, 240, 320 - sizeTop - sizeBottom - sizeHeaderText - 50)] autorelease];
 		}else{
-			resultText = [[[UITextView alloc] initWithFrame:CGRectMake(0, sizeTop, 320, 480 - sizeTop - sizeBottom - sizeHeaderText)] autorelease];
+			resultText = [[[UITextView alloc] initWithFrame:CGRectMake(0, sizeTop + sizeHeaderText, 320, 480 - sizeTop - sizeBottom - sizeHeaderText)] autorelease];
 		}				
 	}
 	[resultText setEditable:NO];
@@ -267,6 +279,116 @@
 }
 
 /**
+ * Load themes from xml into components
+ */
+-(void)loadThemesComponents {
+	
+	for(int x = 0; x < varStyles.listComponents.count; x++){
+		NSString *var = [varStyles.listComponents objectAtIndex:x];
+		
+		NSString *type = [varStyles.mapFormatComponents objectForKey:var];
+		
+		varFormats = [mainController.theFormat.formatsMap objectForKey:type];
+		UILabel *myLabel;
+		
+		if([var isEqualToString:@"header"]){
+			if([eMobcViewController isIPad]){
+				if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop, 1024, 20)];	
+				}else{
+					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop, 768, 20)];
+				}				
+			}else {
+				if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop, 480, 20)];	
+				}else{
+					myLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, sizeTop, 320, 20)];
+				}				
+			}
+			
+			myLabel.text = data.headerText;
+			
+			int varSize = [varFormats.textSize intValue];
+			
+			myLabel.font = [UIFont fontWithName:varFormats.typeFace size:varSize];
+			myLabel.backgroundColor = [UIColor clearColor];
+			
+			myLabel.textColor = [UIColor blackColor];
+			myLabel.textAlignment = UITextAlignmentCenter;
+			
+			[self.view addSubview:myLabel];
+			[myLabel release];
+		}
+	}
+}
+
+
+/**
+ * Load themes
+ */
+-(void) loadThemes {
+	
+	sizeTop = 0;
+	sizeBottom = 0;
+	sizeHeaderText = 25;
+	
+	sizeTop = [mainController ifMenuAndAdsTop:sizeTop];
+	sizeBottom = [mainController ifMenuAndAdsBottom:sizeBottom];
+	
+	if(![varStyles.backgroundFileName isEqualToString:@""]) {
+		
+		if([eMobcViewController isIPad]){
+			if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+				background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 1024, 768)];
+			}else{
+				background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 768, 1024)];
+			}				
+		}else {
+			if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+				background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 480, 320)];
+			}else{
+				background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
+			}				
+		}
+		
+		NSString *k = [eMobcViewController whatDevice:k];
+		
+		NSString *imagePath = [[NSBundle mainBundle] pathForResource:varStyles.backgroundFileName ofType:nil inDirectory:k];
+		
+		background.image = [UIImage imageWithContentsOfFile:imagePath];
+		
+		[self.view addSubview:background];
+		[self.view sendSubviewToBack:background];
+	}else{
+		self.view.backgroundColor = [UIColor whiteColor];
+	}
+	
+	if(![varStyles.components isEqualToString:@""]) {
+		NSArray *separarComponents = [varStyles.components componentsSeparatedByString:@";"];
+		NSArray *assignment;
+		NSString *component;
+		
+		for(int i = 0; i < separarComponents.count - 1; i++){
+			assignment = [[separarComponents objectAtIndex:i] componentsSeparatedByString:@"="];
+			
+			component = [assignment objectAtIndex:0];
+			NSString *format = [assignment objectAtIndex:1];
+			
+			//[varStyles.mapFormatComponents setObject:component forKey:format];
+			[varStyles.mapFormatComponents setObject:format forKey:component];
+			
+			if(![component isEqual:@"selection_list"]){
+				[varStyles.listComponents addObject:component];
+			}else{
+				varStyles.selectionList = format;
+			}
+		}
+		[self loadThemesComponents];
+	}
+}
+
+
+/**
  * Returns a Boolean value indicating whether the view controller supports the specified orientation.
  *
  * @param orient The orientation of the application’s user interface after the rotation. 
@@ -303,18 +425,14 @@
 	
 	if(loadContent == FALSE){
 		loadContent = TRUE;
-	
-		if(![mainController.appData.backgroundMenu isEqualToString:@""]){
-			[self loadBackgroundMenu];
-		}
-		
+			
 		if(![mainController.appData.topMenu isEqualToString:@""]){
 			[self callTopMenu];
 		}
 		if(![mainController.appData.bottomMenu isEqualToString:@""]){
 			[self callBottomMenu];
 		}
-	
+		
 		//publicity
 		if([mainController.appData.banner isEqualToString:@"admob"]){
 			[self createAdmobBanner];
@@ -325,8 +443,11 @@
 		[self createImageView];
 		[self createScanButton];
 		[self createTextView];
+		
+		if(varStyles != nil) {
+			[self loadThemes];
+		}
 	}
-	
 }
 
 
@@ -341,6 +462,3 @@
 }
 
 @end
-
-
-

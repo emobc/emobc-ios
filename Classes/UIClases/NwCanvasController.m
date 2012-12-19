@@ -89,7 +89,13 @@ BOOL WANTSPORTRAIT = NO;
 		sizeTop = [mainController ifMenuAndAdsTop:sizeTop];
 		sizeBottom = [mainController ifMenuAndAdsBottom:sizeBottom];
 		
-		varStyles = [mainController.theStyle.stylesMap objectForKey:@"CANVAS_ACTIVITY"];
+		varStyles = [mainController.theStyle.stylesMap objectForKey:data.levelId];
+		
+		if (varStyles == nil) {
+			varStyles = [mainController.theStyle.stylesMap objectForKey:@"CANVAS_ACTIVITY"];
+		}else if(varStyles == nil){
+			varStyles = [mainController.theStyle.stylesMap objectForKey:@"DEFAULT"];
+		}
 		
 		if(varStyles != nil) {
 			[self loadThemes];

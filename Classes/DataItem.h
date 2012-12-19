@@ -32,12 +32,14 @@
 @interface DataItem : NSObject {
 @protected
 	//Datos principales de un xml
+	NSString *levelId;
 	NSString *dataId;
 	NSString *headerImageFile;
 	NSString *headerText;
 	NSString *geoReferencia;	
 }
 
+@property(nonatomic, copy) NSString *levelId;
 @property(nonatomic, copy) NSString *dataId;
 @property(nonatomic, copy) NSString *headerImageFile;
 @property(nonatomic, copy) NSString *headerText;

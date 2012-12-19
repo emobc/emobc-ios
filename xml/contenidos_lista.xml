@@ -37,7 +37,7 @@
 				<description>Pdf</description>
 				<text>PDF</text>
 				<nextLevel>
-					<nextLevelLevelId>PDF</nextLevelLevelId>
+					<nextLevelLevelId>PDF_LEVEL</nextLevelLevelId>
 					<nextLevelDataId>PDF</nextLevelDataId>
 				</nextLevel>
 				<imageFile>images/icons/boton_listado_1.png</imageFile>

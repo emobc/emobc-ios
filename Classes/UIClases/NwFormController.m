@@ -246,7 +246,14 @@ static CGFloat const kTabBarHeightiPad = 58.0;
 	sizeBottom = [mainController ifMenuAndAdsBottom:sizeBottom];
 	
 	if(data != nil || profile != nil){
-		varStyles = [mainController.theStyle.stylesMap objectForKey:@"FORM_ACTIVITY"];
+		
+		varStyles = [mainController.theStyle.stylesMap objectForKey:data.levelId];
+		
+		if (varStyles == nil) {
+			varStyles = [mainController.theStyle.stylesMap objectForKey:@"FORM_ACTIVITY"];
+		}else if(varStyles == nil){
+			varStyles = [mainController.theStyle.stylesMap objectForKey:@"DEFAULT"];
+		}
 		
 		if(varStyles != nil) {
 			[self loadThemes];

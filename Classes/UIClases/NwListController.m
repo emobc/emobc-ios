@@ -81,9 +81,14 @@ static NSString *cellIdentifier = @"NwTableCell";
 	pathList = [[[NSMutableArray array]init]retain];
 	imageToShow = [[[NSMutableArray array]init]retain];
 	
-	
 	if(data != nil){
-		varStyles = [mainController.theStyle.stylesMap objectForKey:@"LIST_ACTIVITY"];
+		varStyles = [mainController.theStyle.stylesMap objectForKey:data.levelId];
+		
+		if (varStyles == nil) {
+			varStyles = [mainController.theStyle.stylesMap objectForKey:@"LIST_ACTIVITY"];
+		}else if(varStyles == nil){
+			varStyles = [mainController.theStyle.stylesMap objectForKey:@"DEFAULT"];
+		}
 		
 		if(varStyles != nil) {
 			[self loadThemes];
@@ -195,15 +200,15 @@ static NSString *cellIdentifier = @"NwTableCell";
 		
 		if([eMobcViewController isIPad]){
 			if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-				background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 128, 1024, 630)];
+				background = [[UIImageView alloc] initWithFrame:CGRectMake(0, sizeTop, 1024, 630)];
 			}else{
-				background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 128, 768, 886)];
+				background = [[UIImageView alloc] initWithFrame:CGRectMake(0, sizeTop, 768, 886)];
 			}				
 		}else {
 			if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-				background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 108, 480, 320)];
+				background = [[UIImageView alloc] initWithFrame:CGRectMake(0, sizeTop, 480, 320)];
 			}else{
-				background = [[UIImageView alloc] initWithFrame:CGRectMake(0, 108, 320, 480)];
+				background = [[UIImageView alloc] initWithFrame:CGRectMake(0, sizeTop, 320, 480)];
 			}				
 		}
 		
@@ -213,7 +218,7 @@ static NSString *cellIdentifier = @"NwTableCell";
 		
 		background.image = [UIImage imageWithContentsOfFile:imagePath];
 		
-		//[self.view addSubview:background];
+		[self.view addSubview:background];
 		//[self.view sendSubviewToBack:background];
 	}else{
 		self.view.backgroundColor = [UIColor whiteColor];

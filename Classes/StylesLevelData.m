@@ -53,6 +53,8 @@
 	
 	if(newStyles.typeId != nil){
 		[stylesMap setObject:newStyles forKey:newStyles.typeId];
+	}else if(newStyles.levelId != nil){
+		[stylesMap setObject:newStyles forKey:newStyles.levelId];
 	}
 }
 

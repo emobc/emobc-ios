@@ -29,6 +29,7 @@ static NSString * const kApplicationElementName = @"application";
 static NSString * const kStylesElementName = @"styles";
 static NSString * const kTypeElementName = @"type";
 static NSString * const kTypeIdElementName = @"typeId";
+static NSString * const kLevelIdElementName = @"levelId";
 static NSString * const kBackgroundFileNameElementName = @"backgroundFileName";
 static NSString * const kComponentsElementName = @"components";
 
@@ -84,6 +85,7 @@ static NSString * const kNLDataIdElementName = @"nextLevelDataId";
 		self.currentNextLevel = theNextLevel;
 		[theNextLevel release];
 	} else if ([elementName isEqualToString:kTypeIdElementName] ||
+			   [elementName isEqualToString:kLevelIdElementName] ||
                [elementName isEqualToString:kBackgroundFileNameElementName] ||
                [elementName isEqualToString:kComponentsElementName]||
 			   [elementName isEqualToString:kNLLeveNumberElementName] ||
@@ -114,6 +116,8 @@ static NSString * const kNLDataIdElementName = @"nextLevelDataId";
 		[self.style addStyles:self.currentStyles];
 	}else if ([elementName isEqualToString:kTypeIdElementName]) {
 		self.currentStyles.typeId = self.currentParsedCharacterData;
+	}else if ([elementName isEqualToString:kLevelIdElementName]) {
+		self.currentStyles.levelId = self.currentParsedCharacterData;
 	}else if ([elementName isEqualToString:kBackgroundFileNameElementName]) {
 		self.currentStyles.backgroundFileName = self.currentParsedCharacterData;
 	}else if([elementName isEqualToString:kComponentsElementName]){

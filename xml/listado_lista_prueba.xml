@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<levelData>
+	<data>
+		<dataId>Listado_prueba</dataId>
+		<headerText>Listado</headerText>
+		<order>false</order>
+		<geoRef/>
+		<list>
+			<listItem>
+				<description>Ejemplo 1</description>
+				<text>Pdf</text>
+				<nextLevel>
+					<nextLevelLevelId>PDF</nextLevelLevelId>
+					<nextLevelDataId>PDF</nextLevelDataId>
+				</nextLevel>
+				<imageFile>images/icons/boton_listado_1.png</imageFile>
+			</listItem>
+		</list>
+	</data>
+</levelData>

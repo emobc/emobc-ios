@@ -26,10 +26,11 @@
 
 @implementation DataItem
 
-@synthesize dataId, headerImageFile, headerText, geoReferencia;
+@synthesize levelId, dataId, headerImageFile, headerText, geoReferencia;
 
 -(id) init {
 	if (self = [super init]) {
+		levelId = nil;
 		dataId = nil;
 		headerImageFile = nil;
 		headerText = nil;

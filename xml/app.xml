@@ -40,6 +40,14 @@
 			<levelTransition>None</levelTransition>
 		</level>
 		<level>
+			<levelId>Listado</levelId>
+			<levelTitle>Listado</levelTitle>
+			<levelFile>listado_lista_prueba.xml</levelFile>
+			<levelType>LIST_ACTIVITY</levelType>
+			<levelXib/>
+			<levelTransition>None</levelTransition>
+		</level>
+		<level>
 			<levelId>ListadoOnline</levelId>
 			<levelTitle>Listado Online</levelTitle>
 			<levelFile>http://www.emobc.com/demo/xml/listado_lista.xml</levelFile>

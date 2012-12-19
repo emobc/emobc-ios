@@ -353,6 +353,8 @@
 		theItem = [theLevel dataItemByNumber:nextLevel.dataNumber];
 	}
 	
+	theItem.levelId = nextLevel.levelId;
+	
 	[parser release];
 		
 	return (ImageTextDescriptionLevelData*)theItem;
@@ -448,6 +450,8 @@
 	}else {
 		theItem = [theLevel dataItemByNumber:nextLevel.dataNumber];
 	}
+	
+	theItem.levelId = nextLevel.levelId;
 
 	[parser release];
 	return (ImageListLevelData*)theItem;
@@ -477,6 +481,8 @@
 		theItem = [theLevel dataItemByNumber:nextLevel.dataNumber];
 	}
 	
+	theItem.levelId = nextLevel.levelId;
+	
 	[parser release];
 	return (ListLevelData*)theItem;
 }
@@ -503,6 +509,8 @@
 	}else {
 		theItem = [theLevel dataItemByNumber:nextLevel.dataNumber];
 	}
+	
+	theItem.levelId = nextLevel.levelId;
 
 	[parser release];
 	return (ImageZoomLevelData*)theItem;
@@ -532,6 +540,8 @@
 		theItem = [theLevel dataItemByNumber:util.nextLevel.dataNumber];
 	}
 	
+	theItem.levelId = util.nextLevel.levelId;
+	
 	[parser release];
 	return (ImageGalleryLevelData*)theItem;
 }
@@ -556,6 +566,8 @@
 	if (nextLevel.dataId != nil) {
 		theItem = [theLevel dataItemById:nextLevel.dataId];
 	}
+	
+	theItem.levelId = nextLevel.levelId;
 
 	[parser release];
 	return (ButtonsLevelData*)theItem;
@@ -577,12 +589,14 @@
 	
 	FormLevel* theLevel = (FormLevel*)parser.parsedLevel;
 	
-	DataItem* theItem = nil;
+	 DataItem* theItem = nil;
 	if (nextLevel.dataId != nil) {
 		theItem = [theLevel dataItemById:nextLevel.dataId];
 	}else {
 		theItem = [theLevel dataItemByNumber:nextLevel.dataNumber];
 	}
+	 
+	 theItem.levelId = nextLevel.levelId;
 	
 	[parser release];
 	return (FormLevelData*)theItem;
@@ -611,6 +625,8 @@
 	}else {
 		theItem = [theLevel dataItemByNumber:nextLevel.dataNumber];
 	}
+	
+	theItem.levelId = nextLevel.levelId;
 
 	[parser release];
 	return (MapLevelData*)theItem;
@@ -638,6 +654,8 @@
 	}else {
 		theItem = [theLevel dataItemByNumber:nextLevel.dataNumber];
 	}
+	 
+	 theItem.levelId = nextLevel.levelId;
 	
 	[parser release];
 	return (VideoLevelData*)theItem;
@@ -667,6 +685,8 @@
 		theItem = [theLevel dataItemByNumber:nextLevel.dataNumber];
 	}
 	
+	theItem.levelId = nextLevel.levelId;
+	
 	[parser release];
 	return (WebLevelData*)theItem;
 }
@@ -694,6 +714,8 @@
 	}else {
 		theItem = [theLevel dataItemByNumber:nextLevel.dataNumber];
 	}
+	
+	theItem.levelId = nextLevel.levelId;
 	
 	[parser release];
 	return (PdfLevelData*)theItem;
@@ -723,6 +745,8 @@
 		theItem = [theLevel dataItemByNumber:nextLevel.dataNumber];
 	}
 	
+	theItem.levelId = nextLevel.levelId;
+	
 	[parser release];
 	return (QRLevelData*)theItem;
 }
@@ -750,6 +774,8 @@
 		theItem = [theLevel dataItemByNumber:nextLevel.dataNumber];
 	}
 	
+	theItem.levelId = nextLevel.levelId;
+	
 	[parser release];
 	return (CalendarLevelData*)theItem;
 }
@@ -774,6 +800,8 @@
 	if (nextLevel.dataId != nil) {
 		theItem = [theLevel dataItemById:nextLevel.dataId];
 	}
+	
+	theItem.levelId = nextLevel.levelId;
 	
 	[parser release];
 	return (QuizLevelData*)theItem;
@@ -802,6 +830,8 @@
 		theItem = [theLevel dataItemByNumber:nextLevel.dataNumber];
 	}
 	
+	theItem.levelId = nextLevel.levelId;
+	
 	[parser release];
 	return (CanvasLevelData*)theItem;
 }
@@ -829,6 +859,8 @@
 	}else {
 		theItem = [theLevel dataItemByNumber:nextLevel.dataNumber];
 	}
+	
+	theItem.levelId = nextLevel.levelId;
 	
 	[parser release];
 	return (AudioLevelData*)theItem;

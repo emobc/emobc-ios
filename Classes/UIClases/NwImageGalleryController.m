@@ -314,7 +314,13 @@
 	sizeBottom = [mainController ifMenuAndAdsBottom:sizeBottom];
 	
 	if(data != nil){
-		varStyles = [mainController.theStyle.stylesMap objectForKey:@"IMAGE_GALLERY_ACTIVITY"];
+		varStyles = [mainController.theStyle.stylesMap objectForKey:data.levelId];
+		
+		if (varStyles == nil) {
+			varStyles = [mainController.theStyle.stylesMap objectForKey:@"IMAGE_GALLERY_ACTIVITY"];
+		}else if(varStyles == nil){
+			varStyles = [mainController.theStyle.stylesMap objectForKey:@"DEFAULT"];
+		}
 		
 		if(varStyles != nil) {
 			[self loadThemes];

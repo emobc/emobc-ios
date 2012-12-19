@@ -25,6 +25,16 @@
 	  <!-- Generic widgets: header, footer, basic_text, selection_list -->
       <components>header=title1;</components>
     </type>
+	
+		
+	<type>
+      <levelId>FORM_PRUEBA</levelId>
+      <backgroundFileName></backgroundFileName>
+
+      <!-- Generic widgets: header, footer, basic_text, selection_list -->
+      <components>header=title1;</components>
+    </type>
+   
     
     <type>
       <typeId>FORM_ACTIVITY</typeId>
@@ -82,7 +92,7 @@
       <!-- Generic widgets: header, footer, basic_text, selection_list -->
       <components>header=title1;</components>
     </type>
-    
+
     <type>
       <typeId>PDF_ACTIVITY</typeId>
       <backgroundFileName></backgroundFileName>

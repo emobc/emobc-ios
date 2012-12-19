@@ -53,7 +53,6 @@
 
 	if(newFormatsStyles.name != nil){
 		[formatsMap setObject:newFormatsStyles forKey:newFormatsStyles.name];
-
 	}
 }
 @end

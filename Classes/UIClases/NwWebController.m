@@ -57,7 +57,13 @@
 		sizeTop = [mainController ifMenuAndAdsTop:sizeTop];
 		sizeBottom = [mainController ifMenuAndAdsBottom:sizeBottom];
 		
-		varStyles = [mainController.theStyle.stylesMap objectForKey:@"WEB_ACTIVITY"];
+		varStyles = [mainController.theStyle.stylesMap objectForKey:data.levelId];
+		
+		if (varStyles == nil) {
+			varStyles = [mainController.theStyle.stylesMap objectForKey:@"WEB_ACTIVITY"];
+		}else if(varStyles == nil){
+			varStyles = [mainController.theStyle.stylesMap objectForKey:@"DEFAULT"];
+		}
 		
 		if(varStyles != nil) {
 			[self loadThemes];
@@ -131,7 +137,7 @@
 			myLabel.font = [UIFont fontWithName:varFormats.typeFace size:varSize];
 			myLabel.backgroundColor = [UIColor clearColor];
 			
-			myLabel.textColor = [UIColor whiteColor];
+			myLabel.textColor = [UIColor blackColor];
 			myLabel.textAlignment = UITextAlignmentCenter;
 			
 			[self.view addSubview:myLabel];
@@ -258,10 +264,7 @@
 	if(loadContent == FALSE){
 		loadContent = TRUE;
 	
-		if(![mainController.appData.backgroundMenu isEqualToString:@""]){
-			[self loadBackgroundMenu];
-		}
-		
+	
 		if(varStyles != nil) {
 			[self loadThemes];
 		}

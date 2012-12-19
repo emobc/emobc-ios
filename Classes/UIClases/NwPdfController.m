@@ -22,7 +22,6 @@
  */
 
 #import "NwPdfController.h"
-#import "NwUtil.h"
 #import "AppFormatsStyles.h"
 #import "AppStyles.h"
 #import "eMobcViewController.h"
@@ -48,7 +47,7 @@
  */
 -(void)viewDidLoad {
 	[super viewDidLoad];
-	
+
 	if (data != nil) {
 		sizeTop = 0;
 		sizeBottom = 0;
@@ -57,8 +56,14 @@
 		sizeTop = [mainController ifMenuAndAdsTop:sizeTop];
 		sizeBottom = [mainController ifMenuAndAdsBottom:sizeBottom];
 		
-		varStyles = [mainController.theStyle.stylesMap objectForKey:@"PDF_ACTIVITY"];
-		
+		varStyles = [mainController.theStyle.stylesMap objectForKey:data.levelId];
+
+		if (varStyles == nil) {
+			varStyles = [mainController.theStyle.stylesMap objectForKey:@"PDF_ACTIVITY"];
+		}else if(varStyles == nil){
+			varStyles = [mainController.theStyle.stylesMap objectForKey:@"DEFAULT"];
+		}
+			
 		if(varStyles != nil) {
 			[self loadThemes];
 		}
