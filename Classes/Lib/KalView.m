@@ -88,20 +88,17 @@ static const CGFloat kMonthLabelHeight = 17.f;
 - (void)slideDown { [gridView slideDown]; }
 - (void)slideUp { [gridView slideUp]; }
 
-- (void)showPreviousMonth
-{
+- (void)showPreviousMonth {
   if (!gridView.transitioning)
     [delegate showPreviousMonth];
 }
 
-- (void)showFollowingMonth
-{
+- (void)showFollowingMonth {
   if (!gridView.transitioning)
     [delegate showFollowingMonth];
 }
 
-- (void)addSubviewsToHeaderView:(UIView *)headerView
-{
+- (void)addSubviewsToHeaderView:(UIView *)headerView {
   const CGFloat kChangeMonthButtonWidth = 46.0f;
   const CGFloat kChangeMonthButtonHeight = 30.0f;
   const CGFloat kMonthLabelWidth = 200.0f;

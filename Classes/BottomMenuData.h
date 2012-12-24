@@ -32,11 +32,11 @@
 @interface BottomMenuData : NSObject {
 @private
 	
-//Objetos	
-	NSMutableArray *action;
+	//Objetos	
+	NSMutableDictionary *menuActions;
 }
 
-@property(nonatomic, retain) NSMutableArray *action;
+@property(nonatomic, retain) NSMutableDictionary *menuActions;
 
 //Metodos
 	-(void) addButton:(AppButton*) newButton;

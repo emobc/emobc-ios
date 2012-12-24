@@ -187,7 +187,7 @@
 	NSDateFormatter *format = [[[NSDateFormatter alloc] init] autorelease];
 	[format setDateFormat:@"dd"];
 	
-	int *day = [[format stringFromDate:fromDate] integerValue];
+	int day = [[format stringFromDate:fromDate] integerValue];
 	 
 	dayEvents = [monthEvents objectForKey:[NSString stringWithFormat:@"%i", day]];
 	
@@ -228,9 +228,11 @@
 	NSDateFormatter *format = [[[NSDateFormatter alloc] init] autorelease];
 	[format setDateFormat:@"MMMM"];
 	
+	int monthFDate = [[self toNumber:[format stringFromDate:fromDate]] integerValue];
+	int monthTDate = [[self toNumber:[format stringFromDate:toDate]] integerValue];
 	
-	int *monthFDate = [[self toNumber:[format stringFromDate:fromDate]] integerValue];
-	int *monthTDate = [[self toNumber:[format stringFromDate:toDate]] integerValue];
+	NSLog(@"monthFDate: %d", monthFDate);
+	NSLog(@"monthTDate: %d", monthTDate);
 	
 	[format setDateFormat:@"dd"];
 	int dayFDate =[[format stringFromDate:fromDate] integerValue];
@@ -240,7 +242,7 @@
 	NSArray *keys = [allEvents allKeys];
 	
 	for (NSString *key in keys) {
-		int *subKey= [[key substringWithRange:NSMakeRange(3, 2)] integerValue];//así me quedo con el correspondiente al mes
+		int subKey= [[key substringWithRange:NSMakeRange(3, 2)] integerValue];//así me quedo con el correspondiente al mes
 		NSString *stringDay = [key substringWithRange:NSMakeRange(0, 2)];
 		int dayKey = [stringDay integerValue];
 		
@@ -256,7 +258,6 @@
 					listEvent = [allEvents objectForKey:key];
 					int intDay = [stringDay integerValue];
 					[monthEvents setObject:listEvent forKey:[NSString stringWithFormat:@"%i", intDay]]; //guardo como key el dia del mes, como valor una lista de eventos
-									
 				}
 			}else{ //if read month isn't the same month that month from toDate
 				[format setDateFormat:@"dd"];
@@ -268,8 +269,6 @@
 				listEvent = [allEvents objectForKey:key];
 				int intDay = [stringDay integerValue];
 				[monthEvents setObject:listEvent forKey:[NSString stringWithFormat:@"%i", intDay]];  //key: day(month day) value: list events
-				
-				
 				}
 			}
 		}
@@ -288,6 +287,7 @@
  * @return Number for each month, if name isn't right return -1
  */
 -(NSString*) toNumber:(NSString*) month{
+		
 	NSString *number;
 	if ([month isEqualToString:@"January"]) {
 		number = @"01";
@@ -314,6 +314,7 @@
 	}else if ([month isEqualToString:@"December"]) {
 		number = @"12";
 	}else number = @"-01";
+	
 	return number;
 }
 

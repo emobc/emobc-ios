@@ -28,14 +28,14 @@
 static NSString * const kLevelElementName = @"level";
 
 static NSString * const kMenuActionsElementName = @"menuActions";
+
+static NSString * const kMenuLevelElementName = @"menuLevel";
+
 static NSString * const kActionElementName = @"action";
 static NSString * const kActionTitleElementName = @"actionTitle";
 static NSString * const kActionImageNameElementName = @"actionImageName";
 static NSString * const kSystemActionElementName = @"systemAction";
-
 static NSString * const kLeftMarginElementName = @"leftMargin";
-static NSString * const kWidthButtonElementName = @"widthButton";
-static NSString * const kHeightButtonElementName = @"heightButton";
 
 static NSString * const kNextLevelElementName = @"nextLevel";
 static NSString * const kNLLeveNumberElementName = @"nextLevelLevel";
@@ -43,11 +43,12 @@ static NSString * const kNLLeveIdElementName = @"nextLevelLevelId";
 static NSString * const kNLDataNumberElementName = @"nextLevelDataNumber";
 static NSString * const kNLDataIdElementName = @"nextLevelDataId";
 
-
 @synthesize topMenu;
 @synthesize cover;
 @synthesize currentButton;
 @synthesize currentNextLevel;
+
+@synthesize currentMenu;
 
 
 -(id) init {
@@ -59,6 +60,7 @@ static NSString * const kNLDataIdElementName = @"nextLevelDataId";
 - (void)dealloc {
 	[currentButton release];
 	[currentNextLevel release];
+	[currentMenu release];
 	
     [super dealloc];
 }
@@ -79,31 +81,33 @@ static NSString * const kNLDataIdElementName = @"nextLevelDataId";
         TopMenuData *theTopMenu = [[TopMenuData alloc] init];
         self.topMenu = theTopMenu;
 		[theTopMenu release];
-	} else if ([elementName isEqualToString:kActionElementName]) {
+	}else if ([elementName isEqualToString:kMenuActionsElementName]) {
 		AppButton* theButton = [[AppButton alloc] init];
 		self.currentButton = theButton;
-		[theButton release];		
-	} else if ([elementName isEqualToString:kNextLevelElementName]) {
+		[theButton release];
+	}else if ([elementName isEqualToString:kActionElementName]) {
+		AppMenu* theMenu = [[AppMenu alloc] init];
+		self.currentMenu = theMenu;
+		[theMenu release];
+	}else if ([elementName isEqualToString:kNextLevelElementName]) {
 		NextLevel* theNextLevel = [[NextLevel alloc] init];
 		self.currentNextLevel = theNextLevel;
 		[theNextLevel release];
-	} else if ([elementName isEqualToString:kActionTitleElementName] ||
-               [elementName isEqualToString:kActionImageNameElementName] ||
-               [elementName isEqualToString:kSystemActionElementName]||
-			   [elementName isEqualToString:kLeftMarginElementName]||
-			   [elementName isEqualToString:kWidthButtonElementName]||
-			   [elementName isEqualToString:kHeightButtonElementName]||
-               [elementName isEqualToString:kNLLeveNumberElementName] ||
-               [elementName isEqualToString:kNLLeveIdElementName] ||
-               [elementName isEqualToString:kNLDataNumberElementName] ||
-               [elementName isEqualToString:kNLDataIdElementName]) {
+	}else if ([elementName isEqualToString:kMenuLevelElementName] ||
+			  [elementName isEqualToString:kActionTitleElementName] ||
+			  [elementName isEqualToString:kActionImageNameElementName] ||
+			  [elementName isEqualToString:kSystemActionElementName]||
+			  [elementName isEqualToString:kLeftMarginElementName]||
+			  [elementName isEqualToString:kNLLeveNumberElementName] ||
+			  [elementName isEqualToString:kNLLeveIdElementName] ||
+			  [elementName isEqualToString:kNLDataNumberElementName] ||
+			  [elementName isEqualToString:kNLDataIdElementName])  {
         // For the 'title', 'updated', or 'georss:point' element begin accumulating parsed character data.
         // The contents are collected in parser:foundCharacters:.
         accumulatingParsedCharacterData = YES;
         // The mutable string needs to be reset to empty.
         [currentParsedCharacterData setString:@""];
-    }
-	
+    }	
 }
 
 
@@ -117,21 +121,21 @@ static NSString * const kNLDataIdElementName = @"nextLevelDataId";
  */
 - (void)parser:(AQXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName{     
 	
-	if ([elementName isEqualToString:kActionElementName]) {
+	if ([elementName isEqualToString:kMenuLevelElementName]) {
+		self.currentButton.menuLevel = self.currentParsedCharacterData;
+	}else if ([elementName isEqualToString:kMenuActionsElementName]) {
 		[self.topMenu addButton:self.currentButton];
-	} else if ([elementName isEqualToString:kActionTitleElementName]) {
-		self.currentButton.title = self.currentParsedCharacterData;
-	} else if ([elementName isEqualToString:kActionImageNameElementName]) {
-		self.currentButton.imageName = self.currentParsedCharacterData;	
-	} else if ([elementName isEqualToString:kSystemActionElementName]) {
-		self.currentButton.systemAction = self.currentParsedCharacterData;			
-	} else if ([elementName isEqualToString:kLeftMarginElementName]) {
-		self.currentButton.leftMargin = [self.currentParsedCharacterData intValue];
-	} else if ([elementName isEqualToString:kWidthButtonElementName]) {
-		self.currentButton.widthButton = [self.currentParsedCharacterData intValue];
-	} else if ([elementName isEqualToString:kHeightButtonElementName]) {
-		self.currentButton.heightButton = [self.currentParsedCharacterData intValue];
-	} else if ([elementName isEqualToString:kNLLeveNumberElementName]) {
+	}else if ([elementName isEqualToString:kActionElementName]) {
+		[self.currentButton addMenu:self.currentMenu];
+	}else if ([elementName isEqualToString:kActionTitleElementName]) {
+		self.currentMenu.title = self.currentParsedCharacterData;
+	}else if ([elementName isEqualToString:kActionImageNameElementName]) {
+		self.currentMenu.imageName = self.currentParsedCharacterData;
+	}else if ([elementName isEqualToString:kSystemActionElementName]) {
+		self.currentMenu.systemAction = self.currentParsedCharacterData;
+	}else if ([elementName isEqualToString:kLeftMarginElementName]) {
+		self.currentMenu.leftMargin = [self.currentParsedCharacterData intValue];
+	}else if ([elementName isEqualToString:kNLLeveNumberElementName]) {
 		self.currentNextLevel.levelNumber = [self.currentParsedCharacterData intValue];
 	} else if ([elementName isEqualToString:kNLLeveIdElementName]) {
 		self.currentNextLevel.levelId = self.currentParsedCharacterData;
@@ -141,8 +145,9 @@ static NSString * const kNLDataIdElementName = @"nextLevelDataId";
 		self.currentNextLevel.dataId = self.currentParsedCharacterData;
 	} else if ([elementName isEqualToString:kNextLevelElementName]) {
 		self.currentButton.nextLevel = currentNextLevel;
+		self.currentMenu.nextLevel = currentNextLevel;
 	}
-    // Stop accumulating parsed character data. We won't start again until specific elements begin.
+	// Stop accumulating parsed character data. We won't start again until specific elements begin.
     accumulatingParsedCharacterData = NO;	
 }
 

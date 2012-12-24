@@ -25,24 +25,46 @@
 
 @implementation AppButton
 
-@synthesize title;
 @synthesize fileName;
+@synthesize menuLevel;
+@synthesize action;
+
+@synthesize nextLevel;
+
+@synthesize title;
 @synthesize imageName;
 @synthesize systemAction;
 @synthesize leftMargin;
-@synthesize widthButton;
-@synthesize heightButton;;
-@synthesize nextLevel;
 
 
 -(void) dealloc {
-	[title release];
 	[fileName release];
-	[imageName release];
-	[systemAction release];
+	[menuLevel release];
+	[action release];
 	[nextLevel release];
 	
+	[title release];
+	[imageName release];
+	[systemAction release];
+	
 	[super dealloc];
+}
+
+-(id) init {
+	if (self = [super init]) {   
+		action = [[[NSMutableArray array] init] retain];
+	}	
+	return self;
+}
+
+
+/**
+ * Add button into action (buttons) list
+ *
+ * @param addButton
+ */
+-(void) addMenu:(AppMenu*) newMenu {
+	[action addObject:newMenu];
 }
 
 @end

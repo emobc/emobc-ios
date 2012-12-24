@@ -1,13 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <level>
 	<menuActions>
+		<menuLevel>Default</menuLevel>
 		<action>
 			<actionTitle>Boton1</actionTitle>
 			<actionImageName>images/menu/backButton.png</actionImageName>
 			<systemAction>back</systemAction>
 			<leftMargin>5</leftMargin>
-			<widthButton>50</widthButton>
-			<heightButton>28</heightButton>
+			<nextLevel>
+				<nextLevelLevelId></nextLevelLevelId>
+				<nextLevelDataId></nextLevelDataId>
+			</nextLevel>
+		</action>
+	</menuActions>
+	<menuActions>
+		<menuLevel>Navegación</menuLevel>
+		<action>
+			<actionTitle>Boton1</actionTitle>
+			<actionImageName>images/menu/backButton.png</actionImageName>
+			<systemAction>back</systemAction>
+			<leftMargin>5</leftMargin>
+			<nextLevel>
+				<nextLevelLevelId></nextLevelLevelId>
+				<nextLevelDataId></nextLevelDataId>
+			</nextLevel>
+		</action>
+		<action>
+			<actionTitle>Boton2</actionTitle>
+			<actionImageName>images/menu/backButton.png</actionImageName>
+			<systemAction>back</systemAction>
+			<leftMargin>5</leftMargin>
+			<nextLevel>
+				<nextLevelLevelId></nextLevelLevelId>
+				<nextLevelDataId></nextLevelDataId>
+			</nextLevel>
+		</action>
+	</menuActions>
+	<menuActions>
+		<menuLevel>Contenidos</menuLevel>
+		<action>
+			<actionTitle>Boton3</actionTitle>
+			<actionImageName>images/menu/backButton.png</actionImageName>
+			<systemAction>back</systemAction>
+			<leftMargin>5</leftMargin>
 			<nextLevel>
 				<nextLevelLevelId></nextLevelLevelId>
 				<nextLevelDataId></nextLevelDataId>

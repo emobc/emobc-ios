@@ -46,6 +46,11 @@
 @synthesize admobBanner_;
 @synthesize backgroundMenu;
 
+@synthesize theButtons;
+
+@synthesize theTopMenu;
+@synthesize theBottomMenu;
+
 
 /**
  * Inicia el spinner(indicador)
@@ -151,66 +156,83 @@
  * Create a Menu at the bottom of the View
  */
 -(void) callBottomMenu {
-	BottomMenuData* theBottomMenu = [[NwUtil instance] readBottomMenu];
 	
-	int width;
-	int height;
 	int x = 0;
-	int y;
 	
-	if([eMobcViewController isIPad]){
-		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			y = 871;
-			x = 292;
-		}else{
-			y = 966;
-			x = 173;
-			
-		}				
-	}else {
-		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			y = 443;
-			x = 80;
-		}else{
-			y = 442;
-		}				
+	theBottomMenu = [[NwUtil instance] readBottomMenu];
+	
+	if (mainController.currentNextLevel.levelId != nil) {
+		theButtons = [theBottomMenu.menuActions objectForKey:mainController.currentNextLevel.levelId];
+	}else if (mainController.currentNextLevel.levelId == nil) {
+		theButtons = [theBottomMenu.menuActions objectForKey:@"Default"];
+		
 	}
 	
-	int count = [theBottomMenu.action count];
+	if (theButtons == nil) {
+		theButtons = [theBottomMenu.menuActions objectForKey:@"Default"];
+	}
 	
-	for(int i=0; i < count;i++) {
+	int count = [theButtons.action count];
+	
+	for (int i = 0; i < count; i++) {
+		AppMenu* theButton = [theButtons.action objectAtIndex:i];
 		
-		AppButton* theButton = [theBottomMenu.action objectAtIndex:i];
-		
-		//create the button
 		NwButton *button = [NwButton buttonWithType:UIButtonTypeCustom];
 		button.nextLevel = theButton.nextLevel;
+		
+		
+		NSString *k = [eMobcViewController whatDevice:k];
+		
+		NSString *imagePath = [[NSBundle mainBundle] pathForResource:theButton.imageName ofType:nil inDirectory:k];
+		
+		UIImage* buttonImage = [UIImage imageWithContentsOfFile:imagePath];
+		
+		int width, height;
+		
+		if(![theButton.imageName isEqualToString:@""] && theButton.imageName != nil){
+			width = buttonImage.size.width;
+			height = buttonImage.size.height;
+		}else{
+			width = 80;
+			height = 38;
+		}
 		
 		if(i != 0){
 			x = x + width + theButton.leftMargin; 
 		}
 		
 		
+		//set the position of the button
 		if([eMobcViewController isIPad]){
-			width = theButton.widthButton + 30;
-			height = theButton.heightButton + 20;
-		}else{
-			width = theButton.widthButton;
-			height = theButton.heightButton;
-		}
-		
-		if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
-			button.frame = CGRectMake(x, y-160, width, height);
+			if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+				if(width > 80 || height > 38){
+					button.frame = CGRectMake(x, 725, 80, 38);
+				}else{
+					button.frame = CGRectMake(x, 768 - height, width, height);
+				}
+			}else{
+				if(width > 80 || height > 38){
+					button.frame = CGRectMake(x, 981, 80, 38);
+				}else{
+					button.frame = CGRectMake(x, 1024 - height, width, height);
+				}
+			}				
 		}else {
-			//set the position of the button
-			button.frame = CGRectMake(x, y, width, height);
+			if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+				if(width > 80 || height > 38){
+					button.frame = CGRectMake(x, 287, 80, 38);
+				}else{
+					button.frame = CGRectMake(x, 320 - height, width, height);
+				}
+			}else{
+				if(width > 80 || height > 38){
+					button.frame = CGRectMake(x, 447, 80, 38);
+				}else{
+					button.frame = CGRectMake(x, 480 - height, width, height);
+				}
+			}				
 		}
-
 		
-		//set the button's title
-		if([theButton.imageName isEqualToString:@""]){
-			[button setTitle:theButton.title forState:UIControlStateNormal];
-		}
 		
 		if([theButton.systemAction isEqualToString:@""] || [theButton.systemAction isEqualToString:@"sideMenu"]){
 			//listen for clicks
@@ -223,17 +245,18 @@
 			}
 		}
 		
-		NSString *k = [eMobcViewController whatDevice:k];
-		
-		NSString *imagePath = [[NSBundle mainBundle] pathForResource:theButton.imageName ofType:nil inDirectory:k];
-		
-		UIImage* buttonImage = [UIImage imageWithContentsOfFile:imagePath];
-		
-		[button setBackgroundImage:buttonImage forState:UIControlStateNormal];
+		if(![theButton.imageName isEqualToString:@""]){
+			[button setImage:buttonImage forState:UIControlStateNormal];
+			button.adjustsImageWhenHighlighted = NO;
+			button.imageView.contentMode = UIViewContentModeScaleAspectFit;
+		}else{
+			//set the button's title
+			[button setTitle:theButton.title forState:UIControlStateNormal];
+		}
 		
 		//add the button to the view
 		[self.view addSubview:button];
-	}	
+	}
 }
 
 /**
@@ -241,43 +264,83 @@
  */
 
 -(void) callTopMenu{
-	//Botones dinamicos
-	TopMenuData* theTopMenu = [[NwUtil instance] readTopMenu];
 	
-	int width;
-	int height;
 	int x = 5;
-	int y = 5;
 	
-	int count = [theTopMenu.action count];
+	theTopMenu = [[NwUtil instance] readTopMenu];
 	
-	for(int i=0; i < count;i++) {
-
-		AppButton* theButton = [theTopMenu.action objectAtIndex:i];
+	if (mainController.currentNextLevel.levelId != nil) {
+		theButtons = [theTopMenu.menuActions objectForKey:mainController.currentNextLevel.levelId];
+	}else if (mainController.currentNextLevel.levelId == nil) {
+		theButtons = [theTopMenu.menuActions objectForKey:@"Default"];
 		
-		//create the button
+	}
+	
+	if (theButtons == nil) {
+		theButtons = [theTopMenu.menuActions objectForKey:@"Default"];
+	}
+	
+	int count = [theButtons.action count];
+	
+	for (int i = 0; i < count; i++) {
+		AppMenu* theButton = [theButtons.action objectAtIndex:i];
+		
 		NwButton *button = [NwButton buttonWithType:UIButtonTypeCustom];
 		button.nextLevel = theButton.nextLevel;
+		
+		
+		NSString *k = [eMobcViewController whatDevice:k];
+		
+		NSString *imagePath = [[NSBundle mainBundle] pathForResource:theButton.imageName ofType:nil inDirectory:k];
+		
+		UIImage* buttonImage = [UIImage imageWithContentsOfFile:imagePath];
+		
+		int width, height;
+		
+		if(![theButton.imageName isEqualToString:@""] && theButton.imageName != nil){
+			width = buttonImage.size.width;
+			height = buttonImage.size.height;
+		}else{
+			width = 50;
+			height = 28;
+		}
 		
 		if(i != 0){
 			x = x + width + theButton.leftMargin; 
 		}
 		
-		if([eMobcViewController isIPad]){
-			width = theButton.widthButton + 30;
-			height = theButton.heightButton + 20;
-		}else{
-			width = theButton.widthButton;
-			height = theButton.heightButton;
-		}
 		
 		//set the position of the button
-		button.frame = CGRectMake(x, y, width, height);
-		
-		//set the button's title
-		if([theButton.imageName isEqualToString:@""]){
-			[button setTitle:theButton.title forState:UIControlStateNormal];
+		if([eMobcViewController isIPad]){
+			if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+				if(width > 50 || height > 28){
+					button.frame = CGRectMake(x, 5, 50, 28);
+				}else{
+					button.frame = CGRectMake(x, 5, width, height);
+				}
+			}else{
+				if(width > 50 || height > 28){
+					button.frame = CGRectMake(x, 5, 50, 28);
+				}else{
+					button.frame = CGRectMake(x, 5, width, height);
+				}
+			}				
+		}else {
+			if([[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeLeft || [[UIDevice currentDevice]orientation] == UIInterfaceOrientationLandscapeRight){
+				if(width > 50 || height > 28){
+					button.frame = CGRectMake(x, 5, 50, 28);
+				}else{
+					button.frame = CGRectMake(x, 5, width, height);
+				}
+			}else{
+				if(width > 50 || height > 28){
+					button.frame = CGRectMake(x, 5, 50, 28);
+				}else{
+					button.frame = CGRectMake(x, 5, width, height);
+				}
+			}				
 		}
+		
 		
 		if([theButton.systemAction isEqualToString:@""] || [theButton.systemAction isEqualToString:@"sideMenu"]){
 			//listen for clicks
@@ -286,21 +349,22 @@
 			if([theButton.systemAction isEqualToString:@"back"]){
 				[button addTarget:self action:@selector(backButtonPress:) forControlEvents:UIControlEventTouchUpInside];
 			}else if([theButton.systemAction isEqualToString:@"home"]){
-					[button addTarget:self action:@selector(homeButtonPress:) forControlEvents:UIControlEventTouchUpInside];
+				[button addTarget:self action:@selector(homeButtonPress:) forControlEvents:UIControlEventTouchUpInside];
 			}
 		}
 		
-		NSString *k = [eMobcViewController whatDevice:k];
-		
-		NSString *imagePath = [[NSBundle mainBundle] pathForResource:theButton.imageName ofType:nil inDirectory:k];
-		
-		UIImage* buttonImage = [UIImage imageWithContentsOfFile:imagePath];
-		
-		[button setBackgroundImage:buttonImage forState:UIControlStateNormal];
+		if(![theButton.imageName isEqualToString:@""]){
+			[button setImage:buttonImage forState:UIControlStateNormal];
+			button.adjustsImageWhenHighlighted = NO;
+			button.imageView.contentMode = UIViewContentModeScaleAspectFit;
+		}else{
+			//set the button's title
+			[button setTitle:theButton.title forState:UIControlStateNormal];
+		}
 		
 		//add the button to the view
 		[self.view addSubview:button];
-	}	
+	}
 }
 
 

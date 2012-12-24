@@ -28,6 +28,8 @@
 #import "NextLevel.h"
 #import "NwParser.h"
 
+#import "AppMenu.h"
+
 /**
  * CLASS SUMMARY
  * BottomMenuParser read bottom_menu.xml and save dates
@@ -39,11 +41,15 @@
 	Cover* cover;
 	AppButton* currentButton;
 	NextLevel* currentNextLevel;
+	
+	AppMenu* currentMenu;
 }
 
 @property (nonatomic, retain) BottomMenuData* bottomMenu;
 @property (nonatomic, retain) Cover *cover;
 @property (nonatomic, retain) AppButton *currentButton;
 @property (nonatomic, retain) NextLevel* currentNextLevel;
+
+@property (nonatomic, retain) AppMenu* currentMenu;
 
 @end

@@ -108,6 +108,7 @@
 		0486109F15AD869300727001 /* top_menu.xml in Resources */ = {isa = PBXBuildFile; fileRef = 0486109E15AD869300727001 /* top_menu.xml */; };
 		048610A915AD8CBD00727001 /* TopMenuParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 048610A815AD8CBD00727001 /* TopMenuParser.m */; };
 		048610CE15AD906F00727001 /* TopMenuData.m in Sources */ = {isa = PBXBuildFile; fileRef = 048610CD15AD906F00727001 /* TopMenuData.m */; };
+		0486371116847582005850F7 /* AppMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 0486371016847582005850F7 /* AppMenu.m */; };
 		04865FB215750179001AF878 /* VideoParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 04865FAE15750179001AF878 /* VideoParser.m */; };
 		04865FB315750179001AF878 /* QRParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 04865FB015750179001AF878 /* QRParser.m */; };
 		0486B6F415F4CA3500B76226 /* NwAudioController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0486B6F315F4CA3500B76226 /* NwAudioController.xib */; };
@@ -493,6 +494,8 @@
 		048610A815AD8CBD00727001 /* TopMenuParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TopMenuParser.m; path = Parse/TopMenuParser.m; sourceTree = "<group>"; };
 		048610CC15AD906F00727001 /* TopMenuData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopMenuData.h; sourceTree = "<group>"; };
 		048610CD15AD906F00727001 /* TopMenuData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopMenuData.m; sourceTree = "<group>"; };
+		0486370F16847582005850F7 /* AppMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppMenu.h; sourceTree = "<group>"; };
+		0486371016847582005850F7 /* AppMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppMenu.m; sourceTree = "<group>"; };
 		04865FAE15750179001AF878 /* VideoParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = VideoParser.m; path = Parse/VideoParser.m; sourceTree = "<group>"; };
 		04865FAF15750179001AF878 /* VideoParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VideoParser.h; path = Parse/VideoParser.h; sourceTree = "<group>"; };
 		04865FB015750179001AF878 /* QRParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QRParser.m; path = Parse/QRParser.m; sourceTree = "<group>"; };
@@ -2041,6 +2044,8 @@
 				F4B950F81368DD9A004DE296 /* NextLevel.m */,
 				F4F16E76136DCE1B009ABB15 /* Cover.h */,
 				F4F16E77136DCE1B009ABB15 /* Cover.m */,
+				0486370F16847582005850F7 /* AppMenu.h */,
+				0486371016847582005850F7 /* AppMenu.m */,
 				F4F16F44136F2995009ABB15 /* AppButton.h */,
 				F4F16F45136F2995009ABB15 /* AppButton.m */,
 				048610CC15AD906F00727001 /* TopMenuData.h */,
@@ -2607,6 +2612,7 @@
 				04A2A806162C2448000003AD /* ProfileParser.m in Sources */,
 				04A2AA71162D81B7000003AD /* ProfileLevelData.m in Sources */,
 				04A2AD601630061F000003AD /* NwProfileController.m in Sources */,
+				0486371116847582005850F7 /* AppMenu.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

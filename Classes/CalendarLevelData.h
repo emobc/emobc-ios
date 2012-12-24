@@ -57,5 +57,8 @@
 - (AppEvents *)eventAtIndexPath:(NSIndexPath *)indexPath;  // exposed for HolidayAppDelegate so that it can implement the UITableViewDelegate protocol.
 -(NSString*) toNumber:(NSString*) month;
 
+- (void)loadEventFrom:(NSDate *)fromDate to:(NSDate *)toDate delegate:(id<KalDataSourceCallbacks>)delegate;
+- (NSArray *)eventsFrom:(NSDate *)fromDate to:(NSDate *)toDate;
+
 
 @end

@@ -63,6 +63,8 @@
  */
 
 -(void) callTopMenu{
+	/*
+	
 	//Botones dinamicos
 	TopMenuData* theTopMenu = [[NwUtil instance] readTopMenu];
 	
@@ -106,7 +108,7 @@
 			//add the button to the view
 			[self.view addSubview:button];
 		}
-	}	
+	}	*/
 }
 
 /**

@@ -20,25 +20,24 @@
  *  along with eMobc.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
+#import "AppMenu.h"
 
-#import <Foundation/Foundation.h>
-#import "AppButton.h"
+@implementation AppMenu
 
-/**
- * CLASS SUMMARY
- * TopMenuData has dates which define a top menu intro nearly each view
- */
+@synthesize title;
+@synthesize imageName;
+@synthesize systemAction;
+@synthesize leftMargin;
+@synthesize nextLevel;
 
-@interface TopMenuData : NSObject {
-@private
+
+-(void) dealloc {
+	[title release];
+	[imageName release];
+	[systemAction release];
+	[nextLevel release];
 	
-	//Objetos	
-	NSMutableDictionary *menuActions;
+	[super dealloc];
 }
-
-@property(nonatomic, retain) NSMutableDictionary *menuActions;
-
-//Metodos
--(void) addButton:(AppButton*) newButton;
 
 @end

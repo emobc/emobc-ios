@@ -23,41 +23,28 @@
 
 #import <Foundation/Foundation.h>
 #import "NextLevel.h"
-#import "AppMenu.h"
 
 /**
  * CLASS SUMMARY
- * AppButton has dates which define a button from cover or buttons set view
- * Cover and ButtonsLevelData contain AppButton
+ * AppMenu has dates which define a button from cover or buttons set view
+ * Cover and ButtonsLevelData contain AppMenu
  */
 
-@interface AppButton : NSObject {
+@interface AppMenu : NSObject {
 @private
+	
 //Objetos
-	NSString *fileName;
-	NSString *menuLevel;
-	NSMutableArray *action;
-	
-	NextLevel *nextLevel;
-	
 	NSString *title;
 	NSString *imageName;
 	NSString *systemAction;
 	int leftMargin;
+	NextLevel *nextLevel;
 }
-
-@property(nonatomic, copy) NSString *fileName;
-@property(nonatomic, copy) NSString *menuLevel;
-@property(nonatomic, retain) NSMutableArray *action;
-@property(nonatomic, retain) NextLevel *nextLevel;
 
 @property(nonatomic, copy) NSString *title;
 @property(nonatomic, copy) NSString *imageName;
 @property(nonatomic, copy) NSString *systemAction;
 @property(nonatomic, assign) int leftMargin;
-
-
-//Metodos
-	-(void) addMenu:(AppMenu*) newButton;
+@property(nonatomic, retain) NextLevel *nextLevel;
 
 @end

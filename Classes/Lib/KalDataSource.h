@@ -80,6 +80,7 @@
 
 @protocol KalDataSourceCallbacks <NSObject>
 - (void)loadedDataSource:(id<KalDataSource>)theDataSource date:(NSMutableDictionary*) events;
+
 @end
 
 #pragma mark -

@@ -29,6 +29,8 @@
 #import "GADBannerView.h"
 #import "AppStyles.h"
 #import "ApplicationData.h"
+#import "TopMenuData.h"
+#import "BottomMenuData.h"
 
 @class eMobcViewController;
 @class NwMultiMediaView;
@@ -66,7 +68,10 @@
 	
 	ApplicationData* theMenu;
 	
+	AppButton* theButtons;
 	
+	TopMenuData *theTopMenu;	
+	BottomMenuData *theBottomMenu;
 }
 
 @property(nonatomic, retain) IBOutlet UIView* landscapeView;
@@ -86,6 +91,10 @@
 @property(nonatomic, retain) GADBannerView *admobBanner_;
 
 @property(nonatomic, retain) UIImageView *backgroundMenu;
+
+@property(nonatomic, retain) TopMenuData *theTopMenu;
+@property(nonatomic, retain) BottomMenuData *theBottomMenu;
+@property(nonatomic, retain) AppButton *theButtons;
 
 //Acctions
 	-(void) backButtonPress:(id)sender;

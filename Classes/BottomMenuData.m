@@ -26,18 +26,17 @@
 
 @implementation BottomMenuData
 
-@synthesize action;
+@synthesize menuActions;
 
 -(void)dealloc {
-    [action release];
+    [menuActions release];
 	
     [super dealloc];
 }
 
 -(id) init {
 	if (self = [super init]) {   
-		// Inicializa el Cover Data
-		action = [[[NSMutableArray array] init] retain];
+		menuActions = [[[NSMutableDictionary dictionary] init] retain];
 	}	
 	return self;
 }
@@ -48,7 +47,7 @@
  * @param addButton
  */
 -(void) addButton:(AppButton*) newButton {
-	[action addObject:newButton];
+	[menuActions setObject:newButton forKey:newButton.menuLevel];
 }
 
 @end

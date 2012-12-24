@@ -118,6 +118,7 @@ extern const CGSize kTileSizeIPadLandscape;
     shadowColor = nil;
     markerImage = [UIImage imageNamed:@"Kal.bundle/kal_marker_dim.png"];
   } else {
+	  NSLog(@"punto");
     textColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Kal.bundle/kal_tile_text_fill.png"]];
     shadowColor = [UIColor whiteColor];
     markerImage = [UIImage imageNamed:@"Kal.bundle/kal_marker.png"];
